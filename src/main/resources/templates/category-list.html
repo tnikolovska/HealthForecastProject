@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+	table, th, td {
+	  border: 1px solid black;
+	}
+</style>
+</head>
+<body>
+    <!--ul-->
+    	<!--<th:block th:each="category : ${categories}">
+    		<li th:text="${category.name}"></li>
+    	</th:block>-->
+    	<div th:if="${ not#lists.isEmpty(categories)}">
+    		<table>
+    			<thead>
+    			<tr>
+    				<th>Name</th>
+    				<th>Begin Range</th>
+    				<th>End Range</th>
+    			</tr>
+    			</thead>
+    			<tbody>
+    			<tr th:each="category : ${categories}">
+    				<td th:text="${category.name}"></td>
+    				<td th:text="${category.beginRange}"></td>
+    				<td th:text="${category.endRange}"></td>
+    				<td>
+    					<a th:href="@{/edit/{id}(id=${category.id})}">Edit</a>
+    				</td>
+    			</tr>
+    			</tbody>
+    		</table>
+    	</div>
+    <!--<ul>-->
+</body>
+</html>
