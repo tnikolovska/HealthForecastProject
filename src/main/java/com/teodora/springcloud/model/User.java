@@ -18,6 +18,14 @@ public class User {
 	private Date birthDate;
 	private String email;
 	private String password;
+	User(){}
+	public User(String firstName,String lastName, Date birthDate, String email, String password){
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.birthDate=birthDate;
+		this.email=email;
+		this.password=password;
+	}
 	public Long getId() {
 		return id;
 	}

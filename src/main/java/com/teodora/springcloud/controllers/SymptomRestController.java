@@ -1,5 +1,7 @@
 package com.teodora.springcloud.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +36,12 @@ public class SymptomRestController {
 	@RequestMapping(value="/deletesymptom/{id}", method = RequestMethod.DELETE)
 	public void deleteSymptom(@PathVariable("id") Long Id) {
 		repo.deleteById(Id);
+		
+	}
+	
+	@RequestMapping(value="/symptoms/list", method = RequestMethod.GET)
+	public List<Symptom> getSymptoms() {
+		return repo.findAll();
 		
 	}
 }

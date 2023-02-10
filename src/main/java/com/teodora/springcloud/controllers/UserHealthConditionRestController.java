@@ -1,5 +1,7 @@
 package com.teodora.springcloud.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +37,11 @@ public class UserHealthConditionRestController {
 	@RequestMapping(value="/deleteuserhealthcondition/{id}", method = RequestMethod.DELETE)
 	public void deleteUserHealthCondition(@PathVariable("id") Long Id) {
 		repo.deleteById(Id);
+		
+	}
+	@RequestMapping(value="/userhealthconditions/list", method = RequestMethod.GET)
+	public List<UserHealthCondition> getUserHealthConditions() {
+		return repo.findAll();
 		
 	}
 }

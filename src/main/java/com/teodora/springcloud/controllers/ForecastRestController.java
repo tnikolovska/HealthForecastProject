@@ -1,11 +1,14 @@
 package com.teodora.springcloud.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.teodora.springcloud.model.Forecast;
 import com.teodora.springcloud.repos.ForecastRepo;
@@ -30,12 +33,18 @@ public class ForecastRestController {
 		
 	}
 	@RequestMapping(value="/updateforecasts", method = RequestMethod.PUT)
-	public Forecast updateSymptom(@RequestBody Forecast forecast) {
+	public Forecast updateForecast(@RequestBody Forecast forecast) {
 		return repo.save(forecast);
 	}
 	@RequestMapping(value="/deleteforecast/{id}", method = RequestMethod.DELETE)
-	public void deleteCategory(@PathVariable("id") Long Id) {
+	public void deleteForecast(@PathVariable("id") Long Id) {
 		repo.deleteById(Id);
+		
+	}
+	
+	@RequestMapping(value="/forecasts/list", method = RequestMethod.GET)
+	public List<Forecast> getForecasts() {
+		return repo.findAll();
 		
 	}
 }

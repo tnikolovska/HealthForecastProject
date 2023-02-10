@@ -22,6 +22,14 @@ public class Forecast {
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="category_id",referencedColumnName = "id")
 	private Category category;
+	
+	public Forecast(){}
+	public Forecast(String name, Date date, int value,String categoryName, Category category){
+		this.name=name;
+		this.date=date;
+		this.value=value;
+		this.category=category;
+	}
 	public Long getId() {
 		return id;
 	}

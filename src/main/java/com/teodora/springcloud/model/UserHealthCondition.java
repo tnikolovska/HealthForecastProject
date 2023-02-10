@@ -21,6 +21,12 @@ public class UserHealthCondition {
 	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="healthcondition_id",referencedColumnName = "id")
 	private HealthCondition healthCondition;
+	
+	UserHealthCondition(){}
+	public UserHealthCondition(User user, HealthCondition healthCondition) {
+		this.user=user;
+		this.healthCondition=healthCondition;
+	}
 	public Long getId() {
 		return id;
 	}

@@ -1,5 +1,6 @@
 package com.teodora.springcloud.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,13 @@ public class HealthCondition {
 	private Long id;
 	private String name;
 	private String description;
+	
+	public HealthCondition() {}
+
+	public HealthCondition(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
 	public Long getId() {
 		return id;
 	}

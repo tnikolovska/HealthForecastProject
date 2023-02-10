@@ -1,5 +1,7 @@
 package com.teodora.springcloud.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,12 +31,17 @@ public class CategoryRestController {
 		
 	}
 	@RequestMapping(value="/updatecategories", method = RequestMethod.PUT)
-	public Category updateSymptom(@RequestBody Category category) {
+	public Category updateCategory(@RequestBody Category category) {
 		return repo.save(category);
 	}
 	@RequestMapping(value="/deletecateogory/{id}", method = RequestMethod.DELETE)
 	public void deleteCategory(@PathVariable("id") Long Id) {
 		repo.deleteById(Id);
+		
+	}
+	@RequestMapping(value="/categories/list", method = RequestMethod.GET)
+	public List<Category> getCategories() {
+		return repo.findAll();
 		
 	}
 }	

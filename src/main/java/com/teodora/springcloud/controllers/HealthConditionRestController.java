@@ -2,6 +2,8 @@ package com.teodora.springcloud.controllers;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +40,10 @@ public class HealthConditionRestController {
 		repo.deleteById(Id);
 		
 	}
-	
+	@RequestMapping(value="/healthconditions/list", method = RequestMethod.GET)
+	public List<HealthCondition> getHealthConditions() {
+		return repo.findAll();
+		
+	}
 
 }

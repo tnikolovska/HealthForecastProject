@@ -2,10 +2,12 @@ package com.teodora.springcloud.model;
 
 import java.math.BigDecimal;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 
 @Entity
 public class Category {
@@ -15,6 +17,16 @@ public class Category {
 	private String name;
 	private BigDecimal beginRange;
 	private BigDecimal endRange;
+	
+	public Category() {}
+
+	public Category(String name, BigDecimal beginRange, BigDecimal endRange) {
+		this.name = name;
+		this.beginRange = beginRange;
+		this.endRange = endRange;
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}
