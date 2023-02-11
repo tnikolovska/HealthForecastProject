@@ -18,7 +18,7 @@ public class Symptom {
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="healthcondition_id",referencedColumnName = "id")
 	private HealthCondition healthCondition;
-	Symptom(){}
+	public Symptom(){}
 	public Symptom(String name, String description,HealthCondition healthCondition){
 		this.name=name;
 		this.description=description;
