@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
+import org.springframework.stereotype.Repository;
 
 import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.utils.HibernateUtil;

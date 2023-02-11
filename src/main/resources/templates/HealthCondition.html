@@ -1,57 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head">
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-
 <body>
-<header th:replace="layout :: header"></header>
-<div class="row justify-content-center">
-    <div class="col col-md-3 text-center">
-
-        <form method="post" th:action="@{/healthconditionapi/healthconditions}">
-            <h1 class="display-4 p2">Record Health Condition</h1>
-
-            <div class="form-row py-1">
-                <label for="name">Name</label>
-                <input type="text" min="" id="name" class="form-control" th:name="name" required />
-            </div>
-            <div class="form-row py-1">
-                <label for="endDate">Description</label>
-                <textarea type="text" maxlength="80" id="description" class="form-control" rows="2" th:name="description" required></textarea>
-            </div>
-            <div class="container">
-	<div class="row">
-        <div class="control-group" id="fields">
-            <label class="control-label" for="field1">Symptoms</label>
-            <div class="controls"> 
-                <form role="form" autocomplete="off">
-                    <div class="entry input-group col-xs-3">
-                        <input class="form-control" name="fields[]" type="text" placeholder="Symptom name" />
-                        <input class="form-control" name="fields[]" type="text" placeholder="Symptom description" />
-                    	<span class="input-group-btn">
-                            <button class="btn btn-success btn-add" type="button">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            <br>
-            <small>Press <span class="glyphicon glyphicon-plus gs"></span> to add another form field :)</small>
-            </div>
-        </div>
-	</div>
-</div>
-            <div class="form-row py-1 mt-3">
-                <button type="submit" class="btn btn-info">Create</button>
-            </div>
-        </form>
-
-    </div>
-</div>
-<footer th:replace="layout :: footer"></footer>
+    <p>Get your greeting <a href="/greeting">here</a></p>
+    <p th:text="${name}"></p>
+    <p th:text="${description}"></p>
 </body>
 </html>
-

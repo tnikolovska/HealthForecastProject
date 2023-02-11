@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+   <form action="#"
+  th:action="@{/createcategory}" 
+  th:object="${category}"
+  method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <label for="beginRange">Begin Range</label>
+    <input type="text" th:field="*{beginRange}" id="beginRange" placeholder="Begin Range">
+    <span th:if="${#fields.hasErrors('beginRange')}" th:errors="*{beginRange}"></span>
+    <label for="endRange">End Range</label>
+    <input type="text" th:field="*{endRange}" id="endRange" placeholder="End Range">
+    <span th:if="${#fields.hasErrors('endRange')}" th:errors="*{endRange}"></span>
+    <input type="submit" value="Create Category">   
+</form>
+</body>
+</html>

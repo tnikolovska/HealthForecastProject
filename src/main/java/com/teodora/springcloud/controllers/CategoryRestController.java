@@ -1,9 +1,8 @@
 package com.teodora.springcloud.controllers;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,18 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.repos.CategoryRepo;
+import com.teodora.springcloud.service.CategoryService;
 
 
 @Controller
-//@RequestMapping("/cateogoryapi")
+//@RequestMapping("/categoryapi")
 public class CategoryRestController {
 	
 	@Autowired
 	CategoryRepo repo;	
+	
 	
 	@RequestMapping(value = "/categories", method = RequestMethod.POST)
 	public Category create(@RequestBody Category category) {
@@ -53,7 +53,7 @@ public class CategoryRestController {
 		return repo.save(category);
 	}
 	@RequestMapping(value="/deletecateogory/{id}", method = RequestMethod.DELETE)
-	public void deleteCategory(@PathVariable("id") Long Id) {
+	public void delete(@PathVariable("id") Long Id) {
 		repo.deleteById(Id);
 		
 	}
@@ -73,7 +73,7 @@ public class CategoryRestController {
 	}
 	//@RequestMapping(value="category-list",method = RequestMethod.GET)
 	@GetMapping("category-list")
-	public String categoryNames(Model model) {
+	public String categories(Model model) {
 		List<Category> categories = new ArrayList<>();
 		categories=getCategories();
 		//List<String> names=categories.stream().map(Category::getName).collect(Collectors.toList());
@@ -95,6 +95,26 @@ public class CategoryRestController {
 		updateCategory(category);
 		return "redirect:/category-list";
 	}
+	@GetMapping("/delete/{id}")
+	public String deleteCategory(@PathVariable("id") Long id, Model model) {
+		delete(id);
+		return "redirect:/category-list";
+	}
+	
+	@GetMapping("/createCategoryView")
+	public String getRegisterPage(Model model) {
+		Category category = new Category();
+		model.addAttribute("category",category);
+		return "create-category";
+	    }
+	
+	@PostMapping("/createcategory")
+	public String createCategory(@ModelAttribute("category") Category category) {
+		create(category);
+		return "redirect:/category-list";
+	}
+	
+	
 	
 	
 }	

@@ -44,4 +44,5 @@ public class SymptomRestController {
 		return repo.findAll();
 		
 	}
+	
 }
