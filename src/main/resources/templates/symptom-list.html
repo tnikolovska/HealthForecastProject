@@ -14,25 +14,26 @@
     	<!--<th:block th:each="category : ${categories}">
     		<li th:text="${category.name}"></li>
     	</th:block>-->
-    	<div th:if="${ not#lists.isEmpty(healthConditions)}">
+    	<div th:if="${ not#lists.isEmpty(symptoms)}">
     		<table>
     			<thead>
     			<tr>
     				<th>Name</th>
     				<th>Description</th>
+    				<th>Health Condition</th>
     			</tr>
     			</thead>
     			<tbody>
-    			<tr th:each="healthCondition : ${healthConditions}">
-    				<td th:text="${healthCondition.name}"></td>
-    				<td th:text="${healthCondition.description}"></td>
+    			<tr th:each="symptom : ${symptoms}">
+    				<td th:text="${symptom.name}"></td>
+    				<td th:text="${symptom.description}"></td>
+    				<td th:text="${symptom.healthCondition.name}"></td>
     				<td>
-    					<a th:href="@{/edit-healthCondition/{id}(id=${healthCondition.id})}">Edit</a>
+    					<a th:href="@{/edit-symptom/{id}(id=${symptom.id})}">Edit</a>
     				</td>
     				<td>
-    					<a th:href="@{/delete-healthCondition/{id}(id=${healthCondition.id})}">Delete</a>
+    					<a th:href="@{/delete-symptom/{id}(id=${symptom.id})}">Delete</a>
     				</td>
-    				
     			</tr>
     			</tbody>
     		</table>

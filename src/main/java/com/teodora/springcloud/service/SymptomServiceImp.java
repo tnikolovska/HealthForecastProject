@@ -3,12 +3,13 @@ package com.teodora.springcloud.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import com.teodora.springcloud.dao.SymptomDao;
 import com.teodora.springcloud.model.HealthCondition;
 import com.teodora.springcloud.model.Symptom;
 
+@Service
 public class SymptomServiceImp implements SymptomService {
 
 	@Autowired

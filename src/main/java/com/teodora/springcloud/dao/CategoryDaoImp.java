@@ -10,7 +10,7 @@ import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.utils.HibernateUtil;
 
 
-
+@Repository
 public class CategoryDaoImp implements CategoryDao {
 	
 	private static final SessionFactory sf = HibernateUtil.getSessionFactory();

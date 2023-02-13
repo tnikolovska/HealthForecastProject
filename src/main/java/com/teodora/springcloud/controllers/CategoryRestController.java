@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Convert;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.teodora.springcloud.dao.CategoryDao;
 import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.repos.CategoryRepo;
 import com.teodora.springcloud.service.CategoryService;
@@ -31,6 +34,11 @@ public class CategoryRestController {
 	@Autowired
 	CategoryRepo repo;	
 	
+	@Autowired
+	CategoryDao categoryDao;
+	
+	@Autowired
+	CategoryService categoryService;
 	
 	@RequestMapping(value = "/categories", method = RequestMethod.POST)
 	public Category create(@RequestBody Category category) {
@@ -64,7 +72,9 @@ public class CategoryRestController {
 	}
 	@RequestMapping(value="category",method = RequestMethod.GET)
 	public String detailsCategory(@RequestParam String name, Model model) {
-		Category category = getCategory(name);
+		//Category category = getCategory(name);
+		Category category=repo.findByName(name);
+		//Category category=categoryService.getCategoryName(name);
 		model.addAttribute("name", category.getName());
 		model.addAttribute("beginRange", category.getBeginRange());
 		model.addAttribute("endRange",category.getEndRange());
@@ -75,14 +85,18 @@ public class CategoryRestController {
 	@GetMapping("category-list")
 	public String categories(Model model) {
 		List<Category> categories = new ArrayList<>();
-		categories=getCategories();
+		//categories=getCategories();
+		categories=repo.findAll();
+		//categories=categoryService.getCategories();
 		//List<String> names=categories.stream().map(Category::getName).collect(Collectors.toList());
 		model.addAttribute("categories",categories);
 		return "category-list";
 	}
 	@GetMapping("/edit/{id}")
 	public String showUpdateForm(@PathVariable("id")Long id,Model model) {
-		Category updateCategory = getCategory(id);
+		//Category updateCategory = getCategory(id);
+		Category updateCategory = repo.getReferenceById(id);
+		//Category updateCategory=(Category)categoryService.getCategory(id);
 		model.addAttribute("category",updateCategory);
 		return "update-category";
 	}
@@ -92,12 +106,16 @@ public class CategoryRestController {
 			category.setId(id);
 			return "update-category";
 		}
-		updateCategory(category);
+		//updateCategory(category);
+		repo.save(category);
+		//categoryService.updateCategory(id,model.getAttribute("name").toString(), new BigDecimal(model.getAttribute("beginRange").toString()), new BigDecimal(model.getAttribute("endRange").toString()));
 		return "redirect:/category-list";
 	}
 	@GetMapping("/delete/{id}")
 	public String deleteCategory(@PathVariable("id") Long id, Model model) {
-		delete(id);
+		repo.deleteById(id);
+		//Category category=categoryService.getCategory(id);
+		//categoryService.deleteCategory(category);
 		return "redirect:/category-list";
 	}
 	
@@ -110,10 +128,13 @@ public class CategoryRestController {
 	
 	@PostMapping("/createcategory")
 	public String createCategory(@ModelAttribute("category") Category category) {
-		create(category);
+		//categoryDao.create(category);
+		//create(category);
+		repo.save(category);
 		return "redirect:/category-list";
 	}
 	
+
 	
 	
 	

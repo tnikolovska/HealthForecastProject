@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -21,8 +22,8 @@ import com.teodora.springcloud.model.HealthCondition;
 import com.teodora.springcloud.model.Symptom;
 import com.teodora.springcloud.repos.SymptomRepo;
 
-@RestController
-@RequestMapping("/symptomapi")
+@Controller
+//@RequestMapping("/symptomapi")
 public class SymptomRestController {
 	
 	@Autowired
@@ -59,24 +60,28 @@ public class SymptomRestController {
 		
 	}
 	
-	@RequestMapping(value="/symptom/{id}",method = RequestMethod.GET)
+	@RequestMapping(value="symptom",method = RequestMethod.GET)
 	public String detailsSymptom(@RequestParam Long id, Model model) {
-		Symptom symptom = getSymptom(id);
+		//Symptom symptom = getSymptom(id);
+		Symptom symptom = repo.getReferenceById(id);
 		model.addAttribute("name", symptom.getName());
 		model.addAttribute("description", symptom.getDescription());
+		model.addAttribute("healthCondition",symptom.getHealthCondition());
 		return "symptom";
 		
 	}
 	@GetMapping("symptom-list")
 	public String symptoms(Model model) {
 		List<Symptom> symptoms = new ArrayList<>();
-		symptoms=getSymptoms();
+		//symptoms=getSymptoms();
+		symptoms=repo.findAll();
 		model.addAttribute("symptoms",symptoms);
 		return "symptom-list";
 	}
 	@GetMapping("/edit-symptom/{id}")
 	public String showSymptomUpdateForm(@PathVariable("id")Long id,Model model) {
-		Symptom updatesymptom = getSymptom(id);
+		//Symptom updatesymptom = getSymptom(id);
+		Symptom updatesymptom = repo.getReferenceById(id);
 		model.addAttribute("symptom",updatesymptom);
 		return "update-symptom";
 	}
@@ -86,12 +91,14 @@ public class SymptomRestController {
 			symptom.setId(id);
 			return "update-symptom";
 		}
-		updateSymptom(symptom);
-		return "redirect:/symptom-list";
+		//updateSymptom(symptom);
+		repo.save(symptom);
+		return "redirect:/symptom-list";	
 	}
 	@GetMapping("/delete-symptom/{id}")
 	public String deleteSymptom(@PathVariable("id") Long id, Model model) {
-		delete(id);
+		//delete(id);
+		repo.deleteById(id);
 		return "redirect:/symptom-list";
 	}
 	
@@ -103,9 +110,26 @@ public class SymptomRestController {
 	    }
 	
 	@PostMapping("/create-symptom")
-	public String createHealthCondition(@ModelAttribute("symptom") Symptom symptom) {
-		create(symptom);
+	public String createSymptom(@ModelAttribute("symptom") Symptom symptom) {
+		//create(symptom);
+		repo.save(symptom);
 		return "redirect:/symptom-list";
 	}
+	/*@GetMapping("/create-healthConditionSymptom")
+	public String createHealthConditionSymptom(@ModelAttribute("symptom") Symptom symptom) {
+		create(symptom);
+		return "redirect:/symptom-list";
+	}*/
+	
+	/*@GetMapping("/createHealthConditionSymptomView")
+	public String createHealthConditionSymptom(@PathVariable("id") Long id,Model model) {
+		Symptom symptom = new Symptom();
+		//HealthCondition healthCondition=getHealthCondition(id);
+		model.addAttribute("symptom",symptom);
+		model.addAttribute("healthCondition",healthCondition);
+		return "create-healthConditionSymptom";
+	    }*/
+	
+	
 	
 }

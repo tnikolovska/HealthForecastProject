@@ -3,12 +3,14 @@ package com.teodora.springcloud.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.teodora.springcloud.dao.UserHealthConditionDao;
 import com.teodora.springcloud.model.HealthCondition;
 import com.teodora.springcloud.model.User;
 import com.teodora.springcloud.model.UserHealthCondition;
 
+@Service
 public class UserHealthConditionServiceImp implements UserHealthConditionService {
 	
 	

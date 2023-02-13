@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.teodora.springcloud.dao.CategoryDao;
 import com.teodora.springcloud.model.Category;
 
-
+@Service
 public class CategoryServiceImp implements CategoryService {
 	@Autowired
 	CategoryDao categoryDao;
@@ -23,7 +23,7 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public Category getCategory(String name) {
+	public Category getCategoryName(String name) {
 		// TODO Auto-generated method stub
 		Category category = categoryDao.getCategoryName(name);
 		return category;
@@ -51,6 +51,12 @@ public class CategoryServiceImp implements CategoryService {
 	public List<Category> getCategories() {
 		// TODO Auto-generated method stub
 		return categoryDao.getCategories();
+	}
+
+	@Override
+	public Category getCategory(Long id) {
+		// TODO Auto-generated method stub
+		return categoryDao.getCategory(id);
 	}
 	
 

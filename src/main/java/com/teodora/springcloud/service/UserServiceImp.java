@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import com.teodora.springcloud.dao.UserDao;
 import com.teodora.springcloud.model.User;
 
+@Service
 public class UserServiceImp implements UserService {
 	
 	@Autowired

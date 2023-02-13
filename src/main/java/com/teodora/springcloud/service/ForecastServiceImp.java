@@ -4,12 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import com.teodora.springcloud.dao.ForecastDao;
 import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.model.Forecast;
 
+@Service
 public class ForecastServiceImp implements ForecastService {
 	
 	@Autowired

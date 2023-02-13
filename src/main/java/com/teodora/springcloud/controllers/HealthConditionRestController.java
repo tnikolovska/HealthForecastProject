@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.model.HealthCondition;
+import com.teodora.springcloud.model.Symptom;
 import com.teodora.springcloud.repos.HealthConditionRepo;
 
 @Controller
@@ -34,6 +35,7 @@ public class HealthConditionRestController {
 	@RequestMapping(value = "/healthconditions", method = RequestMethod.POST)
 	public HealthCondition create(@RequestBody HealthCondition healthCondition) {
 		return repo.save(healthCondition);
+		
 	}
 	
 	@RequestMapping(value="/healthconditions/{name}", method = RequestMethod.GET)
@@ -64,7 +66,8 @@ public class HealthConditionRestController {
 	
 	@RequestMapping(value="/healthCondition/{name}",method = RequestMethod.GET)
 	public String detailsHealthCondition(@RequestParam String name, Model model) {
-		HealthCondition healthCondition = getHealthConditionName(name);
+		//HealthCondition healthCondition = getHealthConditionName(name);
+		HealthCondition healthCondition = repo.findByName(name);
 		model.addAttribute("name", healthCondition.getName());
 		model.addAttribute("description", healthCondition.getDescription());
 		return "healthCondition";
@@ -73,13 +76,15 @@ public class HealthConditionRestController {
 	@GetMapping("healthCondition-list")
 	public String healthConditions(Model model) {
 		List<HealthCondition> healthConditions = new ArrayList<>();
-		healthConditions=getHealthConditions();
+		//healthConditions=getHealthConditions();
+		healthConditions=repo.findAll();
 		model.addAttribute("healthConditions",healthConditions);
 		return "healthCondition-list";
 	}
 	@GetMapping("/edit-healthCondition/{id}")
 	public String showHealthConditionUpdateForm(@PathVariable("id")Long id,Model model) {
-		HealthCondition updatehealthCondition = getHealthCondition(id);
+		//HealthCondition updatehealthCondition = getHealthCondition(id);
+		HealthCondition updatehealthCondition=repo.getReferenceById(id);
 		model.addAttribute("healthCondition",updatehealthCondition);
 		return "update-healthCondition";
 	}
@@ -89,12 +94,14 @@ public class HealthConditionRestController {
 			healthCondition.setId(id);
 			return "update-healthCondition";
 		}
-		updateHealthCondition(healthCondition);
+		//updateHealthCondition(healthCondition);
+		repo.save(healthCondition);
 		return "redirect:/healthCondition-list";
 	}
 	@GetMapping("/delete-healthCondition/{id}")
 	public String deleteHealthCondition(@PathVariable("id") Long id, Model model) {
-		delete(id);
+		//delete(id);
+		repo.deleteById(id);
 		return "redirect:/healthCondition-list";
 	}
 	
@@ -107,8 +114,23 @@ public class HealthConditionRestController {
 	
 	@PostMapping("/create-healthCondition")
 	public String createHealthCondition(@ModelAttribute("healthCondition") HealthCondition healthCondition) {
-		create(healthCondition);
+		//create(healthCondition);
+		repo.save(healthCondition);
 		return "redirect:/healthCondition-list";
 	}
+	@GetMapping("/createHealthConditionSymptomView/{id}")
+	public String registerHealthConditionSymptom(@PathVariable("id") Long id,Model model) {
+		Symptom symptom = new Symptom();
+		HealthCondition healthCondition=repo.getReferenceById(id);
+		symptom.setHealthCondition(healthCondition);
+		model.addAttribute("symptom",symptom);
+		model.addAttribute("healthcondition_id",healthCondition.getId());
+		return "create-symptom";
+	}
+	
+	
+	
+	
+	
 
 }

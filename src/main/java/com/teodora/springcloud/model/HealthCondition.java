@@ -1,20 +1,33 @@
 package com.teodora.springcloud.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="health_condition")
 public class HealthCondition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name="name")
 	private String name;
+	@Column(name="description")
 	private String description;
-	
+	/*@OneToMany(cascade=CascadeType.ALL)
+	@Column(name="health_condition_symptom")
+	private List<Symptom> healthConditionSymptom = new ArrayList<>();*/
 	public HealthCondition() {}
 
 	public HealthCondition(String name, String description) {
@@ -39,6 +52,15 @@ public class HealthCondition {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	/*public List<Symptom> getSymptoms() {
+		return symptoms;
+	}
+
+	public void setSymptoms(List<Symptom> symptoms) {
+		this.symptoms = symptoms;
+	}*/
+	
 	
 	
 	

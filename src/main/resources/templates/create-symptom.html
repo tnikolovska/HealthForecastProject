@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+   <form action="#"
+  th:action="@{/create-symptom}" 
+  th:object="${symptom}"
+  method="post">
+  	<!--<input type="hidden" th:field="*{healthcondition_id}" value="${healthcondition_id}" id="healthcondition_id">-->
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <label for="description">Description</label>
+    <input type="text" th:field="*{description}" id="description" placeholder="Description">
+    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+    <label for="healthCondition">Health Condition</label>
+    <input type="hidden" value="${healthcondition_id}" th:field="*{healthCondition}" id="healthCondition">
+    <span th:if="${#fields.hasErrors('healthCondition')}" th:errors="*{healthCondition}"></span>
+    <input type="submit" value="Create Symptom">   
+</form>
+</body>
+</html>
