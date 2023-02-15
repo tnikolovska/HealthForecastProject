@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="user")
 public class User {
@@ -21,12 +23,13 @@ public class User {
 	@Column(name="last_name")
 	private String lastName;
 	@Column(name="birth_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 	@Column(name="email")
 	private String email;
 	@Column(name="password")
 	private String password;
-	User(){}
+	public User(){}
 	public User(String firstName,String lastName, Date birthDate, String email, String password){
 		this.firstName=firstName;
 		this.lastName=lastName;

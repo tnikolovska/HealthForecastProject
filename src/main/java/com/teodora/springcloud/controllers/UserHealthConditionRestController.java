@@ -1,15 +1,23 @@
 package com.teodora.springcloud.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.model.UserHealthCondition;
 import com.teodora.springcloud.repos.UserHealthConditionRepo;
 
@@ -44,4 +52,69 @@ public class UserHealthConditionRestController {
 		return repo.findAll();
 		
 	}
+	
+	@RequestMapping(value="userHealthCondition",method = RequestMethod.GET)
+	public String detailsCategory(@RequestParam Long id, Model model) {
+		//Category category = getCategory(name);
+		UserHealthCondition userHealthCondition=repo.getReferenceById(id);
+		//Category category=categoryService.getCategoryName(name);
+		model.addAttribute("user", userHealthCondition.getUser());
+		model.addAttribute("healthCondition", userHealthCondition.getHealthCondition());
+		return "userHealthCondition";	
+		
+	}
+	
+	@GetMapping("userHealthCondition-list")
+	public String userHealthConditions(Model model) {
+		List<UserHealthCondition> userHealthConditions = new ArrayList<>();
+		//categories=getCategories();
+		userHealthConditions=repo.findAll();
+		//categories=categoryService.getCategories();
+		//List<String> names=categories.stream().map(Category::getName).collect(Collectors.toList());
+		model.addAttribute("userHealthConditions",userHealthConditions);
+		return "userHealthCondition-list";
+	}
+	@GetMapping("/userHealthCondition-edit/{id}")
+	public String showUpdateForm(@PathVariable("id")Long id,Model model) {
+		//Category updateCategory = getCategory(id);
+		UserHealthCondition userHealthCondition = repo.getReferenceById(id);
+		//Category updateCategory=(Category)categoryService.getCategory(id);
+		model.addAttribute("userHealthCondition",userHealthCondition);
+		return "update-userHealthCondition";
+	}
+	@PostMapping("/userHealthCondition-update/{id}")
+	public String updateUserHealthCondition(@PathVariable("id") Long id,@Validated UserHealthCondition userHealthCondition,BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			userHealthCondition.setId(id);
+			return "update-userHealthCondition";
+		}
+		//updateCategory(category);
+		repo.save(userHealthCondition);
+		//categoryService.updateCategory(id,model.getAttribute("name").toString(), new BigDecimal(model.getAttribute("beginRange").toString()), new BigDecimal(model.getAttribute("endRange").toString()));
+		return "redirect:/userHealthCondition-list";
+	}
+	@GetMapping("/delete/{id}")
+	public String deleteUserHelathCondition(@PathVariable("id") Long id, Model model) {
+		repo.deleteById(id);
+		//Category category=categoryService.getCategory(id);
+		//categoryService.deleteCategory(category);
+		return "redirect:/userHealthCondition-list";
+	}
+	
+	
+	@GetMapping("/createUserHealthConditionView")
+	public String createUserHealthConditionView(Model model) {
+			UserHealthCondition userHealthCondition = new UserHealthCondition();
+			model.addAttribute("userHealthCondition",userHealthCondition);
+			return "create-userhealthcondition";
+					
+	}
+	@PostMapping("/createUserhealthcondition")
+	public String createCategory(@ModelAttribute("userHealthCondition") UserHealthCondition userHealthCondition) {
+		//categoryDao.create(category);
+		//create(category);
+		repo.save(userHealthCondition);
+		return "redirect:/userHealthCondition-list";
+	}
+	
 }

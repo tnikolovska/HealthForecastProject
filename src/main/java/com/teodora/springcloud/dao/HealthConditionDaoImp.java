@@ -1,5 +1,6 @@
 package com.teodora.springcloud.dao;
 
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.teodora.springcloud.model.HealthCondition;
 import com.teodora.springcloud.model.Symptom;
 import com.teodora.springcloud.utils.HibernateUtil;
+
 
 @Repository
 public class HealthConditionDaoImp implements HealthConditionDao {
@@ -76,7 +78,7 @@ public class HealthConditionDaoImp implements HealthConditionDao {
 		// TODO Auto-generated method stub
 		Session session = sf.openSession();
 		session.beginTransaction();
-		List<Symptom> symptoms = session.createQuery("from Symptom s where s.healthCondition_id = :id", Symptom.class).getResultList();
+		List<Symptom> symptoms = session.createQuery("from Symptom s where s.healthCondition.id=:id",Symptom.class).setParameter("id",id).getResultList();
 		return symptoms;
 	}
 

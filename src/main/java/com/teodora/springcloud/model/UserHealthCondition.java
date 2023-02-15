@@ -24,7 +24,7 @@ public class UserHealthCondition {
 	@JoinColumn(name="healthcondition_id",referencedColumnName = "id")
 	private HealthCondition healthCondition;
 	
-	UserHealthCondition(){}
+	public UserHealthCondition(){}
 	public UserHealthCondition(User user, HealthCondition healthCondition) {
 		this.user=user;
 		this.healthCondition=healthCondition;

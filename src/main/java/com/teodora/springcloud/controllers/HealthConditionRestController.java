@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.teodora.springcloud.model.Category;
+
+import com.teodora.springcloud.dao.HealthConditionDao;
 import com.teodora.springcloud.model.HealthCondition;
 import com.teodora.springcloud.model.Symptom;
 import com.teodora.springcloud.repos.HealthConditionRepo;
@@ -31,6 +31,8 @@ public class HealthConditionRestController {
 	
 	@Autowired
 	HealthConditionRepo repo;
+	@Autowired
+	HealthConditionDao healthConditionDao;
 	
 	@RequestMapping(value = "/healthconditions", method = RequestMethod.POST)
 	public HealthCondition create(@RequestBody HealthCondition healthCondition) {
@@ -64,12 +66,14 @@ public class HealthConditionRestController {
 		
 	}
 	
-	@RequestMapping(value="/healthCondition/{name}",method = RequestMethod.GET)
-	public String detailsHealthCondition(@RequestParam String name, Model model) {
+	@RequestMapping(value="healthCondition",method = RequestMethod.GET)
+	public String detailsHealthCondition(@RequestParam Long id, Model model) {
 		//HealthCondition healthCondition = getHealthConditionName(name);
-		HealthCondition healthCondition = repo.findByName(name);
+		HealthCondition healthCondition = repo.getReferenceById(id);
+		List<Symptom> symptoms = healthConditionDao.getSymptoms(id);
 		model.addAttribute("name", healthCondition.getName());
 		model.addAttribute("description", healthCondition.getDescription());
+		model.addAttribute("symptoms",symptoms);
 		return "healthCondition";
 		
 	}
@@ -127,6 +131,8 @@ public class HealthConditionRestController {
 		model.addAttribute("healthcondition_id",healthCondition.getId());
 		return "create-symptom";
 	}
+	
+	
 	
 	
 	

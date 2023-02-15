@@ -8,5 +8,30 @@
     <p>Get your greeting <a href="/greeting">here</a></p>
     <p th:text="${name}"></p>
     <p th:text="${description}"></p>
+    <div th:if="${ not#lists.isEmpty(symptoms)}">
+    		<table>
+    			<thead>
+    			<tr>
+    				<th>Name</th>
+    				<th>Description</th>
+    			</tr>
+    			</thead>
+    			<tbody>
+    			<tr th:each="symptom : ${symptoms}">
+    				<td th:text="${symptom.name}"></td>
+    				<td th:text="${symptom.description}"></td>
+    				<td th:text="${symptom.healthCondition.id}"></td>
+    				<td>
+    					<a th:href="@{/edit-symptom/{id}(id=${symptom.id})}">Edit</a>
+    				</td>
+    				<td>
+    					<a th:href="@{/delete-symptom/{id}(id=${symptom.id})}">Delete</a>
+    				</td>
+    				
+    			</tr>
+    			</tbody>
+    		</table>
+    	</div>
+    
 </body>
 </html>
