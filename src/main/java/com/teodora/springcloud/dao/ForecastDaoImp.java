@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.teodora.springcloud.model.Forecast;
+import com.teodora.springcloud.model.HealthCondition;
 import com.teodora.springcloud.utils.HibernateUtil;
 
 @Repository
@@ -67,6 +68,20 @@ public class ForecastDaoImp implements ForecastDao {
         session.getTransaction().commit();
         session.close();
         return forecasts;
+	}
+
+	@Override
+	public HealthCondition getHealthCondition(Long healthConditionId) {
+		// TODO Auto-generated method stub
+		Session session = sf.openSession();
+        session.beginTransaction();
+        HealthCondition healthCondition = session.createQuery("from HealthCondition h where h.id = :id", HealthCondition.class)
+                .setParameter("id",healthConditionId)
+                .getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return healthCondition;
+		
 	}
 
 }

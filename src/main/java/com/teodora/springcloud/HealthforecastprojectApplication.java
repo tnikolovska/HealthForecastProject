@@ -8,6 +8,8 @@ public class HealthforecastprojectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HealthforecastprojectApplication.class, args);
+		
+		
 	}
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 
 import com.teodora.springcloud.model.Forecast;
+import com.teodora.springcloud.model.HealthCondition;
 
 public interface ForecastDao {
 	long create(Forecast forecast);
@@ -15,4 +16,5 @@ public interface ForecastDao {
 	void updateForecast(Forecast forecast);
 	void deleteForecast(Forecast forecast);
 	List<Forecast> getForecasts();
+	HealthCondition getHealthCondition(Long healthConditionId);
 }

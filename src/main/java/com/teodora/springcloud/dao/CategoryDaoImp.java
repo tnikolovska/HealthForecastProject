@@ -82,4 +82,15 @@ public class CategoryDaoImp implements CategoryDao {
 	        return categories;
 	}
 	
+	public Category getCategoryByName(String name) {
+		Session session = sf.openSession();
+        session.beginTransaction();
+        Category category = session.createQuery("from Category c where c.name = :name", Category.class)
+                .setParameter("name",name)
+                .getSingleResult();;
+        session.getTransaction().commit();
+        session.close();
+        return category;
+	}
+	
 }

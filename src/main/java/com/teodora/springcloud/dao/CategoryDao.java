@@ -14,4 +14,5 @@ public interface CategoryDao {
 	void updateCategory(Category category);
 	void deleteCategory(Category category);
 	List<Category> getCategories();
+	Category getCategoryByName(String name);
 }

@@ -1,5 +1,6 @@
 package com.teodora.springcloud.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -22,19 +23,24 @@ public class Forecast {
 	private String name;
 	@Column(name="date")
 	private Date date;
+	@Column(name="category_value")
+	private int categoryValue;
 	@Column(name="value")
-	private int value;
+	private BigDecimal value;
 	@Column(name="category_name")
 	private String categoryName;
+	@Column(name="text")
+	private String text;
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="category_id",referencedColumnName = "id")
 	private Category category;
 	
 	public Forecast(){}
-	public Forecast(String name, Date date, int value,String categoryName, Category category){
+	public Forecast(String name, Date date, BigDecimal value,int categoryValue,String categoryName, Category category){
 		this.name=name;
 		this.date=date;
 		this.value=value;
+		this.categoryValue=categoryValue;
 		this.category=category;
 	}
 	public Long getId() {
@@ -55,10 +61,10 @@ public class Forecast {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public int getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
-	public void setValue(int value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
 	public String getCategoryName() {
@@ -73,6 +79,19 @@ public class Forecast {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	public int getCategoryValue() {
+		return categoryValue;
+	}
+	public void setCategoryValue(int categoryValue) {
+		this.categoryValue = categoryValue;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	
 	
 	
 	

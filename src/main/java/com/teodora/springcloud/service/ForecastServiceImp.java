@@ -1,5 +1,6 @@
 package com.teodora.springcloud.service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,9 @@ public class ForecastServiceImp implements ForecastService {
 	ForecastDao forecastDao;
 
 	@Override
-	public Forecast create(String name, Date date, int value, String categoryName, Category category) {
+	public Forecast create(String name, Date date, BigDecimal value,int categoryValue, String categoryName, Category category) {
 		// TODO Auto-generated method stub
-		Forecast forecast = new Forecast(name,date,value,categoryName,category);
+		Forecast forecast = new Forecast(name,date,value,categoryValue,categoryName,category);
 		forecastDao.create(forecast);
 		return forecast;
 	}
@@ -31,7 +32,7 @@ public class ForecastServiceImp implements ForecastService {
 	}
 
 	@Override
-	public void updateForecast(Long id, String name, Date date, int value, String categoryName, Category category) {
+	public void updateForecast(Long id, String name, Date date, BigDecimal value,int categoryValue, String categoryName, Category category) {
 		// TODO Auto-generated method stub
 		Forecast updateForecast = forecastDao.getForecast(id);
 		updateForecast.setName(name);
