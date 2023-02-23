@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.teodora.springcloud.dao.CategoryDao;
 import com.teodora.springcloud.model.Category;
+import com.teodora.springcloud.model.Forecast;
 import com.teodora.springcloud.repos.CategoryRepo;
 import com.teodora.springcloud.service.CategoryService;
 
@@ -132,6 +133,14 @@ public class CategoryRestController {
 		//create(category);
 		repo.save(category);
 		return "redirect:/category-list";
+	}
+	@GetMapping("/categoryforecast-list")
+	public String getCategoryForecast(@PathVariable("id") Long id,Model model) {
+		List<Forecast> list=categoryDao.getCategoryForecast(id);
+		Category category = categoryDao.getCategory(id);
+		model.addAttribute("category",category);
+		model.addAttribute("categoryForecast",list);
+		return "categoryForecast-list";
 	}
 	
 	

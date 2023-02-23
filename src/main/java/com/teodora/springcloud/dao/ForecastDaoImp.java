@@ -71,12 +71,12 @@ public class ForecastDaoImp implements ForecastDao {
 	}
 
 	@Override
-	public HealthCondition getHealthCondition(Long healthConditionId) {
+	public HealthCondition getHealthCondition(Long id) {
 		// TODO Auto-generated method stub
 		Session session = sf.openSession();
         session.beginTransaction();
         HealthCondition healthCondition = session.createQuery("from HealthCondition h where h.id = :id", HealthCondition.class)
-                .setParameter("id",healthConditionId)
+                .setParameter("id",id)
                 .getSingleResult();
         session.getTransaction().commit();
         session.close();

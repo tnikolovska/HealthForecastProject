@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.teodora.springcloud.dao.CategoryDao;
 import com.teodora.springcloud.model.Category;
+import com.teodora.springcloud.model.Forecast;
 
 @Service
 public class CategoryServiceImp implements CategoryService {
@@ -58,6 +59,13 @@ public class CategoryServiceImp implements CategoryService {
 		// TODO Auto-generated method stub
 		return categoryDao.getCategory(id);
 	}
+
+	@Override
+	public List<Forecast> getForecasts(Long id) {
+		// TODO Auto-generated method stub
+		return categoryDao.getCategoryForecast(id);
+	}
+	
 	
 
 }

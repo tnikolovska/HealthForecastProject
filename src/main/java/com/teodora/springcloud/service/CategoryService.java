@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import com.teodora.springcloud.model.Category;
+import com.teodora.springcloud.model.Forecast;
 
 public interface CategoryService {
 	Category create(String name,BigDecimal beginRange,BigDecimal endRange);
@@ -15,5 +16,5 @@ public interface CategoryService {
 	void updateCategory(Long id, String name, BigDecimal beginRange, BigDecimal endRange);
 	void deleteCategory(Category category);
 	List<Category> getCategories();
-	
+	List<Forecast> getForecasts(Long id);
 }

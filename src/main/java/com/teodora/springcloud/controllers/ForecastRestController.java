@@ -16,14 +16,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.juli.logging.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teodora.springcloud.dao.CategoryDao;
@@ -31,15 +35,17 @@ import com.teodora.springcloud.dao.ForecastDao;
 import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.model.Forecast;
 import com.teodora.springcloud.model.HealthCondition;
+import com.teodora.springcloud.repos.CategoryRepo;
 import com.teodora.springcloud.repos.ForecastRepo;
+import com.teodora.springcloud.repos.HealthConditionRepo;
 import com.teodora.springcloud.utils.NetworkUtils;
 import java.util.Iterator;
 
 
 
-
-@RestController
-@RequestMapping("/forecastapi")
+@Controller
+//@RestController
+//@RequestMapping("/forecastapi")
 public class ForecastRestController {
 	
 	@Autowired
@@ -49,7 +55,10 @@ public class ForecastRestController {
 	ForecastDao dao;
 	
 	@Autowired
-	CategoryDao categoryDao;
+	HealthConditionRepo healthrepo;
+	
+	@Autowired
+	CategoryRepo categoryRepo;
 
 	private ArrayList<Forecast> forecastArrayList = new ArrayList<>();
 	
@@ -78,15 +87,26 @@ public class ForecastRestController {
 		return repo.findAll();
 		
 	}
-	@RequestMapping(value="/forecastResult",method = RequestMethod.GET)
-	public ArrayList<Forecast> getForecastResult(@PathVariable("id") Long healthConditionId) throws URISyntaxException, IOException, JSONException, ParseException {
-		HealthCondition healthCondition = dao.getHealthCondition(healthConditionId);
-		String forecastSearchResults = NetworkUtils.getResponseFromHttpUrl(healthCondition);
-		if (forecastSearchResults!=null && !forecastSearchResults.equals("")) {
-			forecastArrayList = parseJSON(forecastSearchResults);
+
+	@RequestMapping(value="result",method = RequestMethod.GET)
+	public String getForecastResult(@RequestParam Long id, Model model) throws URISyntaxException, IOException, JSONException, ParseException {
+		//HealthCondition healthCondition = dao.getHealthCondition(id);
+		HealthCondition healthCondition = healthrepo.getReferenceById(id);
+		//System.out.println(healthCondition.getName());
+		if(healthCondition!=null) {
+			//HealthCondition healthCondition = repo.getReferenceById(id);
+			String forecastSearchResults = NetworkUtils.getResponseFromHttpUrl(healthCondition);
+			if (forecastSearchResults!=null && !forecastSearchResults.equals("")) {
+				forecastArrayList = parseJSON(forecastSearchResults);
+				System.out.printf(forecastArrayList.toString());
+				model.addAttribute("forecastArrayList",forecastArrayList);
+				model.addAttribute("name",healthCondition.getName());
+				model.addAttribute("description",healthCondition.getDescription());
+			}
+			
 		}
 		
-		return forecastArrayList;
+		return "forecast-result";
 	}
 	
 	private ArrayList<Forecast> parseJSON (String forecastSearchResults) throws JSONException, ParseException{
@@ -107,19 +127,19 @@ public class ForecastRestController {
             	 String name = resultsObj.getString("Name");
             	 forecast.setName(name);
             	 
-            	 BigDecimal value = BigDecimal.valueOf(Double.valueOf(resultsObj.getString("Value")));
+            	 BigDecimal value = resultsObj.getBigDecimal("Value");
                  forecast.setValue(value);
                  
-                 int categoryValue = Integer.parseInt(resultsObj.getString("CategoryValue"));
+                 int categoryValue = resultsObj.getInt("CategoryValue");
                  forecast.setCategoryValue(categoryValue);
                  
                  String categoryName = resultsObj.getString("Category");
                  forecast.setCategoryName(categoryName);
                  
-                 Category category = categoryDao.getCategoryByName(categoryName);
+                 Category category = categoryRepo.findByName(categoryName);
                  forecast.setCategory(category);
                  
-                 String text = resultsObj.getString("text");
+                 String text = resultsObj.getString("Text");
                  forecast.setText(text);
                  
                  forecastArrayList.add(forecast);
@@ -129,6 +149,9 @@ public class ForecastRestController {
 		}
 		return forecastArrayList;
 	}
+	
+	
+	
 	
 	
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+	table, th, td {
+	  border: 1px solid black;
+	}
+</style>
+</head>
+<body>
+    <!--ul-->
+    	<!--<th:block th:each="forecast : ${forecastArrayList}">
+    		<li th:text="${forecast.name}"></li>
+    	</th:block>-->
+    	<div th:if="${ not#lists.isEmpty(forecastArrayList)}">
+    		<table>
+    			<thead>
+    			<tr>
+    				<th>Name</th>
+    				<th>Date</th>
+    				<th>Value</th>
+    				<th>Category Name</th>
+    				<th>Category Value</th>
+    				<th>Text</th>
+    				
+    			</tr>
+    			</thead>
+    			<tbody>
+    			<tr th:each="forecast : ${forecastArrayList}">
+    				<td th:text="${forecast.name}"></td>
+    				<td th:text="${forecast.date}"></td>    				
+    				<td th:text="${forecast.value}"></td>
+    				<td th:text="${forecast.categoryName}"></td>
+    				<td th:text="${forecast.categoryValue}"></td>
+    				<td th:text="${forecast.text}"></td>
+    			</tr>
+    			</tbody>
+    		</table>
+    	</div>
+    <!--<ul>-->
+</body>
+</html>

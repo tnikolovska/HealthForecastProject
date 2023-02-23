@@ -23,12 +23,12 @@ public class Forecast {
 	private String name;
 	@Column(name="date")
 	private Date date;
-	@Column(name="category_value")
-	private int categoryValue;
 	@Column(name="value")
 	private BigDecimal value;
 	@Column(name="category_name")
 	private String categoryName;
+	@Column(name="category_value")
+	private int categoryValue;
 	@Column(name="text")
 	private String text;
 	@ManyToOne(cascade=CascadeType.MERGE)
@@ -36,12 +36,13 @@ public class Forecast {
 	private Category category;
 	
 	public Forecast(){}
-	public Forecast(String name, Date date, BigDecimal value,int categoryValue,String categoryName, Category category){
+	public Forecast(String name, Date date, BigDecimal value,String categoryName,int categoryValue, Category category,String text){
 		this.name=name;
 		this.date=date;
 		this.value=value;
 		this.categoryValue=categoryValue;
 		this.category=category;
+		this.text=text;
 	}
 	public Long getId() {
 		return id;

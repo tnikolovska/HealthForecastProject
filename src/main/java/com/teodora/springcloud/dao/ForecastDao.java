@@ -16,5 +16,5 @@ public interface ForecastDao {
 	void updateForecast(Forecast forecast);
 	void deleteForecast(Forecast forecast);
 	List<Forecast> getForecasts();
-	HealthCondition getHealthCondition(Long healthConditionId);
+	HealthCondition getHealthCondition(Long id);
 }

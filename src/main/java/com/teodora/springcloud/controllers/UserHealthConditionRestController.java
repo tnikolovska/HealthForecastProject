@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.model.UserHealthCondition;
 import com.teodora.springcloud.repos.UserHealthConditionRepo;
 
@@ -54,7 +53,7 @@ public class UserHealthConditionRestController {
 	}
 	
 	@RequestMapping(value="userHealthCondition",method = RequestMethod.GET)
-	public String detailsCategory(@RequestParam Long id, Model model) {
+	public String detailsUserHealthCondition(@RequestParam Long id, Model model) {
 		//Category category = getCategory(name);
 		UserHealthCondition userHealthCondition=repo.getReferenceById(id);
 		//Category category=categoryService.getCategoryName(name);

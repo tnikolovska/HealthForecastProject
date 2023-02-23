@@ -1,5 +1,6 @@
 package com.teodora.springcloud.dao;
 
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.teodora.springcloud.model.Category;
+import com.teodora.springcloud.model.Forecast;
 import com.teodora.springcloud.utils.HibernateUtil;
 
 
@@ -87,10 +89,21 @@ public class CategoryDaoImp implements CategoryDao {
         session.beginTransaction();
         Category category = session.createQuery("from Category c where c.name = :name", Category.class)
                 .setParameter("name",name)
-                .getSingleResult();;
+                .getSingleResult();
         session.getTransaction().commit();
         session.close();
         return category;
+	}
+	
+	public List<Forecast> getCategoryForecast(Long id){
+		Session session = sf.openSession();
+        session.beginTransaction();
+        List<Forecast> forecasts = session.createQuery("select f.* from Category c, Forecast f where c.id = f.category.id and c.id=:id", Forecast.class)
+                .setParameter("id",id)
+                .getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return forecasts;
 	}
 	
 }
