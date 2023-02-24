@@ -6,17 +6,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.LocaleEditor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +28,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.teodora.springcloud.exception.ErrorResponse;
+import com.teodora.springcloud.exception.UserAlreadyExistsException;
 import com.teodora.springcloud.model.User;
 import com.teodora.springcloud.repos.UserRepo;
+import com.teodora.springcloud.service.UserService;
+import com.teodora.springcloud.utils.UserUtil;
 
 //@RestController
 //@RequestMapping("/userapi")
@@ -36,6 +45,9 @@ import com.teodora.springcloud.repos.UserRepo;
 public class UserRestController {
 	@Autowired
 	UserRepo repo;
+	
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public User create(@RequestBody User user) {
@@ -116,19 +128,33 @@ public class UserRestController {
 	public String getUserRegisterPage(Model model) {
 		User user = new User();
 		model.addAttribute("user",user);
-		return "create-user";
+		return "user-register";
 	    }
 	
 	@PostMapping("/createuser")
 	public String createUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) {
 		//userDao.create(user);
 		//create(user);
-		repo.save(user);
+		//String password = UserUtil.encodePassword(user);
+		//user.setPassword(password);
+		User existingCustomer = repo.findByEmail(user.getEmail());
+	 	if(existingCustomer != null) {
+	 		throw new UserAlreadyExistsException("Email already exists!");
+	 	}
+		userService.registerUser(user);
+		//repo.save(user);
 		//model.addAttribute("user",user);
 		//model.addAttribute("id",user.getId());
 		redirectAttributes.addAttribute("id", user.getId());
 		//return "redirect:/user/"+user.getId();
 		return "redirect:/user/{id}";
+		//return "redirect:/user-list";
+	}
+	
+	@ExceptionHandler(value=UserAlreadyExistsException.class)
+	@ResponseStatus(HttpStatus.CONFLICT)
+	public ErrorResponse handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+		return new ErrorResponse(HttpStatus.CONFLICT.value(),ex.getMessage());
 	}
 	
 	

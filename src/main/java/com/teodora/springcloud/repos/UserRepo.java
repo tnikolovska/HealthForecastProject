@@ -7,5 +7,5 @@ import com.teodora.springcloud.model.User;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
-
+	User findByEmail(String email);
 }
