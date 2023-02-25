@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.LocaleEditor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -128,27 +131,25 @@ public class UserRestController {
 	public String getUserRegisterPage(Model model) {
 		User user = new User();
 		model.addAttribute("user",user);
+		model.addAttribute("existedUsername",null);
 		return "user-register";
 	    }
 	
+	
 	@PostMapping("/createuser")
-	public String createUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) {
-		//userDao.create(user);
-		//create(user);
-		//String password = UserUtil.encodePassword(user);
-		//user.setPassword(password);
-		User existingCustomer = repo.findByEmail(user.getEmail());
-	 	if(existingCustomer != null) {
-	 		throw new UserAlreadyExistsException("Email already exists!");
-	 	}
+	public String createUser(@ModelAttribute("user") @Validated User user, RedirectAttributes redirectAttributes,Model model,BindingResult bindingResult) {
+		User existedUsername = repo.findByEmail(user.getEmail());
+		model.addAttribute("existedUsername",existedUsername);
+		if(existedUsername!=null) {
+			bindingResult.rejectValue("email", null,"There is already an account registered with the same email");
+			}
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("user",user);
+			return "user-register";
+		}
 		userService.registerUser(user);
-		//repo.save(user);
-		//model.addAttribute("user",user);
-		//model.addAttribute("id",user.getId());
 		redirectAttributes.addAttribute("id", user.getId());
-		//return "redirect:/user/"+user.getId();
 		return "redirect:/user/{id}";
-		//return "redirect:/user-list";
 	}
 	
 	@ExceptionHandler(value=UserAlreadyExistsException.class)

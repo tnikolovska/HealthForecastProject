@@ -36,14 +36,15 @@
 				</div>
 				<div class="form-row">
 					<label for="email">Your Email</label>
-					<input type="text" name="email" th:field="*{email}" id="email" class="input-text" placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
-					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-					<i class="fas fa-envelope"></i>
+					<input type="text" name="email" th:field="*{email}" id="email" class="input-text" placeholder="Your Email"  required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+					<div><i class="fas fa-envelope"></i></div>
 				</div>
+				<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red;font-size: 12pt;"></span>
+				
 				<div class="form-row">
 					<label for="password">Password</label>
 					<input type="password" name="password" th:field="*{password}" id="password" class="input-text" placeholder="Your Password" required>
-					 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+					<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 					<i class="fas fa-lock"></i>
 				</div>
 				<div class="form-row-last">

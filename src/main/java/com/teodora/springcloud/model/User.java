@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,7 +27,9 @@ public class User {
 	@Column(name="birth_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
-	@Column(name="email")
+	@Column(name="email",unique=true)
+	@Email
+	@NotEmpty(message = "Email should not be empty")
 	private String email;
 	@Column(name="password")
 	private String password;
