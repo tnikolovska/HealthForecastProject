@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-5/css/fontawesome-all.min.css">
 	<!-- Main Style Css -->
     <link rel="stylesheet" href="css/style.css"/>
+    	
 </head>
 <body class="form-v5">
 	<div class="page-content">
@@ -40,7 +41,6 @@
 					<div><i class="fas fa-envelope"></i></div>
 				</div>
 				<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red;font-size: 12pt;"></span>
-				
 				<div class="form-row">
 					<label for="password">Password</label>
 					<input type="password" name="password" th:field="*{password}" id="password" class="input-text" placeholder="Your Password" required>
@@ -53,5 +53,7 @@
 			</form>
 		</div>
 	</div>
+                
+
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

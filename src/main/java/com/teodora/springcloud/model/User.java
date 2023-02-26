@@ -1,5 +1,5 @@
 package com.teodora.springcloud.model;
-
+import com.teodora.springcloud.annotations.*;
 
 import java.util.Date;
 
@@ -9,10 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.teodora.springcloud.annotations.ValidPassword;
+
+import lombok.NonNull;
 
 @Entity
 @Table(name="user")
@@ -32,6 +38,7 @@ public class User {
 	@NotEmpty(message = "Email should not be empty")
 	private String email;
 	@Column(name="password")
+	@ValidPassword
 	private String password;
 	public User(){}
 	public User(String firstName,String lastName, Date birthDate, String email, String password){
