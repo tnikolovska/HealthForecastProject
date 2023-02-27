@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.LocaleEditor;
+import org.springframework.boot.context.properties.bind.Bindable.BindRestriction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,9 +35,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.teodora.springcloud.annotations.ValidPassword;
 import com.teodora.springcloud.exception.ErrorResponse;
 import com.teodora.springcloud.exception.UserAlreadyExistsException;
 import com.teodora.springcloud.model.User;
@@ -139,23 +142,29 @@ public class UserRestController {
 		User user = new User();
 		model.addAttribute("user",user);
 		model.addAttribute("existedUsername",null);
-		return "user-register";
-	    }
+		//return "user-register";
+		return "register-user";
+	}
 	
 	@PostMapping("/createuser")
 	public String createUser(@ModelAttribute("user") @Validated @Valid User user, RedirectAttributes redirectAttributes,Model model,BindingResult bindingResult) {
 		User existedUsername = repo.findByEmail(user.getEmail());
-		model.addAttribute("existedUsername",existedUsername);
 		if(existedUsername!=null) {
+			model.addAttribute("existedUsername",existedUsername);
 			bindingResult.rejectValue("email", null,"There is already an account registered with the same email");
 			}
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("user",user);
-			return "user-register";
+			//return "user-register";
+			return "register-user";
 		}
 		userService.registerUser(user);
 		redirectAttributes.addAttribute("id", user.getId());
 		return "redirect:/user/{id}";
+	}
+	@GetMapping("/login")
+	public String usrrLogin() {
+		return "login";
 	}
 	
 	@ExceptionHandler(value=UserAlreadyExistsException.class)

@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,7 +39,7 @@ public class User {
 	@NotEmpty(message = "Email should not be empty")
 	private String email;
 	@Column(name="password")
-	@ValidPassword
+	//@ValidPassword
 	private String password;
 	public User(){}
 	public User(String firstName,String lastName, Date birthDate, String email, String password){
