@@ -1,6 +1,11 @@
 package com.teodora.springcloud.controllers;
 
 import java.text.ParseException;
+
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,7 +113,8 @@ public class UserRestController {
 		//users=userService.getUsers();
 		//List<String> names=categories.stream().map(Category::getName).collect(Collectors.toList());
 		model.addAttribute("users",users);
-		return "user-list";
+		//return "user-list";
+		return "Users";
 	}
 	@GetMapping("/edit-user/{id}")
 	public String showUpdateForm(@PathVariable("id")Long id,Model model) {
@@ -162,10 +168,29 @@ public class UserRestController {
 		redirectAttributes.addAttribute("id", user.getId());
 		return "redirect:/user/{id}";
 	}
-	@GetMapping("/login")
-	public String usrrLogin() {
+	/*@GetMapping("/login")
+	public String login() {
 		return "login";
-	}
+	}*/
+	 @RequestMapping("/login")
+	    public String login() {
+	        return "login";
+	    }
+	 private Optional<String> getDomain() {
+	        Authentication auth = SecurityContextHolder.getContext()
+	            .getAuthentication(); 
+	        String domain = null;
+	        if (auth != null && !auth.getClass().equals(AnonymousAuthenticationToken.class)) {
+	            User user = (User) auth.getPrincipal();
+	            domain = user.getEmail();
+	        }
+	        return Optional.ofNullable(domain);
+	    }
+	
+	/*@GetMapping("/login-user")
+	public String userLogin() {
+		return "login";
+	}*/
 	
 	@ExceptionHandler(value=UserAlreadyExistsException.class)
 	@ResponseStatus(HttpStatus.CONFLICT)

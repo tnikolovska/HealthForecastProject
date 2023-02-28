@@ -16,9 +16,9 @@ public class HealthforecastprojectApplication {
 		
 		
 	}
-	@Bean
+	/*@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	}
+	}*/
 
 }

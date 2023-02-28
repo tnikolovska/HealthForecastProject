@@ -91,7 +91,8 @@ public class CategoryRestController {
 		//categories=categoryService.getCategories();
 		//List<String> names=categories.stream().map(Category::getName).collect(Collectors.toList());
 		model.addAttribute("categories",categories);
-		return "category-list";
+		//return "category-list";
+		return "Categories";
 	}
 	@GetMapping("/edit/{id}")
 	public String showUpdateForm(@PathVariable("id")Long id,Model model) {

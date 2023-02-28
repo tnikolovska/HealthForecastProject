@@ -83,7 +83,8 @@ public class HealthConditionRestController {
 		//healthConditions=getHealthConditions();
 		healthConditions=repo.findAll();
 		model.addAttribute("healthConditions",healthConditions);
-		return "healthCondition-list";
+		//return "healthCondition-list";
+		return "Health-Conditions";
 	}
 	@GetMapping("/edit-healthCondition/{id}")
 	public String showHealthConditionUpdateForm(@PathVariable("id")Long id,Model model) {

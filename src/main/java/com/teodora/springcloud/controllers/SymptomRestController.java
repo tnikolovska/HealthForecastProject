@@ -76,7 +76,8 @@ public class SymptomRestController {
 		//symptoms=getSymptoms();
 		symptoms=repo.findAll();
 		model.addAttribute("symptoms",symptoms);
-		return "symptom-list";
+		//return "symptom-list";
+		return "Symptoms";
 	}
 	@GetMapping("/edit-symptom/{id}")
 	public String showSymptomUpdateForm(@PathVariable("id")Long id,Model model) {

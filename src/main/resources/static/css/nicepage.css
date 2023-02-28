@@ -40580,10 +40580,11 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-menu-1 {
-  margin: -26px 0 22px auto;
+  margin: -4px 0 0 auto;
 }
 
 .u-header .u-nav-1 {
+  font-weight: 700;
   font-size: 1rem;
 }
 
@@ -40597,11 +40598,13 @@ a.u-link.u-text-hover-grey-90:hover {
 
   .u-header .u-menu-1 {
     width: auto;
-    margin-top: -26px;
+    margin-top: -4px;
+    margin-right: 0;
   }
 
   .u-header .u-nav-1 {
     letter-spacing: normal;
+    text-transform: none;
   }
 }
 
