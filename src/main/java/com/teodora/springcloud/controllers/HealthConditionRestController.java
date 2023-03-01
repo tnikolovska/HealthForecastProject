@@ -74,8 +74,9 @@ public class HealthConditionRestController {
 		model.addAttribute("name", healthCondition.getName());
 		model.addAttribute("description", healthCondition.getDescription());
 		model.addAttribute("symptoms",symptoms);
-		return "healthCondition";
-		
+		//return "healthCondition";
+		return "About-Health-Condition";
+		//return "newFile";
 	}
 	@GetMapping("healthCondition-list")
 	public String healthConditions(Model model) {
@@ -130,7 +131,9 @@ public class HealthConditionRestController {
 		symptom.setHealthCondition(healthCondition);
 		model.addAttribute("symptom",symptom);
 		model.addAttribute("healthcondition_id",healthCondition.getId());
-		return "create-symptom";
+		//return "Create-Symptom";
+		//return "symptom-create";
+		return "newFile";
 	}
 	
 	

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.teodora.springcloud.model.HealthCondition;
 import com.teodora.springcloud.model.Symptom;
+import com.teodora.springcloud.repos.HealthConditionRepo;
 import com.teodora.springcloud.repos.SymptomRepo;
 
 @Controller
@@ -28,6 +29,8 @@ public class SymptomRestController {
 	
 	@Autowired
 	SymptomRepo repo;
+	@Autowired
+	HealthConditionRepo healthRepo;
 	
 	@RequestMapping(value = "/symptoms", method = RequestMethod.POST)
 	public Symptom create(@RequestBody Symptom symptom) {
@@ -108,24 +111,34 @@ public class SymptomRestController {
 		Symptom symptom = new Symptom();
 		model.addAttribute("symptom",symptom);
 		return "create-symptom";
-	    }
+	}
 	
 	@PostMapping("/create-symptom")
 	public String createSymptom(@ModelAttribute("symptom") Symptom symptom) {
 		//create(symptom);
+		//HealthCondition healthCondition = healthRepo.getReferenceById(Long.parseLong(model.getAttribute("healthCondition_id").toString()));
+		//Hea
+		//symptom.setHealthCondition(healthCondition);
 		repo.save(symptom);
-		return "redirect:/symptom-list";
+		//return "redirect:/symptom-list";
+		return "redirect:/healthCondition?id="+symptom.getHealthCondition().getId();
 	}
-	/*@GetMapping("/create-healthConditionSymptom")
-	public String createHealthConditionSymptom(@ModelAttribute("symptom") Symptom symptom) {
-		create(symptom);
-		return "redirect:/symptom-list";
-	}*/
+	@GetMapping("/create-healthConditionSymptom/{id}")
+	public String createHealthConditionSymptom(@PathVariable("id") Long id,Model model) {
+		//create(symptom);
+		Symptom symptom = new Symptom();
+		HealthCondition healthCondition = healthRepo.getReferenceById(id);
+		symptom.setHealthCondition(healthCondition);
+		model.addAttribute("symptom",symptom);
+		//model.addAttribute("healthConditionName",healthCondition.getId());
+		//return "Create-Symptom";
+		return "Create-Symptom";
+		}
 	
-	/*@GetMapping("/createHealthConditionSymptomView")
+	/*@GetMapping("/createHealthConditionSymptomView/{id}")
 	public String createHealthConditionSymptom(@PathVariable("id") Long id,Model model) {
 		Symptom symptom = new Symptom();
-		//HealthCondition healthCondition=getHealthCondition(id);
+		HealthCondition healthCondition=healthRepo.getReferenceById(id);
 		model.addAttribute("symptom",symptom);
 		model.addAttribute("healthCondition",healthCondition);
 		return "create-healthConditionSymptom";

@@ -2,11 +2,12 @@
 <html style="font-size: 16px;" lang="en"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="">
+    <meta name="keywords" content="About Health Conition">
     <meta name="description" content="">
-    <title>Users</title>
+    <title>Add new Symptom</title>
     <link rel="stylesheet" href="css/nicepage.css" media="screen">
-<link rel="stylesheet" href="css/Users.css" media="screen">
+	<!--<link rel="stylesheet" href="css/About-Health-Condition.css" media="screen">-->
+    <link rel="stylesheet" href="css/Create-Symptom.css" media="screen">
     <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
@@ -20,7 +21,7 @@
 		"logo": "images/75282331-0.png"
 }</script>
     <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="Users">
+    <meta property="og:title" content="About Health Condition">
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
   <body class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-ad7c"><div class="u-clearfix u-sheet u-valign-bottom u-sheet-1">
@@ -65,54 +66,27 @@
           </div>
         </nav>
       </div></header>
-    <!--<section class="u-clearfix u-section-1" id="sec-57d3">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <ul class="u-spacing-11 u-text u-text-1" data-animation-name="" data-animation-direction="" data-animation-duration="0">
-          <li style="padding-left: 0px;">Sample Item 1</li>
-          <li style="padding-left: 0px;">Sample Item 2</li>
-          <li style="padding-left: 0px;">Sample Item 3</li>
-        </ul>
-      </div>
-    </section>-->
-    <!--<section class="u-align-center u-clearfix u-section-1" id="sec-6570">sec-57d3-->
-    <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-align-center u-clearfix u-section-1" id="sec-57d3">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-align-left u-text u-text-1">Users</h2>
-        <div class="u-expanded-width u-table u-table-responsive u-table-1">
-        	<div th:if="${ not#lists.isEmpty(users)}">
-        		<table class="u-table-entity u-table-entity-1">
-        			 <colgroup>
-		              <col width="20%">
-		              <col width="20%">
-		              <col width="20%">
-		              <col width="20%">
-		              <col width="20%">
-		              
-            </colgroup>
-            <thead class="u-palette-4-base u-table-header u-table-header-1">
-              <tr style="height: 21px;">
-                <th class="u-border-1 u-border-palette-4-base u-table-cell">First Name</th>
-                <th class="u-border-1 u-border-palette-4-base u-table-cell">Last Name</th>
-                <th class="u-border-1 u-border-palette-4-base u-table-cell">Date of Birth</th>
-                <th class="u-border-1 u-border-palette-4-base u-table-cell">Email</th>
-                <th class="u-border-1 u-border-palette-4-base u-table-cell">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-            	<tr th:each="user : ${users}">
-                <td class="u-border-1 u-border-grey-30 u-first-column u-grey-5 u-table-cell u-table-cell-6" th:text="${user.firstName}"></td>
-                <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${user.lastName}"></td>
-                <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${user.birthDate}"></td>
-                <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${user.email}"></td>
-                <!--<td class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/edit/{id}(id=${category.id})}">Modify</a></td>-->
-                <td class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/delete-user/{id}(id=${user.id})}">Delete</a></td>
-            	</tr>
-            </tbody>
-        	</table>
-        	</div>
-        </div>
-      </div>
-    </section>
+     <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-align-left u-clearfix u-section-1" id="sec-ba93">
+	<div class container>
+   <form action="#"
+  th:action="@{/create-symptom}" 
+  th:object="${symptom}"
+  method="post">
+  	<p th:text="${symptom.healthCondition.name}"><p>
+  	<!--input type="text" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition.id}">-->
+    <input type="hidden" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition_id}"/>
+    <label for="name">Name</label>
+    <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <label for="description">Description</label>
+    <input type="text"class="form-control" th:field="*{description}" id="description" placeholder="Description">
+    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+    <!--<input type="text" th:field="*{healthcondition_id}" id="healthcondition_id" placeholder="Health Condition">
+    <span th:if="${#fields.hasErrors('healthcondition_id')}" th:errors="*{healthcondition_id}"></span>-->
+    <input type="submit" class="btn btn-primary" value="Create Symptom">   
+</form>
+</div>
+</section>
     
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-566e"><div class="u-clearfix u-sheet u-sheet-1">
@@ -122,14 +96,14 @@
         </p>
       </div></footer>
     <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/html-templates" target="_blank">
-        <span>HTML Website Templates</span>
+      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
+        <span>Website Template</span>
       </a>
       <p class="u-text">
         <span>created with</span>
       </p>
-      <a class="u-link" href="" target="_blank">
-        <span>Web Design Software</span>
+      <a class="u-link" href="https://nicepage.com/wysiwyg-html-editor" target="_blank">
+        <span>WYSIWYG HTML Editor</span>
       </a>. 
     </section>
   
