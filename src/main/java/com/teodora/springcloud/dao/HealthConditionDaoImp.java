@@ -79,6 +79,8 @@ public class HealthConditionDaoImp implements HealthConditionDao {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		List<Symptom> symptoms = session.createQuery("from Symptom s where s.healthCondition.id=:id",Symptom.class).setParameter("id",id).getResultList();
+		session.getTransaction().commit();
+		session.close();
 		return symptoms;
 	}
 

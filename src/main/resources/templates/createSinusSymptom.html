@@ -12,7 +12,7 @@
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
     <meta name="referrer" content="origin">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
     
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
@@ -68,12 +68,11 @@
           </div>
         </nav>
       </div></header>
-    <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-clearfix u-section-1" id="sec-062c">
-    <!--<section class="u-clearfix u-section-1" id="sec-789f">-->
+    <section class="u-clearfix u-section-1" id="sec-789f">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <h2 class="u-text u-text-default u-text-1">Add Symptom</h2>
         <div class="u-form u-form-1">
-          <!--<form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form" style="padding: 10px;">
+         <!-- <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form" style="padding: 10px;">
             <div class="u-form-group u-form-name">
               <label for="name-cc31" class="u-label">Name</label>
               <input type="text" placeholder="Name" id="name-cc31" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
@@ -81,14 +80,6 @@
             <div class="u-form-group u-form-message">
               <label for="email-cc31" class="u-label">Description</label>
               <textarea placeholder="Description" id="email-cc31" name="description" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required"></textarea>
-            </div>
-            <div class="u-form-group u-form-message">
-              <label for="healthCondition" class="u-label form-control">Health Condition</label>
-			  <select name="healthCondition_id" id="healthCondition_id" placholder="Health Condition" class="u-border-1 u-border-grey-30" required="required">
-			  	<option value="2">Migraine headache</option>
-			  	<option value="3">Sinus Headache</option>
-			  	<option value="4">Arthritis Pain</option>
-			  </select>
             </div>
             <div class="u-align-left u-form-group u-form-submit">
               <a href="#" class="u-btn u-btn-submit u-button-style u-btn-1">Submit</a>
@@ -99,50 +90,13 @@
             <input type="hidden" value="" name="recaptchaResponse">
             <input type="hidden" name="formServices" value="48b225a8e324e735a6d8b6a384dd508f">
           </form>-->
-       <div class container>
-	   <form action="#"
-	  th:action="@{/create-symptom}" 
-	  th:object="${symptom}"
-	  method="post">
-	  	<!--<p th:text="${symptom.healthCondition.name}"><p>-->
-	  	<!--input type="text" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition.id}">-->
-	   <!-- <input type="hidden" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition_id}"/>-->
-	    <div class="form-group">
-	    <label for="name">Name</label>
-	    <input type="text" class="form-control form-control-lg" th:field="*{name}" id="name" placeholder="Name">
-	    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-	    </div>
-	    <div class="form-group">
-	    <label for="description">Description</label>
-	    <input type="text"class="form-control form-control-lg" th:field="*{description}" id="description" placeholder="Description">
-	    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
-	    </div>
-	    <!--<input type="text" th:field="*{healthcondition_id}" id="healthcondition_id" placeholder="Health Condition">
-	    <span th:if="${#fields.hasErrors('healthcondition_id')}" th:errors="*{healthcondition_id}"></span>-->
-	    <div class="form-group">
-	    <label for="healthCondition.id">Health Condition</label>
-	    <!--<input type="text" class="form-control" th:field="*{healthCondition}" id="healthCondition" placeholder="Health Condition">-->
-	   	<select class="form-control form-control-lg" th:field="*{healthCondition.id}" id="healthCondition" placeholder="Health Condition">
-	   		<option value="2">Migraine headache</option>
-	   		<option value="3">Sinus Headache</option>
-	   		<option value="4">Arthritis Pain</option>
-	   	</select>
-	   </div>
-	   <!-- <span th:if="${#fields.hasErrors('healthCondition')}" th:errors="*{healthCondition}"></span>-->
-	    <!--<label for="healthCondition">Health Condition</label>
-	    <select class = "form-control" th:field="*{healthCondition.name} id="healthCondition">
-	    	<option >
-	    </select>-->
-	    <input type="submit" class="btn btn-primary" value="Create Symptom">   
-	</form>
-	</div>
-        <!--  <div class container>
+           <div class container>
 	   <form action="#"
 	  th:action="@{/create-symptom}" 
 	  th:object="${symptom}"
 	  method="post">
 	  	<p th:text="${symptom.healthCondition.name}"><p>
-	  	<!--input type="text" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition.id}">
+	  	<!--input type="text" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition.id}">-->
 	    <input type="hidden" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition_id}"/>
 	    <label for="name">Name</label>
 	    <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name">
@@ -151,11 +105,10 @@
 	    <input type="text"class="form-control" th:field="*{description}" id="description" placeholder="Description">
 	    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
 	    <!--<input type="text" th:field="*{healthcondition_id}" id="healthcondition_id" placeholder="Health Condition">
-	    <span th:if="${#fields.hasErrors('healthcondition_id')}" th:errors="*{healthcondition_id}"></span>
+	    <span th:if="${#fields.hasErrors('healthcondition_id')}" th:errors="*{healthcondition_id}"></span>-->
 	    <input type="submit" class="btn btn-primary" value="Create Symptom">   
 	</form>
-</div>-->
-          
+</div>
         </div>
       </div>
     </section>

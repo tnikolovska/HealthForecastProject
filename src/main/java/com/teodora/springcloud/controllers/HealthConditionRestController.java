@@ -74,6 +74,7 @@ public class HealthConditionRestController {
 		model.addAttribute("name", healthCondition.getName());
 		model.addAttribute("description", healthCondition.getDescription());
 		model.addAttribute("symptoms",symptoms);
+		model.addAttribute("id",id);
 		//return "healthCondition";
 		return "About-Health-Condition";
 		//return "newFile";

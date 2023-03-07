@@ -100,6 +100,7 @@ public class CategoryRestController {
 		Category updateCategory = repo.getReferenceById(id);
 		//Category updateCategory=(Category)categoryService.getCategory(id);
 		model.addAttribute("category",updateCategory);
+		//return "update-category";
 		return "update-category";
 	}
 	@PostMapping("/update/{id}")

@@ -18,5 +18,6 @@
   <mapping class="com.teodora.springcloud.model.Symptom"/>
   <mapping class="com.teodora.springcloud.model.User"/>
   <mapping class="com.teodora.springcloud.model.UserHealthCondition"/>
+  <mapping class="com.teodora.springcloud.model.UserHealthConditionSymptom"/>
 </session-factory>
 </hibernate-configuration>

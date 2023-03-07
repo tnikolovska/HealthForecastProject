@@ -17,7 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.teodora.springcloud.dao.HealthConditionDao;
+import com.teodora.springcloud.model.HealthCondition;
+import com.teodora.springcloud.model.Symptom;
 import com.teodora.springcloud.model.UserHealthCondition;
+import com.teodora.springcloud.repos.CategoryRepo;
+import com.teodora.springcloud.repos.HealthConditionRepo;
 import com.teodora.springcloud.repos.UserHealthConditionRepo;
 
 
@@ -26,6 +31,13 @@ import com.teodora.springcloud.repos.UserHealthConditionRepo;
 public class UserHealthConditionRestController {
 	@Autowired
 	UserHealthConditionRepo repo;
+	
+	
+	@Autowired
+	HealthConditionRepo healthrepo;
+	
+	@Autowired
+	HealthConditionDao healthConditionDao;
 	
 	@RequestMapping(value = "/userhealthconditions", method = RequestMethod.POST)
 	public UserHealthCondition create(@RequestBody UserHealthCondition userHealthCondition) {
@@ -115,5 +127,8 @@ public class UserHealthConditionRestController {
 		repo.save(userHealthCondition);
 		return "redirect:/userHealthCondition-list";
 	}
+	
+	
+	
 	
 }

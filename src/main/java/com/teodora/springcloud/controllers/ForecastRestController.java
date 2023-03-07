@@ -23,7 +23,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,9 +34,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.teodora.springcloud.dao.CategoryDao;
 import com.teodora.springcloud.dao.ForecastDao;
+import com.teodora.springcloud.dao.HealthConditionDao;
 import com.teodora.springcloud.model.Category;
 import com.teodora.springcloud.model.Forecast;
 import com.teodora.springcloud.model.HealthCondition;
+import com.teodora.springcloud.model.Symptom;
 import com.teodora.springcloud.repos.CategoryRepo;
 import com.teodora.springcloud.repos.ForecastRepo;
 import com.teodora.springcloud.repos.HealthConditionRepo;
@@ -59,6 +63,9 @@ public class ForecastRestController {
 	
 	@Autowired
 	CategoryRepo categoryRepo;
+	
+	@Autowired
+	HealthConditionDao healthConditionDao;
 
 	private ArrayList<Forecast> forecastArrayList = new ArrayList<>();
 	
@@ -87,6 +94,8 @@ public class ForecastRestController {
 		return repo.findAll();
 		
 	}
+	
+	
 
 	@RequestMapping(value="result",method = RequestMethod.GET)
 	public String getForecastResult(@RequestParam Long id, Model model) throws URISyntaxException, IOException, JSONException, ParseException {
