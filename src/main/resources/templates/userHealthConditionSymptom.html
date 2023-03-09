@@ -13,42 +13,8 @@
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-      <script>
-      		
-      		function selectFunction(){
-			var val = document.getElementById("healthCondition").value;
-            var fieldMigraine = document.getElementById("migraine");
-            var fieldArthritis = document.getElementById("arthritis");
-            var fieldSinus = document.getElementById("sinus");
-            if(val==2){
-            if(fieldMigraine.style.display==="none"){
-				fieldMigraine.style.display="block";
-				fieldArthritis.style.display="none";
-				fieldSinus.style.display="none";
-			}
-		
-          }
-          else if(val==3){
-			  if(fieldSinus.style.display==="none"){
-				  fieldSinus.style.display="block";
-				  fieldArthritis.style.display="none";
-				  fieldMigraine.style.display="none";
-			  }
-		  }
-		  else if(val==4){
-			  if(fieldArthritis.style.display==="none"){
-				  fieldArthritis.style.display="block";
-				  fieldSinus.style.display="none";
-				  fieldMigraine.style.display="none";
-			  }
-			 
-		  }
-				  
-			  }
-        
-      </script>
-    
+  	<script>
+  	</script>
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
 		"@type": "Organization",
@@ -108,45 +74,15 @@
        		<h2 class="u-text u-text-default u-text-1">User's Health Condition </h2>
       <div class="u-form u-form-1">
        <div class container>
-	   <form action="#"
-	  th:action="@{/determine-user-health}" 
-	  th:object="${userHealthConditionSymptom}"
-	  method="post">
 	    <div class="form-group">
-	    <label for="healthCondition.id">Health Condition</label>
-	   	<select onclick="selectFunction()" class="form-control form-control-lg" th:field="*{healthCondition.id}" id="healthCondition" placeholder="Health Condition">
-	   		<option value="">Please choose an option</option>
-	   		<option value="2">Migraine headache</option>
-	   		<option value="3">Sinus Headache</option>
-	   		<option value="4">Arthritis Pain</option>
-	   	</select>
+	   	<p th:text="${userHealthConditionSymptom.healthCondition.name}"></p>
 	   </div>
-		<div th:if="${ not#lists.isEmpty(arthritisSymptoms)}" id="arthritis" style="display: none;">
+		<div th:if="${ not#lists.isEmpty(userSymptoms)}" id="userSymptoms">
 		    <ul>
-		       <li th:each="item : ${arthritisSymptoms}">
-		         <input type="checkbox" th:field="*{userSymptoms}" th:value="${item}"/>
-		         <label th:for="${#ids.prev('userSymptoms')}" th:text="${item}"></label>
+		       <li th:each="item : ${userSymptoms}" th:text="${item}"> 
 		      </li>
 		   </ul>
-		</div>
-		<div th:if="${ not#lists.isEmpty(migraineSymptoms)}" id="migraine" style="display: none;">
-		    <ul>
-		       <li th:each="item : ${migraineSymptoms}">
-		         <input type="checkbox" th:field="*{userSymptoms}" th:value="${item}"/>
-		         <label th:for="${#ids.prev('userSymptoms')}" th:text="${item}"></label>
-		      </li>
-		   </ul>
-		</div>
-		<div th:if="${ not#lists.isEmpty(sinusSymptoms)}" id="sinus" style="display: none;">
-		    <ul>
-		       <li th:each="item : ${sinusSymptoms}">
-		         <input type="checkbox" th:field="*{userSymptoms}" th:value="${item}"/>
-		         <label th:for="${#ids.prev('userSymptoms')}" th:text="${item}"></label>
-		      </li>
-		   </ul>
-		</div>
-	    <input type="submit" class="btn btn-primary" value="Submit">   
-	</form>
+		</div> 
 	</div>
 	</div>
       </div>

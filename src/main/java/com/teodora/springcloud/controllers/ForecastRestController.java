@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teodora.springcloud.dao.CategoryDao;
 import com.teodora.springcloud.dao.ForecastDao;
@@ -96,9 +97,10 @@ public class ForecastRestController {
 	}
 	
 	
-
-	@RequestMapping(value="result",method = RequestMethod.GET)
-	public String getForecastResult(@RequestParam Long id, Model model) throws URISyntaxException, IOException, JSONException, ParseException {
+	
+	//@GetMapping("/result/{id}")
+	@RequestMapping(value="/result/{id}", method = RequestMethod.GET)
+	public String getForecastResult(@PathVariable("id")Long id, Model model, RedirectAttributes redirectAttributes) throws URISyntaxException, IOException, JSONException, ParseException {
 		//HealthCondition healthCondition = dao.getHealthCondition(id);
 		HealthCondition healthCondition = healthrepo.getReferenceById(id);
 		//System.out.println(healthCondition.getName());
