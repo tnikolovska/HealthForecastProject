@@ -31,15 +31,21 @@ public class UserHealthConditionSymptom {
 	@JoinColumn(name="healthcondition_id",referencedColumnName = "id")
 	private HealthCondition healthCondition;
 	@Transient
-	private List<String> userSymptoms;
+	private List<String> userMigraineSymptoms;
+	@Transient
+	private List<String> userArthritisSymptoms;
+	@Transient
+	private List<String> userSinusSymptoms;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="user_id",referencedColumnName = "id")
 	private User user;
 	
 	public UserHealthConditionSymptom(){}
-	public UserHealthConditionSymptom(HealthCondition healthCondition,List<String> symptoms, User user){
+	public UserHealthConditionSymptom(HealthCondition healthCondition,List<String> userMigraineSymptoms,List<String> userArthritisSymptoms, List<String> userSinusSymptoms, User user){
 		this.healthCondition=healthCondition;
-		this.userSymptoms=symptoms;
+		this.userMigraineSymptoms=userMigraineSymptoms;
+		this.userArthritisSymptoms=userArthritisSymptoms;
+		this.userSinusSymptoms=userSinusSymptoms;
 		this.user=user;
 	}
 	public Long getId() {
@@ -54,11 +60,26 @@ public class UserHealthConditionSymptom {
 	public void setHealthCondition(HealthCondition healthCondition) {
 		this.healthCondition = healthCondition;
 	}
-	public List<String> getUserSymptoms() {
-		return userSymptoms;
+	
+	
+	
+	public List<String> getUserMigraineSymptoms() {
+		return userMigraineSymptoms;
 	}
-	public void setUserSymptoms(List<String> userSymptoms) {
-		this.userSymptoms = userSymptoms;
+	public void setUserMigraineSymptoms(List<String> userMigraineSymptoms) {
+		this.userMigraineSymptoms = userMigraineSymptoms;
+	}
+	public List<String> getUserArthritisSymptoms() {
+		return userArthritisSymptoms;
+	}
+	public void setUserArthritisSymptoms(List<String> userArthritisSymptoms) {
+		this.userArthritisSymptoms = userArthritisSymptoms;
+	}
+	public List<String> getUserSinusSymptoms() {
+		return userSinusSymptoms;
+	}
+	public void setUserSinusSymptoms(List<String> userSinusSymptoms) {
+		this.userSinusSymptoms = userSinusSymptoms;
 	}
 	public User getUser() {
 		return user;

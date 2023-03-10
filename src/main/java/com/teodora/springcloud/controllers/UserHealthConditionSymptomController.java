@@ -74,39 +74,43 @@ public class UserHealthConditionSymptomController {
 	
 	@PostMapping("/determine-user-health")
 	public String determineUserHealthCondition(@ModelAttribute("userHealthConditionSymptom") UserHealthConditionSymptom userHealthConditionSymptom,Model model, RedirectAttributes redirectAttributes) {
-		HealthCondition healthCondition = healthrepo.getReferenceById(userHealthConditionSymptom.getHealthCondition().getId());
-		/*Object listArthritis = model.getAttribute("arthritisSymptoms");
-		Object listMigraine = model.getAttribute("migraineSymptoms");
-		Object listSinus = model.getAttribute("sinusSymptoms");*/
-		//userHealthConditionSymptom.setUserSymptoms(new ArrayList<String>());
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = auth.getPrincipal().toString();
-		User user = userRepo.findByEmail(username);
-		userHealthConditionSymptom.setHealthCondition(healthCondition);
-		userHealthConditionSymptom.setUser(user);
-		//List<String> userSymptoms = userHealthConditionSymptom.getUserSymptoms();
-		//userHealthConditionSymptom.setUserSymptoms(userSymptoms);
-		model.addAttribute("userHealthConditionSymptom",userHealthConditionSymptom);
-		model.addAttribute("userSymptoms",userHealthConditionSymptom.getUserSymptoms());
-		
-		//userSymptoms = new ArrayList<String>();
-		//redirectAttributes.addAttribute("id", healthCondition.getId());
-		if(healthCondition.getName().equals("Arthritis Pain")) {
-			if(userHealthConditionSymptom.getUserSymptoms().size()>0) {
-				userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
-				return "redirect:/result/"+healthCondition.getId();
+		if(userHealthConditionSymptom.getHealthCondition().getId()!=null) {
+			HealthCondition healthCondition = healthrepo.getReferenceById(userHealthConditionSymptom.getHealthCondition().getId());
+			/*Object listArthritis = model.getAttribute("arthritisSymptoms");
+			Object listMigraine = model.getAttribute("migraineSymptoms");
+			Object listSinus = model.getAttribute("sinusSymptoms");*/
+			//userHealthConditionSymptom.setUserSymptoms(new ArrayList<String>());
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String username = auth.getPrincipal().toString();
+			User user = userRepo.findByEmail(username);
+			userHealthConditionSymptom.setHealthCondition(healthCondition);
+			userHealthConditionSymptom.setUser(user);
+			//List<String> userSymptoms = userHealthConditionSymptom.getUserSymptoms();
+			//userHealthConditionSymptom.setUserSymptoms(userSymptoms);
+			model.addAttribute("userHealthConditionSymptom",userHealthConditionSymptom);
+			model.addAttribute("userMigraineSymptoms",userHealthConditionSymptom.getUserMigraineSymptoms());
+			model.addAttribute("userArthritisSymptoms",userHealthConditionSymptom.getUserArthritisSymptoms());
+			model.addAttribute("userSinusSymptoms",userHealthConditionSymptom.getUserSinusSymptoms());
+			
+			//userSymptoms = new ArrayList<String>();
+			//redirectAttributes.addAttribute("id", healthCondition.getId());
+			if(healthCondition.getName().equals("Arthritis Pain")) {
+				if(userHealthConditionSymptom.getUserArthritisSymptoms().size()>0) {
+					userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
+					return "redirect:/result/"+healthCondition.getId();
+				}
 			}
-		}
-		else if(healthCondition.getName().equals("Migraine Headache")) {
-			if(userHealthConditionSymptom.getUserSymptoms().size()>0) {
-				userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
-				return "redirect:/result/"+healthCondition.getId();
+			else if(healthCondition.getName().equals("Migraine Headache")) {
+				if(userHealthConditionSymptom.getUserMigraineSymptoms().size()>0) {
+					userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
+					return "redirect:/result/"+healthCondition.getId();
+				}
 			}
-		}
-		else if(healthCondition.getName().equals("Sinus Headache")){
-			if(userHealthConditionSymptom.getUserSymptoms().size()>0) {
-				userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
-				return "redirect:/result/"+healthCondition.getId();
+			else if(healthCondition.getName().equals("Sinus Headache")){
+				if(userHealthConditionSymptom.getUserSinusSymptoms().size()>0) {
+					userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
+					return "redirect:/result/"+healthCondition.getId();
+				}
 			}
 		}
 		

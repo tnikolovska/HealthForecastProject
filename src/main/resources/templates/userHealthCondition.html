@@ -15,7 +15,6 @@
   	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
       <script>
-      		
       		function selectFunction(){
 			var val = document.getElementById("healthCondition").value;
             var fieldMigraine = document.getElementById("migraine");
@@ -105,7 +104,7 @@
       </div></header>
    <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-align-left u-clearfix u-image u-section-1">
       <div class="u-clearfix u-sheet u-sheet-1 u-valign-middle">
-       		<h2 class="u-text u-text-default u-text-1">User's Health Condition </h2>
+       		<h3 class="u-text u-text-default u-text-1">Choose any of your diagnosed health condition </h3>
       <div class="u-form u-form-1">
        <div class container>
 	   <form action="#"
@@ -124,24 +123,24 @@
 		<div th:if="${ not#lists.isEmpty(arthritisSymptoms)}" id="arthritis" style="display: none;">
 		    <ul>
 		       <li th:each="item : ${arthritisSymptoms}">
-		         <input type="checkbox" th:field="*{userSymptoms}" th:value="${item}"/>
-		         <label th:for="${#ids.prev('userSymptoms')}" th:text="${item}"></label>
+		         <input type="checkbox" th:field="*{userArthritisSymptoms}" th:value="${item}"/>
+		         <label th:for="${#ids.prev('userArthritisSymptoms')}" th:text="${item}"></label>
 		      </li>
 		   </ul>
 		</div>
 		<div th:if="${ not#lists.isEmpty(migraineSymptoms)}" id="migraine" style="display: none;">
 		    <ul>
 		       <li th:each="item : ${migraineSymptoms}">
-		         <input type="checkbox" th:field="*{userSymptoms}" th:value="${item}"/>
-		         <label th:for="${#ids.prev('userSymptoms')}" th:text="${item}"></label>
+		         <input type="checkbox" th:field="*{userMigraineSymptoms}" th:value="${item}"/>
+		         <label th:for="${#ids.prev('userMigraineSymptoms')}" th:text="${item}"></label>
 		      </li>
 		   </ul>
 		</div>
 		<div th:if="${ not#lists.isEmpty(sinusSymptoms)}" id="sinus" style="display: none;">
 		    <ul>
 		       <li th:each="item : ${sinusSymptoms}">
-		         <input type="checkbox" th:field="*{userSymptoms}" th:value="${item}"/>
-		         <label th:for="${#ids.prev('userSymptoms')}" th:text="${item}"></label>
+		         <input type="checkbox" th:field="*{userSinusSymptoms}" th:value="${item}"/>
+		         <label th:for="${#ids.prev('userSinusSymptoms')}" th:text="${item}"></label>
 		      </li>
 		   </ul>
 		</div>

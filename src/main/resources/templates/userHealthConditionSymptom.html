@@ -77,9 +77,21 @@
 	    <div class="form-group">
 	   	<p th:text="${userHealthConditionSymptom.healthCondition.name}"></p>
 	   </div>
-		<div th:if="${ not#lists.isEmpty(userSymptoms)}" id="userSymptoms">
+		<div th:if="${ not#lists.isEmpty(userMigraineSymptoms)}" id="userMigraineSymptoms">
 		    <ul>
-		       <li th:each="item : ${userSymptoms}" th:text="${item}"> 
+		       <li th:each="item : ${userMigraineSymptoms}" th:text="${item}"> 
+		      </li>
+		   </ul>
+		</div> 
+		<div th:if="${ not#lists.isEmpty(userArthritisSymptoms)}" id="userArthritisSymptoms">
+		    <ul>
+		       <li th:each="item : ${userArthritisSymptoms}" th:text="${item}"> 
+		      </li>
+		   </ul>
+		</div> 
+		<div th:if="${ not#lists.isEmpty(userSinusSymptoms)}" id="userSinusSymptoms">
+		    <ul>
+		       <li th:each="item : ${userSinusSymptoms}" th:text="${item}"> 
 		      </li>
 		   </ul>
 		</div> 
