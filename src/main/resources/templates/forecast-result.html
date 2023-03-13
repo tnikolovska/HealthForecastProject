@@ -7,9 +7,13 @@
     <title>Create Symptom</title>
     <link rel="stylesheet" th:href="@{/css/ForecastResult.css}" media="screen">
     <link rel="stylesheet" th:href="@{/css/nicepage.css}" media="screen">
-    
+    <link rel="stylesheet" th:href="@{/css/Categories.css}" media="screen">
 	<link rel="stylesheet" th:href="@{/css/Create-Symptom.css}" media="screen">
-
+	<style>
+		table, th, td {
+		  border: 1px solid;
+		}
+	</style>
     <!--<script class="u-script" type="text/javascript" src="@{/js/jquery.js}" defer=""></script>
     <script class="u-script" type="text/javascript" src="@{js/nicepage.js}" defer=""></script>-->
     <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}" type="text/javascript"></script>
@@ -73,14 +77,23 @@
           </div>
         </nav>
       </div></header>
- <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-clearfix u-section-1" id="sec-062c">
-        		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        		<h2 class="u-text u-text-default u-text-1">Your 5 day Health Condition Forecast</h2>
+ <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-align-center u-clearfix u-section-1" id="sec-062c">
+        		<!--<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">-->
+        	<div class="u-clearfix u-sheet u-sheet-1">
+	        <h2>Your 5 Day Health Condition Forecast</h2>
+	        <div class="u-expanded-width u-table u-table-responsive u-table-1">
+        		<div th:if="${ not#lists.isEmpty(forecastArrayList)}">
+        		<div class="google-map" id="firstDiv">
+			    	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47440.84007776246!2d21.389870875644732!3d41.99914871465336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135415a58c9aa2a5%3A0xb2ed88c260872020!2z0KHQutC-0L_RmNC1!5e0!3m2!1smk!2smk!4v1678731433625!5m2!1smk!2smk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+				<div id="secondDiv">
+        		<div>
+        		<div th:each="forecast:${forecastArrayList}">
         		<div class="container">
         		<div id="skill">
        			<div class="outer">
        				<div class="inner">
-       					<div id="number">
+       					<div id="number" th:text="${forecast.value}">
        						
        					</div>
        				</div>
@@ -89,31 +102,37 @@
        				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
 			         <defs>
 			            <linearGradient id="GradientColor">
-			               <stop offset="0%" stop-color="#e91e63" />
-			               <stop offset="100%" stop-color="#673ab7" />
+			              <stop th:if="${forecast.value>=1.0} and ${forecast.value<=1.99}" offset="0%" stop-color="#e91e63"/>
+			              <stop th:if="${forecast.value>=1.0} and ${forecast.value<=1.99}" offset="100%" stop-color="#e673ab7"/>
 			            </linearGradient>
 			         </defs>
 			         <circle cx="80" cy="80" r="70" stroke-linecap="round" />
  					</svg>
-       					       			
 				</div>
        			</div>
-       			
-       			
-       			</div>
-       		<script>
+       			</div>	
+        		</div>
+        			
+        		
+    			</div>
+				    		
+    		    	</div>
+    		    	<script>
        			let number = document.getElementById("number");
        			let counter = 0;
        			setInterval(() => {
-					   if(counter == 100){
+					   if(counter == document.getElementById("number").innerText){
 						   clearInterval();
 					   }else{
 						   counter += 1;
-						   number.innerHTML = counter + "%";
+						   number.innerHTML = counter;
 					   }
 					
-				   },20);
+				   },document.getElementById("number").innerText);
        		</script>
+    		</div>
+        		
+       		
        
        
        </section>
