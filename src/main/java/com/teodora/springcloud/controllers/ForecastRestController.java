@@ -150,7 +150,7 @@ public class ForecastRestController {
                  Category category = categoryRepo.findByName(categoryName);
                  forecast.setCategory(category);
                  
-                 String text = resultsObj.getString("Text");
+                 String text = resultsObj.getString("Text").trim();
                  forecast.setText(text);
                  
                  forecastArrayList.add(forecast);

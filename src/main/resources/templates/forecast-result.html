@@ -9,6 +9,8 @@
     <link rel="stylesheet" th:href="@{/css/nicepage.css}" media="screen">
     <link rel="stylesheet" th:href="@{/css/Categories.css}" media="screen">
 	<link rel="stylesheet" th:href="@{/css/Create-Symptom.css}" media="screen">
+	<link rel="stylesheet" th:href="@{/css/Forecast.css}" media="screen">
+
 	<style>
 		table, th, td {
 		  border: 1px solid;
@@ -77,96 +79,265 @@
           </div>
         </nav>
       </div></header>
- <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-align-center u-clearfix u-section-1" id="sec-062c">
-        		<!--<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">-->
-        	<div class="u-clearfix u-sheet u-sheet-1">
-	        <h2>Your 5 Day Health Condition Forecast</h2>
-	        <div class="u-expanded-width u-table u-table-responsive u-table-1">
-        		<div th:if="${ not#lists.isEmpty(forecastArrayList)}">
-        		<div class="google-map" id="firstDiv">
-			    	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47440.84007776246!2d21.389870875644732!3d41.99914871465336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135415a58c9aa2a5%3A0xb2ed88c260872020!2z0KHQutC-0L_RmNC1!5e0!3m2!1smk!2smk!4v1678731433625!5m2!1smk!2smk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-				</div>
-				<div id="secondDiv">
-        		<div>
-        		<div th:each="forecast:${forecastArrayList}">
-        		<div class="container">
-        		<div id="skill">
-       			<div class="outer">
-       				<div class="inner">
-       					<div id="number" th:text="${forecast.value}">
-       						
-       					</div>
-       				</div>
-       			</div>
-       			<div>
-       				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-			         <defs>
-			            <linearGradient id="GradientColor">
-			              <stop th:if="${forecast.value>=1.0} and ${forecast.value<=1.99}" offset="0%" stop-color="#e91e63"/>
-			              <stop th:if="${forecast.value>=1.0} and ${forecast.value<=1.99}" offset="100%" stop-color="#e673ab7"/>
-			            </linearGradient>
-			         </defs>
-			         <circle cx="80" cy="80" r="70" stroke-linecap="round" />
- 					</svg>
-				</div>
-       			</div>
-       			</div>	
-        		</div>
-        			
-        		
-    			</div>
-				    		
-    		    	</div>
-    		    	<script>
-       			let number = document.getElementById("number");
-       			let counter = 0;
-       			setInterval(() => {
-					   if(counter == document.getElementById("number").innerText){
-						   clearInterval();
-					   }else{
-						   counter += 1;
-						   number.innerHTML = counter;
-					   }
-					
-				   },document.getElementById("number").innerText);
-       		</script>
-    		</div>
-        		
-       		
-       
-       
-       </section>
-    <!--ul-->
-    	<!--<th:block th:each="forecast : ${forecastArrayList}">
-    		<li th:text="${forecast.name}"></li>
-    	</th:block>-->
-    	<!--<div th:if="${ not#lists.isEmpty(forecastArrayList)}">
-    		<table>
-    			<thead>
-    			<tr>
-    				<th>Name</th>
-    				<th>Date</th>
-    				<th>Value</th>
-    				<th>Category Name</th>
-    				<th>Category Value</th>
-    				<th>Text</th>
-    				
-    			</tr>
-    			</thead>
-    			<tbody>
-    			<tr th:each="forecast : ${forecastArrayList}">
-    				<td th:text="${forecast.name}"></td>
-    				<td th:text="${forecast.date}"></td>    				
-    				<td th:text="${forecast.value}"></td>
-    				<td th:text="${forecast.categoryName}"></td>
-    				<td th:text="${forecast.categoryValue}"></td>
-    				<td th:text="${forecast.text}"></td>
-    			</tr>
-    			</tbody>
-    		</table>
-    	</div>
-    <!--<ul>-->
- 
+  <section class="u-carousel u-slide u-block-8ddf-1" id="carousel_d1ad" data-interval="5000" data-u-ride="carousel">
+      <ol class="u-absolute-hcenter u-carousel-indicators u-block-8ddf-2">
+        <li data-u-target="#carousel_d1ad" class="u-active u-grey-30" data-u-slide-to="0"></li>
+        <li data-u-target="#carousel_d1ad" class="u-grey-30" data-u-slide-to="1"></li>
+        <li data-u-target="#carousel_d1ad" class="u-grey-30" data-u-slide-to="2"></li>
+        <li data-u-target="#carousel_d1ad" class="u-grey-30" data-u-slide-to="3"></li>
+        <li data-u-target="#carousel_d1ad" class="u-grey-30" data-u-slide-to="4"></li>
+      </ol>
+      <div class="u-carousel-inner" role="listbox">
+        <div class="u-active u-align-left u-carousel-item u-clearfix u-palette-5-base u-section-1-1 u-image-1-1" id="u-section-1-1">
+          <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+              <div class="u-layout">
+                <div class="u-layout-row">
+                  <div class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-1 u-image-1-1" data-image-width="1500" data-image-height="827">
+                    <div class="u-container-layout u-container-layout-1"></div>
+                  </div>
+                  <div class="u-container-style u-layout-cell u-right-cell u-size-40 u-layout-cell-2">
+                    <div class="u-container-layout u-valign-middle u-container-layout-2">
+                      <h2 class="u-text u-text-body-alt-color u-text-1" th:text="${forecastArrayList.get(0).name}"></h2>
+                      <h4 class="u-text u-text-body-alt-color u-text-default u-text-3" th:text="${forecastArrayList.get(0).date}"></h4>
+                      <h3 id="firstCategoryName" class="u-text u-text-body-alt-color u-text-default" th:text="${forecastArrayList.get(0).categoryName}"></h3>
+                      <p class="u-text u-text-body-alt-color u-text-default u-text-2" th:text="${forecastArrayList.get(0).text}"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-align-left u-carousel-item u-clearfix u-palette-5-base u-section-1-2 u-image-1-2">
+          <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+              <div class="u-layout">
+                <div class="u-layout-row">
+                  <div class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-1 u-image-1-2" data-image-width="1500" data-image-height="827">
+                    <div class="u-container-layout u-container-layout-1"></div>
+                  </div>
+                  <div class="u-container-style u-layout-cell u-right-cell u-size-40 u-layout-cell-2">
+                    <div class="u-container-layout u-valign-middle u-container-layout-2">
+                      <h2 class="u-text u-text-body-alt-color u-text-1" th:text="${forecastArrayList.get(1).name}"></h2>
+                      <h4 class="u-text u-text-body-alt-color u-text-default u-text-3" th:text="${forecastArrayList.get(1).date}"></h4>
+                      <h3 id="secondCategoryName" class="u-text u-text-body-alt-color u-text-default" th:text="${forecastArrayList.get(1).categoryName}"></h3>
+                      <p class="u-text u-text-body-alt-color u-text-default u-text-2" th:text="${forecastArrayList.get(1).text}"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-align-left u-carousel-item u-clearfix u-palette-5-base u-section-1-3 u-image-1-3">
+          <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+              <div class="u-layout">
+                <div class="u-layout-row">
+                  <div class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-1 u-image-1-3" data-image-width="1500" data-image-height="827">
+                    <div class="u-container-layout u-container-layout-1"></div>
+                  </div>
+                  <div class="u-container-style u-layout-cell u-right-cell u-size-40 u-layout-cell-2">
+                    <div class="u-container-layout u-valign-middle u-container-layout-2">
+                      <h2 class="u-text u-text-body-alt-color u-text-1" th:text="${forecastArrayList.get(2).name}"></h2>
+                      <h4 class="u-text u-text-body-alt-color u-text-default u-text-3" th:text="${forecastArrayList.get(2).date}"></h4>
+                       <h3 id="thirdCategoryName" class="u-text u-text-body-alt-color u-text-default" th:text="${forecastArrayList.get(2).categoryName}"></h3>
+                      <p class="u-text u-text-body-alt-color u-text-default u-text-2" th:text="${forecastArrayList.get(2).text}"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-align-left u-carousel-item u-clearfix u-palette-5-base u-section-1-4 u-image-1-4">
+          <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+              <div class="u-layout">
+                <div class="u-layout-row">
+                  <div class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-1 u-image-1-4" data-image-width="1500" data-image-height="827">
+                    <div class="u-container-layout u-container-layout-1"></div>
+                  </div>
+                  <div class="u-container-style u-layout-cell u-right-cell u-size-40 u-layout-cell-2">
+                    <div class="u-container-layout u-valign-middle u-container-layout-2">
+                      <h2 class="u-text u-text-body-alt-color u-text-1" th:text="${forecastArrayList.get(3).name}"></h2>
+                         <h4 class="u-text u-text-body-alt-color u-text-default u-text-3" th:text="${forecastArrayList.get(3).date}"></h4>
+                       <h3 id="fourthCategoryName" class="u-text u-text-body-alt-color u-text-default" th:text="${forecastArrayList.get(3).categoryName}"></h3>
+                      <p class="u-text u-text-body-alt-color u-text-default u-text-2" th:text="${forecastArrayList.get(3).text}"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-align-left u-carousel-item u-clearfix u-palette-5-base u-section-1-5 u-image-1-5">
+          <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+              <div class="u-layout">
+                <div class="u-layout-row">
+                  <div class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-1 u-image-1-5" data-image-width="1500" data-image-height="827">
+                    <div class="u-container-layout u-container-layout-1"></div>
+                  </div>
+                  <div class="u-container-style u-layout-cell u-right-cell u-size-40 u-layout-cell-2">
+                    <div class="u-container-layout u-valign-middle u-container-layout-2">
+                      <h2 class="u-text u-text-body-alt-color u-text-1" th:text="${forecastArrayList.get(4).name}"></h2>
+                      <h4 class="u-text u-text-body-alt-color u-text-default u-text-3" th:text="${forecastArrayList.get(4).date}"></h4>
+                      <h3 id="fifthCategoryName" class="u-text u-text-body-alt-color u-text-default" th:text="${forecastArrayList.get(4).categoryName}"></h3>
+                      <p class="u-text u-text-body-alt-color u-text-default u-text-2" th:text="${forecastArrayList.get(4).text}"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-text-grey-30 u-block-8ddf-3" href="#carousel_d1ad" role="button" data-u-slide="prev">
+        <span aria-hidden="true">
+          <svg class="u-svg-link" viewBox="0 0 477.175 477.175"><path d="M145.188,238.575l215.5-215.5c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-225.1,225.1c-5.3,5.3-5.3,13.8,0,19.1l225.1,225
+                    c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1L145.188,238.575z"></path></svg>
+        </span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-text-grey-30 u-block-8ddf-4" href="#carousel_d1ad" role="button" data-u-slide="next">
+        <span aria-hidden="true">
+          <svg class="u-svg-link" viewBox="0 0 477.175 477.175"><path d="M360.731,229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1,0s-5.3,13.8,0,19.1l215.5,215.5l-215.5,215.5
+                    c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-4l225.1-225.1C365.931,242.875,365.931,234.275,360.731,229.075z"></path></svg>
+        </span>
+        <span class="sr-only">Next</span>
+      </a>
+    </section>
+ 		<script type="text/javascript">
+	
+		/*var element1=document.getElementsByClassName("u-image-1-1")[0];
+		var element2=document.getElementsByClassName("u-image-1-2")[0];
+		var element3=document.getElementsByClassName("u-image-1-3")[0];
+		var element4=document.getElementsByClassName("u-image-1-4")[0];
+		var element5=document.getElementsByClassName("u-image-1-5")[0];
+		
+		var elem1=document.getElementsByClassName("u-image-1-1")[1];
+		var elem2=document.getElementsByClassName("u-image-1-2")[1];
+		var elem3=document.getElementsByClassName("u-image-1-3")[1];
+		var elem4=document.getElementsByClassName("u-image-1-4")[1];
+		var elem5=document.getElementsByClassName("u-image-1-5")[1];
+		
+		var text1=document.getElementById("firstCategoryName").innerText;
+		var text2=document.getElementById("secondCategoryName").innerText;
+		var text3=document.getElementById("thirdCategoryName").innerText;
+		var text4=document.getElementById("fourthCategoryName").innerText;
+		var text5=document.getElementById("fifthCategoryName").innerText;
+		
+		
+		if(text1=='Beneficial'){
+			element1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Beneficial.png')";
+			elem1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Beneficial.png')";
+			element1.style.backgroundPosition="50% 50%";
+			elem1.style.backgroundPosition="50% 50%";
+			element1.minHeight="400px";
+			elem1.minHeight="400px";
+		}
+		if(text2=='Beneficial'){
+			element2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Beneficial.png')";
+			elem2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Beneficial.png')";
+		}
+		if(text3=='Beneficial'){
+			element3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Beneficial.png')";
+			elem3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Beneficial.png')";
+		}
+		if(text4=='Beneficial'){
+			element4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Beneficial.png')";
+			elem4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Beneficial.png')";
+		}
+		
+		if(text1=='Neutral'){
+			element1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+			elem1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+
+		}
+		if(text2=='Neutral'){
+			element2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+			elem2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+
+		}
+		if(text3=='Neutral'){
+			element3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+			elem3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+
+		}
+		if(text4=='Neutral'){
+			element4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+			elem4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+
+		}
+		if(text5=='Neutral'){
+			element5.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+			elem5.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_Neutral.png')";
+
+		}
+		if(text1=='At Risk'){
+			element1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+			elem1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+		}
+		if(text2=='At Risk'){
+			element2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+			elem2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+		}
+		if(text3=='At Risk'){
+			element3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+			elem3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+		}
+		if(text4=='At Risk'){
+			element4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+			elem4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+		}
+		if(text5=='At Risk'){
+			element5.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+			elem5.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtRisk.png')";
+		}
+		
+		if(text1=='At High Risk'){
+			element1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+			elem1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+		}
+		if(text2=='At High Risk'){
+			element2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+			elem2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+		}
+		if(text3=='At High Risk'){
+			element3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+			elem3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+		}
+		if(text4=='At High Risk'){
+			element4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+			elem4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+		}
+		if(text5=='At High Risk'){
+			element5.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+			elem5.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtHighRisk.png')";
+		}
+		if(text1=='At Extreme Risk'){
+			element1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+			elem1.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+		}
+		if(text2=='At Extreme Risk'){
+			element2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+			elem2.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+		}
+		if(text3=='At Extreme Risk'){
+			element3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+			elem3.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+		}
+		if(text4=='At Extreme Risk'){
+			element4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+			elem4.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+		}
+		if(text5=='At Extreme Risk'){
+			element5.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+			elem5.style.backgroundImage="url('/images/Waterlily-Wellness-Logo-icon_AtExtremeRisk.png')";
+		}*/
+	</script>
  <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-566e"><div class="u-clearfix u-sheet u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">
           <span style="font-size: 1.5rem;">Company</span>

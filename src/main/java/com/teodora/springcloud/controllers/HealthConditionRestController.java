@@ -71,6 +71,7 @@ public class HealthConditionRestController {
 		//HealthCondition healthCondition = getHealthConditionName(name);
 		HealthCondition healthCondition = repo.getReferenceById(id);
 		List<Symptom> symptoms = healthConditionDao.getSymptoms(id);
+		model.addAttribute("healthCondition",healthCondition);
 		model.addAttribute("name", healthCondition.getName());
 		model.addAttribute("description", healthCondition.getDescription());
 		model.addAttribute("symptoms",symptoms);
@@ -89,7 +90,8 @@ public class HealthConditionRestController {
 		return "Health-Conditions";
 	}
 	@GetMapping("/edit-healthCondition/{id}")
-	public String showHealthConditionUpdateForm(@PathVariable("id")Long id,Model model) {
+	//@RequestMapping(value="/edit-healthCondition",method = RequestMethod.GET)
+	public String showHealthConditionUpdateForm(@PathVariable("id") Long id,Model model) {
 		//HealthCondition updatehealthCondition = getHealthCondition(id);
 		HealthCondition updatehealthCondition=repo.getReferenceById(id);
 		model.addAttribute("healthCondition",updatehealthCondition);

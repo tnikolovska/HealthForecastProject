@@ -77,7 +77,8 @@
          <!-- <li>Sample Item 2</li>
           <li>Sample Item 3</li>-->
         </ul></i>
-        <u><p class="u-align-left u-text u-text-5">If you have any of the listed symptoms you should proceed to <a href="">Forecast</a>.</p></u>
+        <u><p class="u-align-left u-text u-text-5">If you have any of the listed symptoms you should proceed to <a th:href="@{/user-health-condition}">Forecast</a>.</p></u>
+      	<a th:href="@{/edit/{id}(id=${healthCondition.id})}" class="btn btn-primary btn-lg disabled u-align-left u-text u-text-5" role="button" aria-disabled="true">Edit</a>
       </div>
     </section>
     
