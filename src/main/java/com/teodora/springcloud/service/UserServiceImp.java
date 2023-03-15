@@ -1,12 +1,18 @@
 package com.teodora.springcloud.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +21,18 @@ import org.springframework.stereotype.Service;
 import com.teodora.springcloud.config.CustomPasswordEncoder;
 import com.teodora.springcloud.dao.UserDao;
 import com.teodora.springcloud.exception.UserAlreadyExistsException;
+import com.teodora.springcloud.model.Privilege;
+import com.teodora.springcloud.model.Role;
 import com.teodora.springcloud.model.User;
+import com.teodora.springcloud.model.VerificationToken;
+import com.teodora.springcloud.repos.RoleRepo;
 import com.teodora.springcloud.repos.UserRepo;
+import com.teodora.springcloud.repos.VerificationTokenRepository;
+
 import org.springframework.context.annotation.Lazy;
 
 @Service
+@Transactional
 public class UserServiceImp implements UserService,UserDetailsService {
 	
 	@Autowired
@@ -28,7 +41,11 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	private UserRepo userRepo;
 	private CustomPasswordEncoder customPasswordEncoder;
 	
+	@Autowired
+	private VerificationTokenRepository tokenRepository;
 	
+	@Autowired
+	RoleRepo roleRepo;
 	 @Autowired
 	    public UserServiceImp(UserRepo userRepository,
 	                       @Lazy CustomPasswordEncoder customPasswordEncoder){
@@ -51,13 +68,13 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        return userRepo.getReferenceById(id);
 	    }
 
-	 @Override
+	/* @Override
 	    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 	        User user = userRepo.findByEmail(email);
 	    if(user == null) throw new UsernameNotFoundException(email);
 	            return new org.springframework.security.core.userdetails.User(email,
 	                    null,Collections.emptyList());
-	    }
+	    }*/
 	 
 	
 	@Override
@@ -98,7 +115,102 @@ public class UserServiceImp implements UserService,UserDetailsService {
 		return userDao.getUsers();
 	}
 	
+	public UserDetails loadUserByUsername(String email) 
+			  throws UsernameNotFoundException {
+			 
+			    boolean enabled = true;
+			    boolean accountNonExpired = true;
+			    boolean credentialsNonExpired = true;
+			    boolean accountNonLocked = true;
+			    try {
+			        User user = userRepo.findByEmail(email);
+			        if (user == null) {
+			            throw new UsernameNotFoundException(
+			              "No user found with username: " + email);
+			        }
+			        
+			        return new org.springframework.security.core.userdetails.User(
+			          user.getEmail(), 
+			          user.getPassword().toLowerCase(), 
+			          user.isEnabled(), 
+			          accountNonExpired, 
+			          credentialsNonExpired, 
+			          accountNonLocked, 
+			          getAuthorities(user.getRole()));
+			    } catch (Exception e) {
+			        throw new RuntimeException(e);
+			    }
+			}
+
+	@Override
+	public User registerNewUserAccount(User user) throws UserAlreadyExistsException {
+		// TODO Auto-generated method stub
+		 if (emailExist(user.getEmail())) {
+	            throw new UserAlreadyExistsException(
+	              "There is an account with that email adress: " 
+	              + user.getEmail());
+	        }
+	        
+	        User newUser = new User();
+	        newUser.setFirstName(user.getFirstName());
+	        newUser.setLastName(user.getLastName());
+	        newUser.setPassword(user.getPassword());
+	        newUser.setEmail(user.getEmail());
+	        newUser.setRole(roleRepo.findByName("ROLE_USER"));
+	        return userRepo.save(user);
+	}
+	 private boolean emailExist(String email) {
+	        return userRepo.findByEmail(email) != null;
+	    }
+
+	@Override
+	public User getUser(String verificationToken) {
+		// TODO Auto-generated method stub
+		 User user = tokenRepository.findByToken(verificationToken).getUser();
+	        return user;
+	}
+
+	@Override
+	public void saveRegisteredUser(User user) {
+		// TODO Auto-generated method stub
+		 userRepo.save(user);
+	}
+
+	@Override
+	public void createVerificationToken(User user, String token) {
+		VerificationToken myToken = new VerificationToken(token, user);
+        tokenRepository.save(myToken);
+		
+	}
+
+	@Override
+	public VerificationToken getVerificationToken(String VerificationToken) {
+		// TODO Auto-generated method stub
+		return tokenRepository.findByToken(VerificationToken);
+	}
+	 private Collection<? extends GrantedAuthority> getAuthorities(final Role role) {
+	        return getGrantedAuthorities(getPrivileges(role));
+	    }
 	
-	
+	  private List<String> getPrivileges(final Role role) {
+	        final List<String> privileges = new ArrayList<>();
+	        final List<Privilege> collection = new ArrayList<>();
+	        //for (final Role role : roles) {
+	            privileges.add(role.getName());
+	            collection.addAll(role.getPrivileges());
+	        //}
+	        for (final Privilege item : collection) {
+	            privileges.add(item.getName());
+	        }
+
+	        return privileges;
+	    }
+	  private List<GrantedAuthority> getGrantedAuthorities(final List<String> privileges) {
+	        final List<GrantedAuthority> authorities = new ArrayList<>();
+	        for (final String privilege : privileges) {
+	            authorities.add(new SimpleGrantedAuthority(privilege));
+	        }
+	        return authorities;
+	    }
 
 }

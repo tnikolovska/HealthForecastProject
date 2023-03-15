@@ -1,19 +1,25 @@
 package com.teodora.springcloud.model;
 import com.teodora.springcloud.annotations.*;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.persistence.JoinColumn;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -41,13 +47,24 @@ public class User {
 	@Column(name="password")
 	//@ValidPassword
 	private String password;
-	public User(){}
+	@Column(name = "enabled")
+    private boolean enabled;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Role role;
+	
+	public User(){
+		super();
+		this.enabled=false;
+	}
 	public User(String firstName,String lastName, Date birthDate, String email, String password){
 		this.firstName=firstName;
 		this.lastName=lastName;
 		this.birthDate=birthDate;
 		this.email=email;
 		this.password=password;
+		this.enabled=false;
 	}
 	public Long getId() {
 		return id;
@@ -85,5 +102,18 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
 	
 }

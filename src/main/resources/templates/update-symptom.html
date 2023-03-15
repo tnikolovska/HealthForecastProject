@@ -2,16 +2,19 @@
 <html style="font-size: 16px;" lang="en"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="About Health Conition">
+    <meta name="keywords" content="Add Symptom">
     <meta name="description" content="">
-    <title>About Health Condition</title>
-    <link rel="stylesheet" href="css/nicepage.css" media="screen">
-<link rel="stylesheet" href="css/About-Health-Condition.css" media="screen">
-    <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
+    <title>Create Symptom</title>
+    <link rel="stylesheet" th:href="@{/css/nicepage.css}" media="screen">
+<link rel="stylesheet" th:href="@{/css/Create-Symptom.css}" media="screen">
+    <!--<script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>-->
+     <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}" type="text/javascript"></script>
+    <script src="../static/js/nicepage.js" th:src="@{/js/nicepage.js}" type="text/javascript"></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
+    <meta name="referrer" content="origin">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
@@ -20,12 +23,12 @@
 		"logo": "images/75282331-0.png"
 }</script>
     <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="About Health Condition">
+    <meta property="og:title" content="Create Symptom">
     <meta property="og:type" content="website">
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
   <body class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-ad7c"><div class="u-clearfix u-sheet u-valign-bottom u-sheet-1">
         <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="959" data-image-height="959">
-          <img src="images/75282331-0.png" class="u-logo-image u-logo-image-1">
+          <img th:src="@{/images/75282331-0.png}" class="u-logo-image u-logo-image-1">
         </a>
         <nav class="color u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700;">
@@ -41,6 +44,7 @@
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Login.html" target="_blank" style="padding: 10px 8px;">Login</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Health-Conditions.html" style="padding: 10px 8px;">HealthConditions</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Symptoms.html" style="padding: 10px 8px;">Symptoms</a>
+</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Create-Symptom.html" style="padding: 10px 8px;">Add Symptom</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Categories.html" style="padding: 10px 8px;">Categories</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Forecast.html" style="padding: 10px 8px;">Forecast</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="Users.html" style="padding: 10px 8px;">Users</a>
@@ -55,6 +59,7 @@
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Login.html" target="_blank">Login</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Health-Conditions.html">HealthConditions</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Symptoms.html">Symptoms</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Create-Symptom.html">Add Symptom</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Categories.html">Categories</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Forecast.html">Forecast</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Users.html">Users</a>
@@ -65,20 +70,50 @@
           </div>
         </nav>
       </div></header>
-    <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-align-left u-clearfix u-section-1" id="sec-ba93">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h5 class="u-text u-text-default u-text-1" th:text="${name}"></h5>
-        <h1 class="u-text u-text-default u-text-2">About Health Conition</h1>
-        <i><p class="u-text u-text-3" th:text="${description}"></p>
-        <p class="u-text u-text-3">Symptoms:</p>
-        <div th:if="${ not#lists.isEmpty(symptoms)}">
-        <ul  th:each="symptom : ${symptoms}" class="u-align-left u-text u-text-4">
-          <li th:text="${symptom.name}"></li>
-         <!-- <li>Sample Item 2</li>
-          <li>Sample Item 3</li>-->
-        </ul></i>
-        <u><p class="u-align-left u-text u-text-5">If you have any of the listed symptoms you should proceed to <a th:href="@{/user-health-condition}">Forecast</a>.</p></u>
-      	<a th:href="@{/edit-healthCondition/{id}(id=${healthCondition.id})}" class="btn btn-primary btn-lg disabled u-align-left u-text u-text-5" role="button" aria-disabled="true">Edit</a>
+    <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-clearfix u-section-1" id="sec-062c">
+    <!--<section class="u-clearfix u-section-1" id="sec-789f">-->
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Update Symptom</h2>
+        <div class="u-form u-form-1">
+       <div class container>
+	   <form action="#"
+	  th:action="@{@{/update-symptom/{id}(id=${symptom.id})}}" 
+	  th:object="${symptom}"
+	  method="post">
+	  	<!--<p th:text="${symptom.healthCondition.name}"><p>-->
+	  	<!--input type="text" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition.id}">-->
+	   <!-- <input type="hidden" th:field="*{healthCondition}" id="healthCondition" value="${healthCondition_id}"/>-->
+	    <div class="form-group">
+	    <label for="name">Name</label>
+	    <input type="text" class="form-control form-control-lg" th:field="*{name}" id="name" placeholder="Name">
+	    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+	    </div>
+	    <div class="form-group">
+	    <label for="description">Description</label>
+	    <input type="text"class="form-control form-control-lg" th:field="*{description}" id="description" placeholder="Description">
+	    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+	    </div>
+	    <!--<input type="text" th:field="*{healthcondition_id}" id="healthcondition_id" placeholder="Health Condition">
+	    <span th:if="${#fields.hasErrors('healthcondition_id')}" th:errors="*{healthcondition_id}"></span>-->
+	    <div class="form-group">
+	    <label for="healthCondition.id">Health Condition</label>
+	    <!--<input type="text" class="form-control" th:field="*{healthCondition}" id="healthCondition" placeholder="Health Condition">-->
+	   	<select class="form-control form-control-lg" th:field="*{healthCondition.id}" id="healthCondition" placeholder="Health Condition">
+	   		<option value="2">Migraine headache</option>
+	   		<option value="3">Sinus Headache</option>
+	   		<option value="4">Arthritis Pain</option>
+	   	</select>
+	   </div>
+	   <!-- <span th:if="${#fields.hasErrors('healthCondition')}" th:errors="*{healthCondition}"></span>-->
+	    <!--<label for="healthCondition">Health Condition</label>
+	    <select class = "form-control" th:field="*{healthCondition.name} id="healthCondition">
+	    	<option >
+	    </select>-->
+	    <input type="submit" class="btn btn-primary" value="Update Symptom">   
+	</form>
+	</div>
+          
+        </div>
       </div>
     </section>
     
@@ -90,14 +125,14 @@
         </p>
       </div></footer>
     <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
-        <span>Website Template</span>
+      <a class="u-link" href="https://nicepage.com/html-templates" target="_blank">
+        <span>HTML Template</span>
       </a>
       <p class="u-text">
         <span>created with</span>
       </p>
-      <a class="u-link" href="https://nicepage.com/wysiwyg-html-editor" target="_blank">
-        <span>WYSIWYG HTML Editor</span>
+      <a class="u-link" href="https://nicepage.studio" target="_blank">
+        <span>Free Website Builder</span>
       </a>. 
     </section>
   

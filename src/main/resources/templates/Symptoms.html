@@ -6,19 +6,32 @@
     <meta name="description" content="">
     <title>Symptoms</title>
     <link rel="stylesheet" href="css/nicepage.css" media="screen">
-<link rel="stylesheet" href="css/Symptoms.css" media="screen">
-    <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
+	<link rel="stylesheet" href="css/Symptoms.css" media="screen">
+    <!--<script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>-->
+    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}" type="text/javascript"></script>
+    <script src="../static/js/nicepage.js" th:src="@{/js/nicepage.js}" type="text/javascript"></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	 <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script> 
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> 
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css"> 
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> 	
+	<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> 
+		<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script> 
+	
+
     
-    
-    <script type="application/ld+json">{
+    <!--<script type="application/ld+json">{
 		"@context": "http://schema.org",
 		"@type": "Organization",
 		"name": "",
 		"logo": "images/75282331-0.png"
-}</script>
+}</script>-->
     <meta name="theme-color" content="#478ac9">
     <meta property="og:title" content="Symptoms">
     <meta property="og:type" content="website">
@@ -65,14 +78,54 @@
           </div>
         </nav>
       </div></header>
-    <section class="u-clearfix u-section-1" id="sec-0b2b">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">Health Condition</h2>
-        <ul class="u-text u-text-default u-text-2">
+    <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-clearfix u-section-1"  id="sec-0b2b">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+       <div class="container">
+        <h2 class="u-text u-text-default u-text-1">Symptoms</h2>
+        
+  <!--<p>Type something in the input field to search the table for first names, last names or emails:</p>  
+  <input class="form-control" id="myInput" type="text" placeholder="Search..">-->
+  <br>
+  <table class="table table-bordered table-striped" id="example">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Health Condition</th>
+        <th>Modify</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+      <tr th:each="symptom : ${symptoms}">
+        <td th:text="${symptom.name}"></td>
+        <td th:text="${symptom.description}"></td>
+        <td th:text="${symptom.healthCondition.name}"></td>
+        <td><a th:href="@{/edit-symptom/{id}(id=${symptom.id})}">Modify</a></td>
+        <td><a th:href="@{/delete-symptom/{id}(id=${symptom.id})}">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+			$(document).ready(function(){
+				$("#example").DataTable();
+			  $("#myInput").on("keyup", function() {
+			    var value = $(this).val().toLowerCase();
+			    $("#myTable tr").filter(function() {
+			      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			    });
+			  });
+			});
+</script>
+
+        
+        
+        
+        <!--<ul class="u-text u-text-default u-text-2">
           <li>Sample Item 1</li>
           <li>Sample Item 2</li>
           <li>Sample Item 3</li>
-        </ul>
+        </ul>-->
       </div>
     </section>
     

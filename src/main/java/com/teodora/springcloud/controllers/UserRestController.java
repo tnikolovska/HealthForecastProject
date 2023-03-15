@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -19,6 +20,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.LocaleEditor;
 import org.springframework.boot.context.properties.bind.Bindable.BindRestriction;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -40,16 +43,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teodora.springcloud.annotations.ValidPassword;
 import com.teodora.springcloud.exception.ErrorResponse;
 import com.teodora.springcloud.exception.UserAlreadyExistsException;
 import com.teodora.springcloud.model.User;
+import com.teodora.springcloud.model.VerificationToken;
 import com.teodora.springcloud.repos.UserRepo;
 import com.teodora.springcloud.service.UserService;
+import com.teodora.springcloud.utils.OnRegistrationCompleteEvent;
 import com.teodora.springcloud.utils.UserUtil;
 import com.teodora.springcloud.web.ApiResponse;
 
@@ -61,11 +68,21 @@ import org.springframework.web.bind.annotation.*;
 //@RequestMapping("/userapi")
 @Controller
 public class UserRestController {
+	
 	@Autowired
 	UserRepo repo;
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ApplicationEventPublisher eventPublisher; 
+	
+	@Autowired
+	private UserService service;
+	
+	@Autowired
+    private MessageSource messages;
 	
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public User create(@RequestBody User user) {
@@ -186,6 +203,63 @@ public class UserRestController {
 	        }
 	        return Optional.ofNullable(domain);
 	    }
+	 
+	 @PostMapping("/user/registration")
+	 public ModelAndView registerUserAccount(
+	   @ModelAttribute("user") @Valid User user, 
+	   HttpServletRequest request, Errors errors) { 
+	     
+	     try {
+	         User registered = repo.save(user);
+	         
+	         String appUrl = request.getContextPath();
+	         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, 
+	           request.getLocale(), appUrl));
+	     } catch (UserAlreadyExistsException uaeEx) {
+	         ModelAndView mav = new ModelAndView("registration", "user", user);
+	         mav.addObject("message", "An account for that username/email already exists.");
+	         return mav;
+	     } catch (RuntimeException ex) {
+	         return new ModelAndView("emailError", "user", user);
+	     }
+
+	     return new ModelAndView("successRegister", "user", user);
+	 }
+	 
+	 
+	 
+	 @GetMapping("/regitrationConfirm")
+	 public String confirmRegistration
+	   (WebRequest request, Model model, @RequestParam("token") String token) {
+	  
+	     Locale locale = request.getLocale();
+	     
+	     VerificationToken verificationToken = service.getVerificationToken(token);
+	     if (verificationToken == null) {
+	         String message = messages.getMessage("auth.message.invalidToken", null, locale);
+	         model.addAttribute("message", message);
+	         return "redirect:/badUser.html?lang=" + locale.getLanguage();
+	     }
+	     
+	     User user = verificationToken.getUser();
+	     Calendar cal = Calendar.getInstance();
+	     if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+	         String messageValue = messages.getMessage("auth.message.expired", null, locale);
+	         model.addAttribute("message", messageValue);
+	         return "redirect:/badUser.html?lang=" + locale.getLanguage();
+	     } 
+	     
+	     user.setEnabled(true); 
+	     service.saveRegisteredUser(user); 
+	     return "redirect:/login.html?lang=" + request.getLocale().getLanguage(); 
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	
 	/*@GetMapping("/login-user")
 	public String userLogin() {

@@ -77,7 +77,7 @@ public class SymptomRestController {
 	}
 	@GetMapping("symptom-list")
 	public String symptoms(Model model) {
-		List<Symptom> symptoms = new ArrayList<>();
+		List<Symptom> symptoms = new ArrayList<Symptom>();
 		//symptoms=getSymptoms();
 		symptoms=repo.findAll();
 		model.addAttribute("symptoms",symptoms);
@@ -89,6 +89,7 @@ public class SymptomRestController {
 		//Symptom updatesymptom = getSymptom(id);
 		Symptom updatesymptom = repo.getReferenceById(id);
 		model.addAttribute("symptom",updatesymptom);
+		model.addAttribute("healthCondition","Arthritis Pain");
 		return "update-symptom";
 	}
 	@PostMapping("/update-symptom/{id}")
@@ -98,6 +99,9 @@ public class SymptomRestController {
 			return "update-symptom";
 		}
 		//updateSymptom(symptom);
+		HealthCondition healthCondition = healthRepo.getReferenceById(symptom.getHealthCondition().getId());
+		//symptom.setHealthCondition(healthCondition);
+		symptom.setHealthCondition(healthCondition);
 		repo.save(symptom);
 		return "redirect:/symptom-list";	
 	}
@@ -112,7 +116,7 @@ public class SymptomRestController {
 	public String getRegisterSymptomPage(Model model) {
 		Symptom symptom = new Symptom();
 		model.addAttribute("symptom",symptom);
-		model.addAttribute("healthCondition","Arthritis Pain");
+		//model.addAttribute("healthCondition","Arthritis Pain");
 		return "create-symptom";
 	}
 	
