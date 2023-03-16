@@ -2,6 +2,7 @@ package com.teodora.springcloud.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -41,8 +42,14 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	private UserRepo userRepo;
 	private CustomPasswordEncoder customPasswordEncoder;
 	
+	
 	@Autowired
 	private VerificationTokenRepository tokenRepository;
+	
+	   public static final String TOKEN_INVALID = "invalidToken";
+	    public static final String TOKEN_EXPIRED = "expired";
+	    public static final String TOKEN_VALID = "valid";
+	
 	
 	@Autowired
 	RoleRepo roleRepo;
@@ -136,11 +143,27 @@ public class UserServiceImp implements UserService,UserDetailsService {
 			          accountNonExpired, 
 			          credentialsNonExpired, 
 			          accountNonLocked, 
-			          getAuthorities(user.getRole()));
+			          getAuthorities(user.getRoles()));
 			    } catch (Exception e) {
 			        throw new RuntimeException(e);
 			    }
 			}
+	  private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles) {
+	        return getGrantedAuthorities(getPrivileges(roles));
+	    }
+	   private List<String> getPrivileges(final Collection<Role> roles) {
+	        final List<String> privileges = new ArrayList<>();
+	        final List<Privilege> collection = new ArrayList<>();
+	        for (final Role role : roles) {
+	            privileges.add(role.getName());
+	            collection.addAll(role.getPrivileges());
+	        }
+	        for (final Privilege item : collection) {
+	            privileges.add(item.getName());
+	        }
+
+	        return privileges;
+	    }
 
 	@Override
 	public User registerNewUserAccount(User user) throws UserAlreadyExistsException {
@@ -156,7 +179,7 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        newUser.setLastName(user.getLastName());
 	        newUser.setPassword(user.getPassword());
 	        newUser.setEmail(user.getEmail());
-	        newUser.setRole(roleRepo.findByName("ROLE_USER"));
+	        newUser.setRoles(Arrays.asList(roleRepo.findByName("ROLE_USER")));
 	        return userRepo.save(user);
 	}
 	 private boolean emailExist(String email) {
@@ -212,5 +235,35 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        }
 	        return authorities;
 	    }
+
+	@Override
+	public void createVerificationTokenForUser(User user, String token) {
+		// TODO Auto-generated method stub
+		 final VerificationToken myToken = new VerificationToken(token, user);
+	        tokenRepository.save(myToken);
+	}
+
+	@Override
+	public String validateVerificationToken(String token) {
+		// TODO Auto-generated method stub
+		 final VerificationToken verificationToken = tokenRepository.findByToken(token);
+	        if (verificationToken == null) {
+	            return TOKEN_INVALID;
+	        }
+
+	        final User user = verificationToken.getUser();
+	        final Calendar cal = Calendar.getInstance();
+	        if ((verificationToken.getExpiryDate()
+	            .getTime() - cal.getTime()
+	            .getTime()) <= 0) {
+	            tokenRepository.delete(verificationToken);
+	            return TOKEN_EXPIRED;
+	        }
+
+	        user.setEnabled(true);
+	        // tokenRepository.delete(verificationToken);
+	        userRepo.save(user);
+	        return TOKEN_VALID;
+	}
 
 }

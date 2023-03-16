@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationEvent;
 
 import com.teodora.springcloud.model.User;
 
+@SuppressWarnings("serial")
 public class OnRegistrationCompleteEvent  extends ApplicationEvent{
 	 private String appUrl;
 	    private Locale locale;

@@ -4,6 +4,7 @@ import com.teodora.springcloud.annotations.*;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,9 +51,11 @@ public class User {
 	@Column(name = "enabled")
     private boolean enabled;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Role role;
+	 //@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.ALL) 
+	//@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	@JoinColumn(name="role_id",referencedColumnName = "id") 
+	private Collection<Role> roles;
 	
 	public User(){
 		super();
@@ -108,12 +111,47 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	public Role getRole() {
-		return role;
-	}
-	public void setRole(Role role) {
-		this.role = role;
-	}
+	 public Collection<Role> getRoles() {
+	        return roles;
+	    }
+
+	    public void setRoles(final Collection<Role> roles) {
+	        this.roles = roles;
+	    }
+	
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User user = (User) obj;
+        if (!getEmail().equals(user.getEmail())) {
+            return false;
+        }
+        return true;
+    }
+	
+	@Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("User [id=")
+                .append(id)
+                .append(", firstName=").append(firstName)
+                .append(", lastName=").append(lastName)
+                .append(", birthDate=").append(birthDate)
+                .append(", email=").append(email)
+                .append(", password=").append(password)
+                .append(", roles=").append(roles)
+                .append("]");
+        return builder.toString();
+    }
 	
 	
 }

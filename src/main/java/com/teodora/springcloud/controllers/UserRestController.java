@@ -1,18 +1,24 @@
 package com.teodora.springcloud.controllers;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -52,10 +58,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.teodora.springcloud.annotations.ValidPassword;
 import com.teodora.springcloud.exception.ErrorResponse;
 import com.teodora.springcloud.exception.UserAlreadyExistsException;
+import com.teodora.springcloud.model.Privilege;
+import com.teodora.springcloud.model.Role;
 import com.teodora.springcloud.model.User;
 import com.teodora.springcloud.model.VerificationToken;
 import com.teodora.springcloud.repos.UserRepo;
 import com.teodora.springcloud.service.UserService;
+import com.teodora.springcloud.utils.GenericResponse;
 import com.teodora.springcloud.utils.OnRegistrationCompleteEvent;
 import com.teodora.springcloud.utils.UserUtil;
 import com.teodora.springcloud.web.ApiResponse;
@@ -205,27 +214,51 @@ public class UserRestController {
 	    }
 	 
 	 @PostMapping("/user/registration")
-	 public ModelAndView registerUserAccount(
+	 public GenericResponse registerUserAccount(
 	   @ModelAttribute("user") @Valid User user, 
 	   HttpServletRequest request, Errors errors) { 
 	     
-	     try {
-	         User registered = repo.save(user);
-	         
+	     //try {
+	         User registered = service.registerNewUserAccount(user);
 	         String appUrl = request.getContextPath();
 	         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, 
 	           request.getLocale(), appUrl));
-	     } catch (UserAlreadyExistsException uaeEx) {
-	         ModelAndView mav = new ModelAndView("registration", "user", user);
+	         return new GenericResponse("success");
+	    /* } catch (UserAlreadyExistsException uaeEx) {
+	         ModelAndView mav = new ModelAndView("register-user", "user", user);
 	         mav.addObject("message", "An account for that username/email already exists.");
 	         return mav;
 	     } catch (RuntimeException ex) {
 	         return new ModelAndView("emailError", "user", user);
 	     }
 
-	     return new ModelAndView("successRegister", "user", user);
+	     return new ModelAndView("successRegister", "user", user);*/
 	 }
-	 
+	  /*@GetMapping("/registrationConfirm")
+	    public String confirmRegistration(final HttpServletRequest request, final Model model, @RequestParam("token") final String token) {
+	        final Locale locale = request.getLocale();
+
+	        final VerificationToken verificationToken = userService.getVerificationToken(token);
+	        if (verificationToken == null) {
+	            final String message = messages.getMessage("auth.message.invalidToken", null, locale);
+	            model.addAttribute("message", message);
+	            return "redirect:/badUser.html?lang=" + locale.getLanguage();
+	        }
+
+	        final User user = verificationToken.getUser();
+	        final Calendar cal = Calendar.getInstance();
+	        if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+	            model.addAttribute("message", messages.getMessage("auth.message.expired", null, locale));
+	            model.addAttribute("expired", true);
+	            model.addAttribute("token", token);
+	            return "redirect:/badUser.html?lang=" + locale.getLanguage();
+	        }
+
+	        user.setEnabled(true);
+	        userService.saveRegisteredUser(user);
+	        model.addAttribute("message", messages.getMessage("message.accountVerified", null, locale));
+	        return "redirect:/login.html?lang=" + locale.getLanguage();
+	    }
 	 
 	 
 	 @GetMapping("/regitrationConfirm")
@@ -252,9 +285,45 @@ public class UserRestController {
 	     user.setEnabled(true); 
 	     service.saveRegisteredUser(user); 
 	     return "redirect:/login.html?lang=" + request.getLocale().getLanguage(); 
-	 }
-	 
-	 
+	 }*/
+	 @GetMapping("/registrationConfirm")
+	    public ModelAndView confirmRegistration(final HttpServletRequest request, final ModelMap model, @RequestParam("token") final String token) throws UnsupportedEncodingException {
+	        Locale locale = request.getLocale();
+	        model.addAttribute("lang", locale.getLanguage());
+	        final String result = userService.validateVerificationToken(token);
+	        if (result.equals("valid")) {
+	            final User user = userService.getUser(token);
+	            // if (user.isUsing2FA()) {
+	            // model.addAttribute("qr", userService.generateQRUrl(user));
+	            // return "redirect:/qrcode.html?lang=" + locale.getLanguage();
+	            // }
+	            authWithoutPassword(user);
+	            model.addAttribute("messageKey", "message.accountVerified");
+	            return new ModelAndView("redirect:/console", model);
+	        }
+
+	        model.addAttribute("messageKey", "auth.message." + result);
+	        model.addAttribute("expired", "expired".equals(result));
+	        model.addAttribute("token", token);
+	        return new ModelAndView("redirect:/badUser", model);
+	    }
+
+	public void authWithoutPassword(User user) {
+
+	        List<Privilege> privileges = user.getRoles()
+	                .stream()
+	                .map(Role::getPrivileges)
+	                .flatMap(Collection::stream)
+	                .distinct()
+	                .collect(Collectors.toList());
+
+	        List<GrantedAuthority> authorities = privileges.stream()
+	                .map(p -> new SimpleGrantedAuthority(p.getName()))
+	                .collect(Collectors.toList());
+
+	        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+	        SecurityContextHolder.getContext().setAuthentication(authentication);
+	    }
 	 
 	 
 	 

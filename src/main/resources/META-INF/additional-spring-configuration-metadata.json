@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "message.regSuccLink",
+    "type": "java.lang.String",
+    "description": "A description for 'message.regSuccLink'"
+  },
+  {
+    "name": "message.regError",
+    "type": "java.lang.String",
+    "description": "A description for 'message.regError'"
+  },
+  {
+    "name": "message.regSuccConfirmed",
+    "type": "java.lang.String",
+    "description": "A description for 'message.regSuccConfirmed'"
+  }
+]}

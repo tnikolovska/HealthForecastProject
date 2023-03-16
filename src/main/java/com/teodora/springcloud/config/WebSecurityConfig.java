@@ -85,10 +85,10 @@ public class WebSecurityConfig {
 	        return new CustomAccessDeniedHandler();
 	    }
 
-	    @Bean
+	    /*@Bean
 	    public AuthenticationFailureHandler authenticationFailureHandler() {
 	        return new CustomAuthenticationFailureHandler();
-	    }
+	    }*/
 
 
 	 

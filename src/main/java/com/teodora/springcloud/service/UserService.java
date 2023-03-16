@@ -25,4 +25,8 @@ public interface UserService {
     	    void createVerificationToken(User user, String token);
 
     	    VerificationToken getVerificationToken(String VerificationToken);
+    	    
+    	    void createVerificationTokenForUser(User user, String token);
+    	    
+    	    String validateVerificationToken(String token);
 }

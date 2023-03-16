@@ -19,5 +19,9 @@
   <mapping class="com.teodora.springcloud.model.User"/>
   <mapping class="com.teodora.springcloud.model.UserHealthCondition"/>
   <mapping class="com.teodora.springcloud.model.UserHealthConditionSymptom"/>
+  <mapping class="com.teodora.springcloud.model.Role"/>
+  <mapping class="com.teodora.springcloud.model.Privilege"/>
+
+
 </session-factory>
 </hibernate-configuration>

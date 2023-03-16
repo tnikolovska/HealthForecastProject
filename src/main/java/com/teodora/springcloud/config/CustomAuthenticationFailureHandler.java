@@ -17,33 +17,52 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
 
-@Component
+@Component("authenticationFailureHandler")
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-	@Autowired
-    private MessageSource messages;
+	 @Autowired
+	    private MessageSource messages;
 
-    @Autowired
-    private LocaleResolver localeResolver;
+	    @Autowired
+	    private LocaleResolver localeResolver;
+
+	    @Autowired
+	    private HttpServletRequest request;
+
+	    /*@Autowired
+	    private LoginAttemptService loginAttemptService;*/
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, 
       HttpServletResponse response, AuthenticationException exception)
       throws IOException, ServletException {
-        setDefaultFailureUrl("/login.html?error=true");
+    	 setDefaultFailureUrl("/login?error=true");
 
-        super.onAuthenticationFailure(request, response, exception);
+         super.onAuthenticationFailure(request, response, exception);
 
-        Locale locale = localeResolver.resolveLocale(request);
+         final Locale locale = localeResolver.resolveLocale(request);
 
-        String errorMessage = messages.getMessage("message.badCredentials", null, locale);
+         String errorMessage = messages.getMessage("message.badCredentials", null, locale);
 
-        if (exception.getMessage().equalsIgnoreCase("User is disabled")) {
-            errorMessage = messages.getMessage("auth.message.disabled", null, locale);
-        } else if (exception.getMessage().equalsIgnoreCase("User account has expired")) {
-            errorMessage = messages.getMessage("auth.message.expired", null, locale);
-        }
+         /*if (loginAttemptService.isBlocked()) {
+             errorMessage = messages.getMessage("auth.message.blocked", null, locale);
+         }*/
 
-        request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
-    }
+         if (exception.getMessage()
+             .equalsIgnoreCase("User is disabled")) {
+             errorMessage = messages.getMessage("auth.message.disabled", null, locale);
+         } else if (exception.getMessage()
+             .equalsIgnoreCase("User account has expired")) {
+             errorMessage = messages.getMessage("auth.message.expired", null, locale);
+         } else if (exception.getMessage()
+             .equalsIgnoreCase("blocked")) {
+             errorMessage = messages.getMessage("auth.message.blocked", null, locale);
+         } else if (exception.getMessage()
+             .equalsIgnoreCase("unusual location")) {
+             errorMessage = messages.getMessage("auth.message.unusual.location", null, locale);
+         }
+
+         request.getSession()
+             .setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
+     }
 }
