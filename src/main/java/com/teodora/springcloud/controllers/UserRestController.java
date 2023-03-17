@@ -1,6 +1,7 @@
 package com.teodora.springcloud.controllers;
 
 import java.io.UnsupportedEncodingException;
+import java.net.Authenticator.RequestorType;
 import java.text.ParseException;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -30,6 +31,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -58,11 +60,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.teodora.springcloud.annotations.ValidPassword;
 import com.teodora.springcloud.exception.ErrorResponse;
 import com.teodora.springcloud.exception.UserAlreadyExistsException;
-import com.teodora.springcloud.model.Privilege;
-import com.teodora.springcloud.model.Role;
+
 import com.teodora.springcloud.model.User;
 import com.teodora.springcloud.model.VerificationToken;
 import com.teodora.springcloud.repos.UserRepo;
+import com.teodora.springcloud.repos.VerificationTokenRepository;
+import com.teodora.springcloud.service.EmailService;
 import com.teodora.springcloud.service.UserService;
 import com.teodora.springcloud.utils.GenericResponse;
 import com.teodora.springcloud.utils.OnRegistrationCompleteEvent;
@@ -87,11 +90,16 @@ public class UserRestController {
 	@Autowired
 	ApplicationEventPublisher eventPublisher; 
 	
-	@Autowired
-	private UserService service;
+	
+	
+	//@Autowired
+    //private MessageSource messages;
 	
 	@Autowired
-    private MessageSource messages;
+	private VerificationTokenRepository verificationTokenRepository;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public User create(@RequestBody User user) {
@@ -169,14 +177,80 @@ public class UserRestController {
 		return "redirect:/user-list";
 	}
 	
-	@GetMapping("/createUserView")
+	/*@GetMapping("/createUserView")
 	public String getUserRegisterPage(Model model) {
 		User user = new User();
 		model.addAttribute("user",user);
 		model.addAttribute("existedUsername",null);
 		//return "user-register";
 		return "register-user";
+	}*/
+	
+	@GetMapping("/createUserView")
+	public String getUserRegisterPage(Model model) {
+		User user=new User();
+		model.addAttribute("user",user);
+		model.addAttribute("existedUsername",null);
+		return "register-user";
 	}
+	
+	/*@RequestMapping(value="/register", method=RequestMethod.POST)
+	public String registerUser(@ModelAttribute("user") @Validated @Valid User user, RedirectAttributes redirectAttributes,Model model,BindingResult bindingResult) {
+		User existingUser = repo.findByEmail(user.getEmail());
+		if(existingUser != null) {
+			model.addAttribute("existedUsername",existingUser);
+			bindingResult.rejectValue("email", null,"There is already an account registered with the same email");
+		}
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("user",user);
+			//return "user-register";
+			return "register-user";
+		}
+		userService.registerUser(user);
+		redirectAttributes.addAttribute("id", user.getId());
+		VerificationToken verificationToken = new VerificationToken(user);
+		verificationTokenRepository.save(verificationToken);
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setTo(user.getEmail());
+		mailMessage.setSubject("Complete Registration");
+		mailMessage.setFrom("nikolovskat95@gmail.com");
+		mailMessage.setText("To confirm your account, please click here : "+"http://localhost:8080/confirm-account?token="+verificationToken.getToken());
+		emailService.sendEmail(mailMessage);
+		//model.addAttribute("email",user.getEmail());
+		return "successfulRegistration";
+		/*else {
+			repo.save(user);
+			VerificationToken verificationToken = new VerificationToken(user);
+			verificationTokenRepository.save(verificationToken);
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			mailMessage.setTo(user.getEmail());
+			mailMessage.setSubject("Complete Registration");
+			mailMessage.setFrom("nikolovskat95@gmail.com");
+			mailMessage.setText("To confirm your account, please click here : "+"http://localhost:8080/confirm-account?token="+verificationToken.getToken());
+			emailService.sendEmail(mailMessage);
+			modelAndView.addObject("email",user.getEmail());
+			modelAndView.setViewName("successfulRegistration");
+			
+		}
+		return modelAndView;*/
+	/*}*/
+	@RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
+		VerificationToken token=verificationTokenRepository.findByToken(confirmationToken);
+		if(token!=null) {
+			User user = repo.findByEmail(token.getUser().getEmail());
+			user.setEnabled(true);
+			repo.save(user);
+			modelAndView.setViewName("accountVerified");
+		}
+		else {
+			modelAndView.addObject("message","The link is invalid or broken!");
+			modelAndView.setViewName("error");
+			
+		}
+		return modelAndView;
+	}
+	
 	
 	@PostMapping("/createuser")
 	public String createUser(@ModelAttribute("user") @Validated @Valid User user, RedirectAttributes redirectAttributes,Model model,BindingResult bindingResult) {
@@ -190,15 +264,27 @@ public class UserRestController {
 			//return "user-register";
 			return "register-user";
 		}
+		/*userService.registerUser(user);*/
+		/*redirectAttributes.addAttribute("id", user.getId());*/
 		userService.registerUser(user);
 		redirectAttributes.addAttribute("id", user.getId());
+		VerificationToken verificationToken = new VerificationToken(user);
+		verificationTokenRepository.save(verificationToken);
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setTo(user.getEmail());
+		mailMessage.setSubject("Complete Registration");
+		mailMessage.setFrom("nikolovskat95@gmail.com");
+		mailMessage.setText("To confirm your account, please click here : "+"http://localhost:8080/confirm-account?token="+verificationToken.getToken());
+		emailService.sendEmail(mailMessage);
+		//model.addAttribute("email",user.getEmail());
+		//return "successfulRegistration";
 		return "redirect:/user/{id}";
 	}
 	/*@GetMapping("/login")
 	public String login() {
 		return "login";
 	}*/
-	 @RequestMapping("/login")
+	/* @RequestMapping("/login")
 	    public String login() {
 	        return "login";
 	    }
@@ -211,9 +297,9 @@ public class UserRestController {
 	            domain = user.getEmail();
 	        }
 	        return Optional.ofNullable(domain);
-	    }
+	    }*/
 	 
-	 @PostMapping("/user/registration")
+	/* @PostMapping("/user/registration")
 	 public GenericResponse registerUserAccount(
 	   @ModelAttribute("user") @Valid User user, 
 	   HttpServletRequest request, Errors errors) { 
@@ -232,8 +318,8 @@ public class UserRestController {
 	         return new ModelAndView("emailError", "user", user);
 	     }
 
-	     return new ModelAndView("successRegister", "user", user);*/
-	 }
+	     return new ModelAndView("successRegister", "user", user);
+	 }*/
 	  /*@GetMapping("/registrationConfirm")
 	    public String confirmRegistration(final HttpServletRequest request, final Model model, @RequestParam("token") final String token) {
 	        final Locale locale = request.getLocale();
@@ -286,7 +372,7 @@ public class UserRestController {
 	     service.saveRegisteredUser(user); 
 	     return "redirect:/login.html?lang=" + request.getLocale().getLanguage(); 
 	 }*/
-	 @GetMapping("/registrationConfirm")
+	/* @GetMapping("/registrationConfirm")
 	    public ModelAndView confirmRegistration(final HttpServletRequest request, final ModelMap model, @RequestParam("token") final String token) throws UnsupportedEncodingException {
 	        Locale locale = request.getLocale();
 	        model.addAttribute("lang", locale.getLanguage());
@@ -306,9 +392,9 @@ public class UserRestController {
 	        model.addAttribute("expired", "expired".equals(result));
 	        model.addAttribute("token", token);
 	        return new ModelAndView("redirect:/badUser", model);
-	    }
+	    }*/
 
-	public void authWithoutPassword(User user) {
+	/*public void authWithoutPassword(User user) {
 
 	        List<Privilege> privileges = user.getRoles()
 	                .stream()
@@ -323,7 +409,7 @@ public class UserRestController {
 
 	        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
 	        SecurityContextHolder.getContext().setAuthentication(authentication);
-	    }
+	    }*/
 	 
 	 
 	 

@@ -14,7 +14,7 @@ import com.teodora.springcloud.model.User;
 import com.teodora.springcloud.service.UserService;
 
 @Component
-public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
+public class RegistrationListener /*implements ApplicationListener<OnRegistrationCompleteEvent>*/ {
 	 	@Autowired
 	    private UserService service;
 	 
@@ -27,13 +27,12 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 	    @Autowired
 	    private Environment env;
 
-		@Override
+		/*@Override
 		public void onApplicationEvent(OnRegistrationCompleteEvent event) {
 			 this.confirmRegistration(event);
 			
-		}
-		
-		 private void confirmRegistration(OnRegistrationCompleteEvent event) {
+		}*/
+		 /*private void confirmRegistration(OnRegistrationCompleteEvent event) {
 		        User user = event.getUser();
 		        String token = UUID.randomUUID().toString();
 		        service.createVerificationToken(user, token);
@@ -54,8 +53,8 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 		        service.createVerificationTokenForUser(user, token);
 
 		        final SimpleMailMessage email = constructEmailMessage(event, user, token);
-		        mailSender.send(email);*/
-		    }
+		        mailSender.send(email);
+		    }*/
 		 
 		    private SimpleMailMessage constructEmailMessage(final OnRegistrationCompleteEvent event, final User user, final String token) {
 		        final String recipientAddress = user.getEmail();

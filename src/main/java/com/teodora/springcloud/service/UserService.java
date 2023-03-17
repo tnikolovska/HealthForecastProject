@@ -15,7 +15,7 @@ public interface UserService {
 	List<User> getUsers();
     void registerUser(User user);
    
-    		User registerNewUserAccount(User user) 
+    		/*User registerNewUserAccount(User user) 
     	      throws UserAlreadyExistsException;
 
     	    User getUser(String verificationToken);
@@ -28,5 +28,5 @@ public interface UserService {
     	    
     	    void createVerificationTokenForUser(User user, String token);
     	    
-    	    String validateVerificationToken(String token);
+    	    String validateVerificationToken(String token);*/
 }

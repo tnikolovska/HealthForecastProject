@@ -22,11 +22,9 @@ import org.springframework.stereotype.Service;
 import com.teodora.springcloud.config.CustomPasswordEncoder;
 import com.teodora.springcloud.dao.UserDao;
 import com.teodora.springcloud.exception.UserAlreadyExistsException;
-import com.teodora.springcloud.model.Privilege;
-import com.teodora.springcloud.model.Role;
+
 import com.teodora.springcloud.model.User;
 import com.teodora.springcloud.model.VerificationToken;
-import com.teodora.springcloud.repos.RoleRepo;
 import com.teodora.springcloud.repos.UserRepo;
 import com.teodora.springcloud.repos.VerificationTokenRepository;
 
@@ -51,8 +49,8 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	    public static final String TOKEN_VALID = "valid";
 	
 	
-	@Autowired
-	RoleRepo roleRepo;
+	/*@Autowired
+	RoleRepo roleRepo;*/
 	 @Autowired
 	    public UserServiceImp(UserRepo userRepository,
 	                       @Lazy CustomPasswordEncoder customPasswordEncoder){
@@ -75,13 +73,13 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        return userRepo.getReferenceById(id);
 	    }
 
-	/* @Override
+	 @Override
 	    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 	        User user = userRepo.findByEmail(email);
 	    if(user == null) throw new UsernameNotFoundException(email);
 	            return new org.springframework.security.core.userdetails.User(email,
 	                    null,Collections.emptyList());
-	    }*/
+	    }
 	 
 	
 	@Override
@@ -121,8 +119,20 @@ public class UserServiceImp implements UserService,UserDetailsService {
 		// TODO Auto-generated method stub
 		return userDao.getUsers();
 	}
+
+	/*@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getUser(String verificationToken) {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 	
-	public UserDetails loadUserByUsername(String email) 
+	/*public UserDetails loadUserByUsername(String email) 
 			  throws UsernameNotFoundException {
 			 
 			    boolean enabled = true;
@@ -147,8 +157,8 @@ public class UserServiceImp implements UserService,UserDetailsService {
 			    } catch (Exception e) {
 			        throw new RuntimeException(e);
 			    }
-			}
-	  private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles) {
+			}*/
+	  /*private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles) {
 	        return getGrantedAuthorities(getPrivileges(roles));
 	    }
 	   private List<String> getPrivileges(final Collection<Role> roles) {
@@ -163,9 +173,9 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        }
 
 	        return privileges;
-	    }
+	    }*/
 
-	@Override
+	/*@Override
 	public User registerNewUserAccount(User user) throws UserAlreadyExistsException {
 		// TODO Auto-generated method stub
 		 if (emailExist(user.getEmail())) {
@@ -181,8 +191,8 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        newUser.setEmail(user.getEmail());
 	        newUser.setRoles(Arrays.asList(roleRepo.findByName("ROLE_USER")));
 	        return userRepo.save(user);
-	}
-	 private boolean emailExist(String email) {
+	}*/
+	/* private boolean emailExist(String email) {
 	        return userRepo.findByEmail(email) != null;
 	    }
 
@@ -264,6 +274,6 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        // tokenRepository.delete(verificationToken);
 	        userRepo.save(user);
 	        return TOKEN_VALID;
-	}
+	}*/
 
 }

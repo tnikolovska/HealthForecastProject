@@ -3,8 +3,10 @@ package com.teodora.springcloud.model;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class VerificationToken {
@@ -21,24 +25,36 @@ public class VerificationToken {
 	    @GeneratedValue(strategy = GenerationType.AUTO)
 	    private Long id;
 	    
+	    @Column(name="token")
 	    private String token;
 	  
-	    //@OneToOne(cascade=CascadeType.MERGE)
-	    @OneToOne/*(cascade=CascadeType.ALL)*/
-	    //@JoinColumn(name = "user_id",referencedColumnName = "id")
+	    @OneToOne(targetEntity=User.class, fetch=FetchType.EAGER)
+	    //@OneToOne/*(cascade=CascadeType.ALL)*/
+	    @JoinColumn(nullable = false, name = "user_id")
 	    private User user;
 	    
+	    @Temporal(TemporalType.TIMESTAMP)
 	    private Date expiryDate;
 
 	    public VerificationToken() {
-	        super();
+	        //super();
 	    }
 
-	    public VerificationToken(final String token) {
+	    /*public VerificationToken(final String token) {
 	        super();
 
 	        this.token = token;
 	        this.expiryDate = calculateExpiryDate(EXPIRATION);
+	        
+	    }*/
+	    
+	    public VerificationToken(User user) {
+	        super();
+	        this.user=user;
+	        this.expiryDate=new Date();
+	        this.token = UUID.randomUUID().toString();
+	        //this.expiryDate = calculateExpiryDate(EXPIRATION);
+	        
 	    }
 
 	    public VerificationToken(final String token, final User user) {
@@ -46,7 +62,7 @@ public class VerificationToken {
 
 	        this.token = token;
 	        this.user = user;
-	        this.expiryDate = calculateExpiryDate(EXPIRATION);
+	        this.expiryDate = new Date();
 	    }
 
 	    public Long getId() {
@@ -77,16 +93,16 @@ public class VerificationToken {
 	        this.expiryDate = expiryDate;
 	    }
 
-	    private Date calculateExpiryDate(final int expiryTimeInMinutes) {
+	    /*private Date calculateExpiryDate(final int expiryTimeInMinutes) {
 	        final Calendar cal = Calendar.getInstance();
 	        cal.setTimeInMillis(new Date().getTime());
 	        cal.add(Calendar.MINUTE, expiryTimeInMinutes);
 	        return new Date(cal.getTime().getTime());
-	    }
+	    }*/
 
 	    public void updateToken(final String token) {
 	        this.token = token;
-	        this.expiryDate = calculateExpiryDate(EXPIRATION);
+	        this.expiryDate = new Date();
 	    }
 
 	    //

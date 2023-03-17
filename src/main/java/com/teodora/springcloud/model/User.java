@@ -52,10 +52,10 @@ public class User {
     private boolean enabled;
 	
 	 //@ManyToMany(fetch = FetchType.EAGER)
-	@ManyToMany(cascade=CascadeType.ALL) 
+	/*@ManyToMany(cascade=CascadeType.ALL) 
 	//@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	@JoinColumn(name="role_id",referencedColumnName = "id") 
-	private Collection<Role> roles;
+	private Collection<Role> roles;*/
 	
 	public User(){
 		super();
@@ -111,13 +111,13 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	 public Collection<Role> getRoles() {
+	 /*public Collection<Role> getRoles() {
 	        return roles;
 	    }
 
 	    public void setRoles(final Collection<Role> roles) {
 	        this.roles = roles;
-	    }
+	    }*/
 	
 
     @Override
@@ -148,7 +148,8 @@ public class User {
                 .append(", birthDate=").append(birthDate)
                 .append(", email=").append(email)
                 .append(", password=").append(password)
-                .append(", roles=").append(roles)
+                //.append(", roles=").append(roles)
+                .append(", enabled=").append(enabled)
                 .append("]");
         return builder.toString();
     }
