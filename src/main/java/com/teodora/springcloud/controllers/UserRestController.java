@@ -21,17 +21,23 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.descriptor.web.ContextResourceLink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.LocaleEditor;
 import org.springframework.boot.context.properties.bind.Bindable.BindRestriction;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -90,7 +96,8 @@ public class UserRestController {
 	@Autowired
 	ApplicationEventPublisher eventPublisher; 
 	
-	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	//@Autowired
     //private MessageSource messages;
@@ -235,25 +242,25 @@ public class UserRestController {
 		return modelAndView;*/
 	/*}*/
 	@RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
+	public String confirmUserAccount(@RequestParam("token") String confirmationToken, Model model) {
 		VerificationToken token=verificationTokenRepository.findByToken(confirmationToken);
 		if(token!=null) {
 			User user = repo.findByEmail(token.getUser().getEmail());
 			user.setEnabled(true);
 			repo.save(user);
-			modelAndView.setViewName("accountVerified");
+			return("accountVerified");
 		}
-		else {
-			modelAndView.addObject("message","The link is invalid or broken!");
-			modelAndView.setViewName("error");
+		/*else {
+			//modelAndView.addObject("message","The link is invalid or broken!");
+			//modelAndView.setViewName("error");
 			
-		}
-		return modelAndView;
+		}*/
+		return "verificationFailed";
 	}
 	
 	
 	@PostMapping("/createuser")
-	public String createUser(@ModelAttribute("user") @Validated @Valid User user, RedirectAttributes redirectAttributes,Model model,BindingResult bindingResult) {
+	public String createUser(@ModelAttribute("user") @Validated @Valid User user, RedirectAttributes redirectAttributes,Model model,BindingResult bindingResult) throws UnsupportedEncodingException, MessagingException {
 		User existedUsername = repo.findByEmail(user.getEmail());
 		if(existedUsername!=null) {
 			model.addAttribute("existedUsername",existedUsername);
@@ -270,20 +277,42 @@ public class UserRestController {
 		redirectAttributes.addAttribute("id", user.getId());
 		VerificationToken verificationToken = new VerificationToken(user);
 		verificationTokenRepository.save(verificationToken);
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		/*SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(user.getEmail());
 		mailMessage.setSubject("Complete Registration");
 		mailMessage.setFrom("nikolovskat95@gmail.com");
 		mailMessage.setText("To confirm your account, please click here : "+"http://localhost:8080/confirm-account?token="+verificationToken.getToken());
-		emailService.sendEmail(mailMessage);
+		emailService.sendEmail(mailMessage);*/
+		String toAddress = user.getEmail();
+	    String fromAddress = "nikolovskat95@gmail.com";
+	    String senderName = "Health Condition Forecast";
+	    String subject = "Please verify your registration";
+	    String content = "Dear [[name]]"+",<br>"
+	            + "Please click the link below to verify your registration:<br>"
+	            + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+	            + "Thank you,<br>"
+	            + "Health Condition Forecast";
+	    MimeMessage message = mailSender.createMimeMessage();
+	    MimeMessageHelper helper = new MimeMessageHelper(message);
+	    helper.setFrom(fromAddress,senderName);
+	    helper.setTo(toAddress);
+	    helper.setSubject(subject);
+	    content=content.replace("[[name]]", user.getFirstName());
+	    //String verifyRL = "localhost:8080/confirm-account?token="+verificationToken;
+	    //Link link = Link.of("localhost:8080/confirm-account?token="+verificationToken);
+	    String verifyRL = "http://localhost:8080/confirm-account?token="+verificationToken;
+	    content=content.replace("[[URL]]", verifyRL);
+	    helper.setText(content,true);
+	    mailSender.send(message);
 		//model.addAttribute("email",user.getEmail());
 		//return "successfulRegistration";
-		return "redirect:/user/{id}";
+		//return "redirect:/user/{id}";
+	    return "successfulRegistration";
 	}
-	/*@GetMapping("/login")
+	@GetMapping("/login")
 	public String login() {
 		return "login";
-	}*/
+	}
 	/* @RequestMapping("/login")
 	    public String login() {
 	        return "login";
