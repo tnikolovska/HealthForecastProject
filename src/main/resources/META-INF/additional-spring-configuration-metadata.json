@@ -13,5 +13,10 @@
     "name": "message.regSuccConfirmed",
     "type": "java.lang.String",
     "description": "A description for 'message.regSuccConfirmed'"
+  },
+  {
+    "name": "org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH",
+    "type": "java.lang.String",
+    "description": "A description for 'org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH'"
   }
 ]}
