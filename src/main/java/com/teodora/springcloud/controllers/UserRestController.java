@@ -309,10 +309,10 @@ public class UserRestController {
 		//return "redirect:/user/{id}";
 	    return "successfulRegistration";
 	}
-	@GetMapping("/login")
+	/*@GetMapping("/login")
 	public String login() {
 		return "login";
-	}
+	}*/
 	/* @RequestMapping("/login")
 	    public String login() {
 	        return "login";
