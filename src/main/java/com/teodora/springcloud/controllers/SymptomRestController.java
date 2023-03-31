@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.event.TableColumnModelListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -84,6 +85,7 @@ public class SymptomRestController {
 		//return "symptom-list";
 		return "Symptoms";
 	}
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/edit-symptom/{id}")
 	public String showSymptomUpdateForm(@PathVariable("id")Long id,Model model) {
 		//Symptom updatesymptom = getSymptom(id);
@@ -105,13 +107,14 @@ public class SymptomRestController {
 		repo.save(symptom);
 		return "redirect:/symptom-list";	
 	}
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/delete-symptom/{id}")
 	public String deleteSymptom(@PathVariable("id") Long id, Model model) {
 		//delete(id);
 		repo.deleteById(id);
 		return "redirect:/symptom-list";
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/createSymptomView")
 	public String getRegisterSymptomPage(Model model) {
 		Symptom symptom = new Symptom();
@@ -147,7 +150,7 @@ public class SymptomRestController {
 		return "create-symptom";
 	}
 	
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/create-symptom")
 	public String createSymptom(@ModelAttribute("symptom") Symptom symptom, Model model) {
 		//create(symptom);

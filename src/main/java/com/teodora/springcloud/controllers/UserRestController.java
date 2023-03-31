@@ -82,9 +82,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//@RestController
-//@RequestMapping("/userapi")
-@Controller
+@RestController
+@RequestMapping("/userapi")
+//@Controller
 public class UserRestController {
 	
 	@Autowired
@@ -199,6 +199,7 @@ public class UserRestController {
 		model.addAttribute("user",user);
 		model.addAttribute("existedUsername",null);
 		return "register-user";
+		//return "user-register";
 	}
 	
 	/*@RequestMapping(value="/register", method=RequestMethod.POST)

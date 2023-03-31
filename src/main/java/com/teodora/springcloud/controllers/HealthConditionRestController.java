@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,7 +66,7 @@ public class HealthConditionRestController {
 		return repo.findAll();
 		
 	}
-	
+
 	@RequestMapping(value="healthCondition",method = RequestMethod.GET)
 	public String detailsHealthCondition(@RequestParam Long id, Model model) {
 		//HealthCondition healthCondition = getHealthConditionName(name);
@@ -89,6 +90,7 @@ public class HealthConditionRestController {
 		//return "healthCondition-list";
 		return "Health-Conditions";
 	}
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/edit-healthCondition/{id}")
 	//@RequestMapping(value="/edit-healthCondition",method = RequestMethod.GET)
 	public String showHealthConditionUpdateForm(@PathVariable("id") Long id,Model model) {
@@ -107,13 +109,14 @@ public class HealthConditionRestController {
 		repo.save(healthCondition);
 		return "redirect:/healthCondition-list";
 	}
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/delete-healthCondition/{id}")
 	public String deleteHealthCondition(@PathVariable("id") Long id, Model model) {
 		//delete(id);
 		repo.deleteById(id);
 		return "redirect:/healthCondition-list";
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/createHealthConditionView")
 	public String getRegisterHealthConditionPage(Model model) {
 		HealthCondition healthCondition = new HealthCondition();

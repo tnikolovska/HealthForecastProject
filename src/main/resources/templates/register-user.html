@@ -7,14 +7,17 @@
     <title>Register</title>
     <link rel="stylesheet" href="css/nicepage.css" media="screen">
 <link rel="stylesheet" href="css/Register.css" media="screen">
-    <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
+    <script class="u-script" type="text/javascript" th:src="@{/js/jquery.js}" defer=""></script>
+    <script class="u-script" type="text/javascript" th:src="@{/js/nicepage.js}" defer=""></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     <link rel="stylesheet" type="text/css" href="css/roboto-font.css">
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-5/css/fontawesome-all.min.css">
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<!-- Main Style Css -->
     <link rel="stylesheet" href="css/style.css"/>
+     <link href="css/bootstrap.min.css" rel="stylesheet">
      <script></script>
     
     <script type="application/ld+json">{
@@ -102,39 +105,40 @@
         </nav>
       </div></header>
     <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-clearfix u-white u-section-1" id="sec-128e">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <div class="page-content">
 		<div class="form-v5-content">
-			<form class="form-detail" action="#" th:action="@{/createuser}" th:object="${user}" method="post">
-				<h2>Sign Up</h2>
+			<form class="form-detail u-form u-form-1" action="#" th:action="@{/createuser}" th:object="${user}" method="post">
+				<h2 style="text-align: center;color: lightseagreen;">Sign Up</h2>
 				<div class="form-row">
 					<label for="firstName">First Name</label>
-					<input type="text" name="firstName" th:field="*{firstName}"  id="firstName" class="input-text" placeholder="Your First Name" required>
+					<input type="text" name="firstName" th:field="*{firstName}"  id="firstName" class="input-text form-control" placeholder="Your First Name" required>
 					<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
 					<!--<i class="fas fa-user"></i>-->
 				</div>
 				<div class="form-row">
 					<label for="lastName">Last Name</label>
-					<input type="text" name="last-name" th:field="*{lastName}" id="last-name" class="input-text" placeholder="Your Last Name" required>
+					<input type="text" name="last-name" th:field="*{lastName}" id="last-name" class="input-text form-control" placeholder="Your Last Name" required>
 					<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
 					<!--<i class="fas fa-user"></i>-->
 				</div>
 				<div class="form-row">
 					<label for="birthDate">Date Of Birth</label>
-					<input type="date" name="birthDate" th:field="*{birthDate}" id="birthDate" class="input-text" placeholder="Your Date Of Birth" required>
+					<input type="date" name="birthDate" th:field="*{birthDate}" id="birthDate" class="input-text form-control" placeholder="Your Date Of Birth" required>
 					<span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></span>
 					<!--<i class="fa-solid fa-cake-candles"></i>-->
 				</div>
 				<div class="form-row">
 					<label for="email">Your Email</label>
-					<input type="text" name="email" th:field="*{email}" id="email" class="input-text" placeholder="Your Email"  required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+					<input type="text" name="email" th:field="*{email}" id="email" class="input-text form-control" placeholder="Your Email"  required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
 					<!--<div><i class="fas fa-envelope"></i></div>-->
 				</div>
 				<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red;font-size: 12pt;"></span>
 				<div class="form-row">
 					<label for="password">Password</label>
-					<input type="password" name="password" th:field="*{password}" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="input-text" placeholder="Your Password" required>
+					<input type="password" name="password" th:field="*{password}" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="input-text form-control" placeholder="Your Password" required>
 					<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red;font-size: 12pt;"></span>
-					<div id="message">
+					<!--<div id="message">
 					  <h3>Password must contain the following:</h3>
 					  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
 					  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
@@ -143,14 +147,15 @@
 					</div>
 					<!--<i class="fas fa-lock"></i>-->
 				</div>
+				<br/>
 				<div class="form-row-last">
-					<input type="submit" name="register" class="register" value="Sign Up">
+					<input type="submit" name="register" class="register btn btn-lg form-control" value="Sign Up" style="background-color: lightseagreen; color:floralwhite">
 				</div>
 			</form>
 		</div>
 	</div>
+	</div>
     </section>
-    
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-566e"><div class="u-clearfix u-sheet u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">
@@ -159,15 +164,18 @@
         </p>
       </div></footer>
     <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/css-templates" target="_blank">
-        <span>CSS Templates</span>
+      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
+        <span>Website Templates</span>
       </a>
       <p class="u-text">
         <span>created with</span>
       </p>
-      <a class="u-link" href="https://nicepage.com/html-website-builder" target="_blank">
-        <span>HTML Builder</span>
+      <a class="u-link" href="" target="_blank">
+        <span>Website Builder Software</span>
       </a>. 
-    </section>
+    </section><span style="height: 64px; width: 64px; margin-left: 0px; margin-right: auto; margin-top: 0px; background-image: none; right: 20px; bottom: 20px; padding: 15px;" class="u-back-to-top u-icon u-icon-circle u-opacity u-opacity-85 u-palette-1-base u-text-white" data-href="#">
+        <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 551.13 551.13"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d98"></use></svg>
+        <svg class="u-svg-content" enable-background="new 0 0 551.13 551.13" viewBox="0 0 551.13 551.13" xmlns="http://www.w3.org/2000/svg" id="svg-1d98"><path d="m275.565 189.451 223.897 223.897h51.668l-275.565-275.565-275.565 275.565h51.668z"></path></svg>
+    </span>
   
 </body></html>

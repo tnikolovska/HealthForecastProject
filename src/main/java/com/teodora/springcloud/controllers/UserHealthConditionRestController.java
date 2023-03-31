@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -85,6 +86,7 @@ public class UserHealthConditionRestController {
 		model.addAttribute("userHealthConditions",userHealthConditions);
 		return "userHealthCondition-list";
 	}
+	@PreAuthorize("hasAuthority('USER')")
 	@GetMapping("/userHealthCondition-edit/{id}")
 	public String showUpdateForm(@PathVariable("id")Long id,Model model) {
 		//Category updateCategory = getCategory(id);
@@ -93,6 +95,7 @@ public class UserHealthConditionRestController {
 		model.addAttribute("userHealthCondition",userHealthCondition);
 		return "update-userHealthCondition";
 	}
+	
 	@PostMapping("/userHealthCondition-update/{id}")
 	public String updateUserHealthCondition(@PathVariable("id") Long id,@Validated UserHealthCondition userHealthCondition,BindingResult result, Model model) {
 		if(result.hasErrors()) {
@@ -104,6 +107,7 @@ public class UserHealthConditionRestController {
 		//categoryService.updateCategory(id,model.getAttribute("name").toString(), new BigDecimal(model.getAttribute("beginRange").toString()), new BigDecimal(model.getAttribute("endRange").toString()));
 		return "redirect:/userHealthCondition-list";
 	}
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/delete/{id}")
 	public String deleteUserHelathCondition(@PathVariable("id") Long id, Model model) {
 		repo.deleteById(id);
@@ -112,7 +116,7 @@ public class UserHealthConditionRestController {
 		return "redirect:/userHealthCondition-list";
 	}
 	
-	
+	@PreAuthorize("hasAuthority('USER')")
 	@GetMapping("/createUserHealthConditionView")
 	public String createUserHealthConditionView(Model model) {
 			UserHealthCondition userHealthCondition = new UserHealthCondition();

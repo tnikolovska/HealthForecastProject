@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Convert;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,6 +83,8 @@ public class CategoryRestController {
 		return "category";
 		
 	}
+	
+	
 	//@RequestMapping(value="category-list",method = RequestMethod.GET)
 	@GetMapping("category-list")
 	public String categories(Model model) {
@@ -94,6 +97,7 @@ public class CategoryRestController {
 		//return "category-list";
 		return "Categories";
 	}
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/edit/{id}")
 	public String showUpdateForm(@PathVariable("id")Long id,Model model) {
 		//Category updateCategory = getCategory(id);
@@ -114,6 +118,7 @@ public class CategoryRestController {
 		//categoryService.updateCategory(id,model.getAttribute("name").toString(), new BigDecimal(model.getAttribute("beginRange").toString()), new BigDecimal(model.getAttribute("endRange").toString()));
 		return "redirect:/category-list";
 	}
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/delete/{id}")
 	public String deleteCategory(@PathVariable("id") Long id, Model model) {
 		repo.deleteById(id);
@@ -122,6 +127,7 @@ public class CategoryRestController {
 		return "redirect:/category-list";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/createCategoryView")
 	public String getRegisterPage(Model model) {
 		Category category = new Category();

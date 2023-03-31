@@ -3,6 +3,8 @@ import com.teodora.springcloud.annotations.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,11 +53,11 @@ public class User {
 	@Column(name = "enabled")
     private boolean enabled;
 	
-	 //@ManyToMany(fetch = FetchType.EAGER)
-	/*@ManyToMany(cascade=CascadeType.ALL) 
-	//@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	 @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	/*@ManyToMany(cascade=CascadeType.ALL) */
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	@JoinColumn(name="role_id",referencedColumnName = "id") 
-	private Collection<Role> roles;*/
+	private Set<Role> roles = new HashSet<>();
 	
 	public User(){
 		super();
@@ -111,6 +113,7 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	
 	 /*public Collection<Role> getRoles() {
 	        return roles;
 	    }
@@ -120,7 +123,13 @@ public class User {
 	    }*/
 	
 
-    @Override
+    public Set<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	@Override
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;

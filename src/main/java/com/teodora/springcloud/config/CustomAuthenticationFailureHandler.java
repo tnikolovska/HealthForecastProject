@@ -17,22 +17,22 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
 
-@Component("authenticationFailureHandler")
+//@Component("authenticationFailureHandler")
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-	 @Autowired
+	/* @Autowired
 	    private MessageSource messages;
 
 	    @Autowired
 	    private LocaleResolver localeResolver;
 
 	    @Autowired
-	    private HttpServletRequest request;
+	    private HttpServletRequest request;*/
 
 	    /*@Autowired
 	    private LoginAttemptService loginAttemptService;*/
 
-    @Override
+   /* @Override
     public void onAuthenticationFailure(HttpServletRequest request, 
       HttpServletResponse response, AuthenticationException exception)
       throws IOException, ServletException {
@@ -48,7 +48,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
              errorMessage = messages.getMessage("auth.message.blocked", null, locale);
          }*/
 
-         if (exception.getMessage()
+        /* if (exception.getMessage()
              .equalsIgnoreCase("User is disabled")) {
              errorMessage = messages.getMessage("auth.message.disabled", null, locale);
          } else if (exception.getMessage()
@@ -64,5 +64,13 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
          request.getSession()
              .setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
-     }
+     }*/
+	    
+	    @Override
+	    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
+	        httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+	        String jsonPayload = "{\"message\" : \"%s\", \"timestamp\" : \"%s\" }";
+	        httpServletResponse.getOutputStream().println(String.format(jsonPayload, e.getMessage(), Calendar.getInstance().getTime()));
+	    }
 }

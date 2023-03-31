@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,7 +98,7 @@ public class ForecastRestController {
 	}
 	
 	
-	
+	@PreAuthorize("hasAuthority('USER')")
 	//@GetMapping("/result/{id}")
 	@RequestMapping(value="/result/{id}", method = RequestMethod.GET)
 	public String getForecastResult(@PathVariable("id")Long id, Model model, RedirectAttributes redirectAttributes) throws URISyntaxException, IOException, JSONException, ParseException {
