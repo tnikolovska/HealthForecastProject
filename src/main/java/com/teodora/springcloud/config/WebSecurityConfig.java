@@ -38,12 +38,14 @@ import lombok.AllArgsConstructor;
 //@SuppressWarnings("deprecation")
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 //@AllArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
     private DataSource dataSource;
     
     @Autowired
     private UserServiceImp userService;
+    
     //@Override
     /*protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
@@ -54,10 +56,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return new CustomDetailsService();
     }
     
-   // @Override
-    /*protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+   @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
-    }*/
+    }
     
     
     
@@ -91,14 +93,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .exceptionHandling().accessDeniedPage("/access-denied");
         return http.build();
     }*/
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth)throws Exception{
+    //@Override
+    /*protected void configure(final AuthenticationManagerBuilder auth)throws Exception{
     	auth.inMemoryAuthentication()
     	.withUser("user").password(passwordEncoder().encode("spring123")).roles("USER")
     	.and()
     	.withUser("admin").password(passwordEncoder().encode("admin123"))
     	.roles("ADMIN","USER");
-    }
+    }*/
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -325,25 +327,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		    http.headers().frameOptions().sameOrigin();*/
    /* }*/
     
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    //@Autowired
+    /*public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         auth.inMemoryAuthentication()
                 .withUser("user").password(encoder.encode("password")).roles("USER");
+    }*/
+    
+    //@Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
-    
-    
     
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
+        //authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setUserDetailsService(userService);
+       // authProvider.setPasswordEncoder(passwordEncoder());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    /*@Bean
+    public CustomPasswordEncoder customPasswordEncoder(){
+        return new CustomPasswordEncoder();
+    }*/
 }

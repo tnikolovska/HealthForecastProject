@@ -22,9 +22,10 @@ import org.springframework.stereotype.Service;
 import com.teodora.springcloud.config.CustomPasswordEncoder;
 import com.teodora.springcloud.dao.UserDao;
 import com.teodora.springcloud.exception.UserAlreadyExistsException;
-
+import com.teodora.springcloud.model.Role;
 import com.teodora.springcloud.model.User;
 import com.teodora.springcloud.model.VerificationToken;
+import com.teodora.springcloud.repos.RoleRepo;
 import com.teodora.springcloud.repos.UserRepo;
 import com.teodora.springcloud.repos.VerificationTokenRepository;
 
@@ -40,6 +41,8 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	private UserRepo userRepo;
 	private CustomPasswordEncoder customPasswordEncoder;
 	
+	@Autowired
+	RoleRepo roleRepo;
 	
 	@Autowired
 	private VerificationTokenRepository tokenRepository;
@@ -118,6 +121,15 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	public List<User> getUsers() {
 		// TODO Auto-generated method stub
 		return userDao.getUsers();
+	}
+
+	@Override
+	public void saveUserWIthDefaultRole(User user) {
+		// TODO Auto-generated method stub
+		Role role = roleRepo.findByName("User");
+		user.addRole(role);
+		userRepo.save(user);
+		
 	}
 
 	/*@Override

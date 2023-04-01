@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.teodora.springcloud.service.UserServiceImp;
@@ -23,7 +25,7 @@ public class CustomerPasswordEncoderConfig {
     }
 	
 	 //@Bean
-	   /* public SecurityFilterChain configure(HttpSecurity http) throws Exception { 
+	    /*public SecurityFilterChain configure(HttpSecurity http) throws Exception { 
 	 
 	        http.csrf().disable();
 	        http.authorizeHttpRequests()
@@ -32,9 +34,9 @@ public class CustomerPasswordEncoderConfig {
 	                .and()
 	                .authenticationManager(daoAuthenticationProvider());*/
 	         /*return http.build();
-	    }
+	    }*/
 	 
-	 @Bean
+	 /*@Bean
 	    public DaoAuthenticationProvider daoAuthenticationProvider(){
 		 DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 	        daoAuthenticationProvider.setPasswordEncoder(customPasswordEncoder());
@@ -44,6 +46,10 @@ public class CustomerPasswordEncoderConfig {
 	    @Bean
 	    public CustomPasswordEncoder customPasswordEncoder(){
 	        return new CustomPasswordEncoder();
+	    }*/
+	 /*@Bean
+	    public PasswordEncoder passwordEncoder() {
+	        return new BCryptPasswordEncoder();
 	    }*/
 	
 

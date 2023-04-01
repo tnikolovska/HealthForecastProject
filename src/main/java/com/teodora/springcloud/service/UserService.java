@@ -14,6 +14,7 @@ public interface UserService {
 	void deleteUser(User user);
 	List<User> getUsers();
     void registerUser(User user);
+    public void saveUserWIthDefaultRole(User user);
    
     		/*User registerNewUserAccount(User user) 
     	      throws UserAlreadyExistsException;

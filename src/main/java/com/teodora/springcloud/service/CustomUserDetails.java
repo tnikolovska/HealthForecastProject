@@ -21,8 +21,8 @@ public class CustomUserDetails implements UserDetails {
 	        this.user = user;
 	    }
 	 
-	   /* @Override
-	    public Collection<? extends GrantedAuthority> getAuthorities() {
+	    //@Override
+	    /*public Collection<? extends GrantedAuthority> getAuthorities() {
 	        return null;
 	    }*/
 	 

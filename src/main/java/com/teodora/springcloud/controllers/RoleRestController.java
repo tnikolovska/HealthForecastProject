@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.teodora.springcloud.model.Role;
 import com.teodora.springcloud.repos.RoleRepo;
 
-@RestController
-@RequestMapping("/roleapi")
+//@RestController
+//@RequestMapping("/roleapi")
+@Controller
 public class RoleRestController {
 	
 	

@@ -82,9 +82,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/userapi")
-//@Controller
+//@RestController
+//@RequestMapping("/userapi")
+@Controller
 public class UserRestController {
 	
 	@Autowired
@@ -248,7 +248,8 @@ public class UserRestController {
 		if(token!=null) {
 			User user = repo.findByEmail(token.getUser().getEmail());
 			user.setEnabled(true);
-			repo.save(user);
+			userService.saveUserWIthDefaultRole(user);
+			//repo.save(user);
 			return("accountVerified");
 		}
 		/*else {
