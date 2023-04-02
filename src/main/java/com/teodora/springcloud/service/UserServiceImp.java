@@ -17,6 +17,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.teodora.springcloud.config.CustomPasswordEncoder;
@@ -28,6 +29,8 @@ import com.teodora.springcloud.model.VerificationToken;
 import com.teodora.springcloud.repos.RoleRepo;
 import com.teodora.springcloud.repos.UserRepo;
 import com.teodora.springcloud.repos.VerificationTokenRepository;
+
+import ch.qos.logback.core.pattern.color.BoldCyanCompositeConverter;
 
 import org.springframework.context.annotation.Lazy;
 
@@ -68,7 +71,10 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        newUser.setLastName(user.getLastName());
 	        newUser.setEmail(user.getEmail());
 	        newUser.setBirthDate(user.getBirthDate());*/
-	        user.setPassword(customPasswordEncoder.encode(user.getPassword()));
+		 	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		 	//CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+	        //user.setPassword(customPasswordEncoder.encode(user.getPassword()));
+		 	user.setPassword(passwordEncoder.encode(user.getPassword()));
 	        userRepo.save(user);
 	    } 
 	 

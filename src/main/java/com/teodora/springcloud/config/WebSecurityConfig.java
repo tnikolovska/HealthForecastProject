@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.teodora.springcloud.service.CustomDetailsService;
+import com.teodora.springcloud.service.CustomUserDetails;
 import com.teodora.springcloud.service.UserServiceImp;
 
 import lombok.AllArgsConstructor;
@@ -46,8 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private UserServiceImp userService;
     
-    //@Override
-    /*protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+    /*@Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }*/
     
@@ -343,7 +344,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         //authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setUserDetailsService(userService);
+        authProvider.setUserDetailsService(userDetailsService());
        // authProvider.setPasswordEncoder(passwordEncoder());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
@@ -353,8 +354,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    /*@Bean
-    public CustomPasswordEncoder customPasswordEncoder(){
+    //@Bean
+    /*public CustomPasswordEncoder customPasswordEncoder(){
         return new CustomPasswordEncoder();
     }*/
 }
