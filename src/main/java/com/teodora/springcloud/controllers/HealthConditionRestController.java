@@ -27,7 +27,7 @@ import com.teodora.springcloud.model.Symptom;
 import com.teodora.springcloud.repos.HealthConditionRepo;
 
 @Controller
-//@RequestMapping("/healthconditionapi")
+@RequestMapping("/healthconditionapi")
 public class HealthConditionRestController {
 	
 	@Autowired
@@ -90,7 +90,7 @@ public class HealthConditionRestController {
 		//return "healthCondition-list";
 		return "Health-Conditions";
 	}
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/edit-healthCondition/{id}")
 	//@RequestMapping(value="/edit-healthCondition",method = RequestMethod.GET)
 	public String showHealthConditionUpdateForm(@PathVariable("id") Long id,Model model) {
@@ -107,16 +107,16 @@ public class HealthConditionRestController {
 		}
 		//updateHealthCondition(healthCondition);
 		repo.save(healthCondition);
-		return "redirect:/healthCondition-list";
+		return "redirect:/healthconditionapi/healthCondition-list";
 	}
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/delete-healthCondition/{id}")
 	public String deleteHealthCondition(@PathVariable("id") Long id, Model model) {
 		//delete(id);
 		repo.deleteById(id);
 		return "redirect:/healthCondition-list";
 	}
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/createHealthConditionView")
 	public String getRegisterHealthConditionPage(Model model) {
 		HealthCondition healthCondition = new HealthCondition();

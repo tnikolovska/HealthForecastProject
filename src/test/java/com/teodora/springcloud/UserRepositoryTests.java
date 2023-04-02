@@ -80,9 +80,9 @@ public class UserRepositoryTests {
 	}
 	@Test
 	public void testAddRoleToExistingUser() {
-		User user = repo.findById(2L).get();
-		Role roleUser = roleRepo.findByName("User");
-		user.addRole(roleUser);
+		User user = repo.findById(1L).get();
+		/*Role roleUser = roleRepo.findByName("User");
+		user.addRole(roleUser);*/
 		
 		//Role roleAdmin = new Role(2L);
 		Role roleAdmin = roleRepo.findByName("Admin");

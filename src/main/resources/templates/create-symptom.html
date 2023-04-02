@@ -5,10 +5,10 @@
     <meta name="keywords" content="Add Symptom">
     <meta name="description" content="">
     <title>Create Symptom</title>
-    <link rel="stylesheet" href="css/nicepage.css" media="screen">
-<link rel="stylesheet" href="css/Create-Symptom.css" media="screen">
-    <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
+    <link rel="stylesheet" th:href="@{/css/nicepage.css}" media="screen">
+<link rel="stylesheet" th:href="@{/css/Create-Symptom.css}" media="screen">
+    <script class="u-script" type="text/javascript" th:src="@{/js/jquery.js}" defer=""></script>
+    <script class="u-script" type="text/javascript" th:src="@{/js/nicepage.js}" defer=""></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
     <meta name="referrer" content="origin">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -26,7 +26,7 @@
   <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
   <body class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-ad7c"><div class="u-clearfix u-sheet u-valign-bottom u-sheet-1">
         <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="959" data-image-height="959">
-          <img src="images/75282331-0.png" class="u-logo-image u-logo-image-1">
+          <img th:src="@{/images/75282331-0.png}" class="u-logo-image u-logo-image-1">
         </a>
         <nav class="color u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700;">
@@ -101,7 +101,7 @@
           </form>-->
        <div class container>
 	   <form action="#"
-	  th:action="@{/create-symptom}" 
+	  th:action="@{/symptomapi/create-symptom}" 
 	  th:object="${symptom}"
 	  method="post">
 	  	<!--<p th:text="${symptom.healthCondition.name}"><p>-->
@@ -123,7 +123,7 @@
 	    <label for="healthCondition.id">Health Condition</label>
 	    <!--<input type="text" class="form-control" th:field="*{healthCondition}" id="healthCondition" placeholder="Health Condition">-->
 	   	<select class="form-control form-control-lg" th:field="*{healthCondition.id}" id="healthCondition" placeholder="Health Condition">
-	   		<option value="2">Migraine headache</option>
+	   		<option value="1">Migraine headache</option>
 	   		<option value="3">Sinus Headache</option>
 	   		<option value="4">Arthritis Pain</option>
 	   	</select>

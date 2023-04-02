@@ -76,7 +76,7 @@
         <h2 class="u-text u-text-default u-text-1">Update Health Condition</h2>
         <div class="u-form u-form-1">
        <form action="#"
-	  th:action="@{/update-healthCondition/{id}(id=${healthCondition.id})}" 
+	  th:action="@{/healthconditionapi/update-healthCondition/{id}(id=${healthCondition.id})}" 
 	  th:object="${healthCondition}"
 	  method="post">
 	  	<!--<p th:text="${symptom.healthCondition.name}"><p>-->

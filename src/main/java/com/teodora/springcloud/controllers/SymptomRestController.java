@@ -27,7 +27,7 @@ import com.teodora.springcloud.repos.HealthConditionRepo;
 import com.teodora.springcloud.repos.SymptomRepo;
 
 @Controller
-//@RequestMapping("/symptomapi")
+@RequestMapping("/symptomapi")
 public class SymptomRestController {
 	
 	@Autowired
@@ -85,7 +85,7 @@ public class SymptomRestController {
 		//return "symptom-list";
 		return "Symptoms";
 	}
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/edit-symptom/{id}")
 	public String showSymptomUpdateForm(@PathVariable("id")Long id,Model model) {
 		//Symptom updatesymptom = getSymptom(id);
@@ -107,14 +107,14 @@ public class SymptomRestController {
 		repo.save(symptom);
 		return "redirect:/symptom-list";	
 	}
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/delete-symptom/{id}")
 	public String deleteSymptom(@PathVariable("id") Long id, Model model) {
 		//delete(id);
 		repo.deleteById(id);
 		return "redirect:/symptom-list";
 	}
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/createSymptomView")
 	public String getRegisterSymptomPage(Model model) {
 		Symptom symptom = new Symptom();
@@ -150,7 +150,7 @@ public class SymptomRestController {
 		return "create-symptom";
 	}
 	
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('Admin')")
 	@PostMapping("/create-symptom")
 	public String createSymptom(@ModelAttribute("symptom") Symptom symptom, Model model) {
 		//create(symptom);
@@ -161,7 +161,7 @@ public class SymptomRestController {
 		symptom.setHealthCondition(healthCondition);
 		repo.save(symptom);
 		//return "redirect:/symptom-list";
-		return "redirect:/healthCondition?id="+symptom.getHealthCondition().getId();
+		return "redirect:/healthconditionapi/healthCondition?id="+symptom.getHealthCondition().getId();
 	}
 	/*@GetMapping("/create-healthConditionSymptom/{id}")
 	public String createHealthConditionSymptom(@PathVariable("id") Long id,Model model) {

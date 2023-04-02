@@ -14,7 +14,7 @@ import com.teodora.springcloud.model.Role;
 import com.teodora.springcloud.repos.RoleRepo;
 
 //@RestController
-//@RequestMapping("/roleapi")
+@RequestMapping("/roleapi")
 @Controller
 public class RoleRestController {
 	

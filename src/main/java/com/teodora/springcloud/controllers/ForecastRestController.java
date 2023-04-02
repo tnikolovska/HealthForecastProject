@@ -51,7 +51,7 @@ import java.util.Iterator;
 
 @Controller
 //@RestController
-//@RequestMapping("/forecastapi")
+@RequestMapping("/forecastapi")
 public class ForecastRestController {
 	
 	@Autowired
@@ -98,7 +98,7 @@ public class ForecastRestController {
 	}
 	
 	
-	@PreAuthorize("hasAuthority('USER')")
+	@PreAuthorize("hasAuthority('User')")
 	//@GetMapping("/result/{id}")
 	@RequestMapping(value="/result/{id}", method = RequestMethod.GET)
 	public String getForecastResult(@PathVariable("id")Long id, Model model, RedirectAttributes redirectAttributes) throws URISyntaxException, IOException, JSONException, ParseException {

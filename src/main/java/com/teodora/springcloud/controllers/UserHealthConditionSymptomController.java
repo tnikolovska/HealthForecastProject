@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teodora.springcloud.dao.HealthConditionDao;
@@ -30,6 +31,7 @@ import com.teodora.springcloud.repos.UserHealthConditionSymptomRepo;
 import com.teodora.springcloud.repos.UserRepo;
 
 @Controller
+@RequestMapping("/userhealthconditionsymptomapi")
 public class UserHealthConditionSymptomController {
 	
 	@Autowired
@@ -97,24 +99,24 @@ public class UserHealthConditionSymptomController {
 			if(healthCondition.getName().equals("Arthritis Pain")) {
 				if(userHealthConditionSymptom.getUserArthritisSymptoms().size()>0) {
 					userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
-					return "redirect:/result/"+healthCondition.getId();
+					return "redirect:/forecastapi/result/"+healthCondition.getId();
 				}
 			}
 			else if(healthCondition.getName().equals("Migraine Headache")) {
 				if(userHealthConditionSymptom.getUserMigraineSymptoms().size()>0) {
 					userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
-					return "redirect:/result/"+healthCondition.getId();
+					return "redirect:/forecastapi/result/"+healthCondition.getId();
 				}
 			}
 			else if(healthCondition.getName().equals("Sinus Headache")){
 				if(userHealthConditionSymptom.getUserSinusSymptoms().size()>0) {
 					userHealthConditionSymptomRepo.save(userHealthConditionSymptom);
-					return "redirect:/result/"+healthCondition.getId();
+					return "redirect:/forecastapi/result/"+healthCondition.getId();
 				}
 			}
 		}
 		
-		return "redirect:/user-health-condition";
+		return "redirect:/userhealthconditionsymptomapi/user-health-condition";
 		
 	}
 }

@@ -5,10 +5,10 @@
     <meta name="keywords" content="Arthritis, Sinuses, ​Migraine">
     <meta name="description" content="">
     <title>Health Conditions</title>
-    <link rel="stylesheet" href="css/nicepage.css" media="screen">
-<link rel="stylesheet" href="css/Health-Conditions.css" media="screen">
-    <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
+    <link rel="stylesheet" th:href="@{/css/nicepage.css}" media="screen">
+<link rel="stylesheet" th:href="@{/css/Health-Conditions.css}" media="screen">
+    <script class="u-script" type="text/javascript" th:src="@{/js/jquery.js}" defer=""></script>
+    <script class="u-script" type="text/javascript" th:src="@{/js/nicepage.js}" defer=""></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     
@@ -69,7 +69,7 @@
       </div></header>-->
       <header class="u-clearfix u-header u-header" id="sec-ad7c"><div class="u-clearfix u-sheet u-valign-bottom u-sheet-1">
         <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="959" data-image-height="959">
-          <img src="images/75282331-0.png" class="u-logo-image u-logo-image-1">
+          <img th:src="@{/images/75282331-0.png}" class="u-logo-image u-logo-image-1">
         </a>
         <nav class="color u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700;">
@@ -123,7 +123,7 @@
                   <h2 class="u-text u-text-default u-text-1">Arthritis</h2>
                   <p class="u-text u-text-2"> Arthritis means&nbsp;inflammation or swelling of one or more joints. It describes more than 100 conditions that affect the joints, tissues around the joint, and other connective tissues. Specific symptoms vary depending on the type of arthritis, but usually include joint pain and stiffness.
                   </p>
-                  <a th:href="@{/healthCondition?id=4}" class="u-active-none u-border-2 u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">learn more</a>
+                  <a th:href="@{/healthconditionapi/healthCondition?id=4}" class="u-active-none u-border-2 u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">learn more</a>
                 </div>
               </div>
               <div class="u-align-center u-container-style u-image u-layout-cell u-right-cell u-size-30 u-size-xs-60 u-image-1" style="background-image: url('images/arthritis.jpg');" data-image-width="1080" data-image-height="1080">
@@ -148,7 +148,7 @@
                   <h2 class="u-text u-text-default u-text-1">Sinuses</h2>
                   <p class="u-text u-text-2"> The sinuses are&nbsp;small, empty spaces behind your cheekbones and forehead that connect to the inside of the nose. Sinusitis causes the lining of the sinuses to swell up. This stops mucus draining into your nose and throat properly, making you feel blocked up.
                   </p>
-                  <a th:href="@{/healthCondition?id=3}" class="u-active-none u-border-2 u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">learn more</a>
+                  <a th:href="@{/healthconditionapi/healthCondition?id=3}" class="u-active-none u-border-2 u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">learn more</a>
                 </div>
               </div>
               <div class="u-align-center u-container-style u-image u-layout-cell u-right-cell u-size-30 u-size-xs-60 u-image-1"  data-image-width="1080" src="" data-image-height="1080" style="background-image: url('images/sinuses.jpg');">
@@ -173,7 +173,7 @@
                   <h2 class="u-text u-text-default u-text-1"> Migraine</h2>
                   <p class="u-text u-text-2"> A migraine is&nbsp;usually a moderate or severe headache felt as a throbbing pain on 1 side of the head. Many people also have symptoms such as feeling sick, being sick and increased sensitivity to light or sound. Migraine is a common health condition, affecting around 1 in every 5 women and around 1 in every 15 men.
                   </p>
-                  <a th:href="@{/healthCondition?id=2}" class="u-active-none u-border-2 u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">learn more</a>
+                  <a th:href="@{/healthconditionapi/healthCondition?id=1}" class="u-active-none u-border-2 u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">learn more</a>
                 </div>
               </div>
               <div class="u-align-center u-container-style u-image u-layout-cell u-right-cell u-size-30 u-size-xs-60 u-image-1" src="" data-image-width="1080" data-image-height="1080" style="background-image: url('images/migraine.jpg');">
