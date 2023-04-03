@@ -35,7 +35,7 @@
 				  fieldMigraine.style.display="none";
 			  }
 		  }
-		  else if(val==4){
+		  else if(val==2){
 			  if(fieldArthritis.style.display==="none"){
 				  fieldArthritis.style.display="block";
 				  fieldSinus.style.display="none";
@@ -117,7 +117,7 @@
 	   		<option value="">Please choose an option</option>
 	   		<option value="1">Migraine headache</option>
 	   		<option value="3">Sinus Headache</option>
-	   		<option value="4">Arthritis Pain</option>
+	   		<option value="2">Arthritis Pain</option>
 	   	</select>
 	   </div>
 		<div th:if="${ not#lists.isEmpty(arthritisSymptoms)}" id="arthritis" style="display: none;">

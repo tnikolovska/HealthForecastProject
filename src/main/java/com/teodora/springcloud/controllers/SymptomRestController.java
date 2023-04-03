@@ -105,14 +105,14 @@ public class SymptomRestController {
 		//symptom.setHealthCondition(healthCondition);
 		symptom.setHealthCondition(healthCondition);
 		repo.save(symptom);
-		return "redirect:/symptom-list";	
+		return "redirect:/symptomapi/symptom-list";	
 	}
 	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/delete-symptom/{id}")
 	public String deleteSymptom(@PathVariable("id") Long id, Model model) {
 		//delete(id);
 		repo.deleteById(id);
-		return "redirect:/symptom-list";
+		return "redirect:/symptomapi/symptom-list";
 	}
 	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/createSymptomView")

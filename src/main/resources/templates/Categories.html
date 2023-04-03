@@ -93,14 +93,14 @@
                 <td class="u-border-1 u-border-grey-30 u-first-column u-grey-5 u-table-cell u-table-cell-6" th:text="${category.name}"></td>
                 <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${category.beginRange}"></td>
                 <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${category.endRange}"></td>
-                <td class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/edit/{id}(id=${category.id})}">Modify</a></td>
-                <td class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/delete/{id}(id=${category.id})}">Delete</a></td>
+                <td class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/categoryapi/edit/{id}(id=${category.id})}">Modify</a></td>
+                <td class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/categoryapi/delete/{id}(id=${category.id})}">Delete</a></td>
             	</tr>
             </tbody>
         	</table>
         	</div>
         </div>
-             <a th:href="@{/createCategoryView}" class="btn btn-primary btn-lg disabled  u-align-left u-text u-text-5" role="button" aria-disabled="true">Add Category</a>
+             <a th:href="@{/categoryapi/createCategoryView}" class="btn btn-primary btn-lg disabled  u-align-left u-text u-text-5" role="button" aria-disabled="true">Add Category</a>
       </div>
     </section>
     

@@ -101,8 +101,8 @@
         <td th:text="${symptom.name}"></td>
         <td th:text="${symptom.description}"></td>
         <td th:text="${symptom.healthCondition.name}"></td>
-        <td><a th:href="@{/edit-symptom/{id}(id=${symptom.id})}">Modify</a></td>
-        <td><a th:href="@{/delete-symptom/{id}(id=${symptom.id})}">Delete</a></td>
+        <td><a th:href="@{/symptomapi/edit-symptom/{id}(id=${symptom.id})}">Modify</a></td>
+        <td><a th:href="@{/symptomapi/delete-symptom/{id}(id=${symptom.id})}">Delete</a></td>
       </tr>
     </tbody>
   </table>

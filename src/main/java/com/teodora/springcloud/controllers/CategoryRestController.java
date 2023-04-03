@@ -116,7 +116,7 @@ public class CategoryRestController {
 		//updateCategory(category);
 		repo.save(category);
 		//categoryService.updateCategory(id,model.getAttribute("name").toString(), new BigDecimal(model.getAttribute("beginRange").toString()), new BigDecimal(model.getAttribute("endRange").toString()));
-		return "redirect:/category-list";
+		return "redirect:/categoryapi/category-list";
 	}
 	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/delete/{id}")
@@ -124,7 +124,7 @@ public class CategoryRestController {
 		repo.deleteById(id);
 		//Category category=categoryService.getCategory(id);
 		//categoryService.deleteCategory(category);
-		return "redirect:/category-list";
+		return "redirect:/categoryapi/category-list";
 	}
 	
 	@PreAuthorize("hasAuthority('Admin')")
@@ -140,7 +140,7 @@ public class CategoryRestController {
 		//categoryDao.create(category);
 		//create(category);
 		repo.save(category);
-		return "redirect:/category-list";
+		return "redirect:/categoryapi/category-list";
 	}
 	@GetMapping("/categoryforecast-list")
 	public String getCategoryForecast(@PathVariable("id") Long id,Model model) {

@@ -77,7 +77,7 @@
         <div class="u-form u-form-1">
        <div class container>
 	   <form action="#"
-	  th:action="@{@{/update-symptom/{id}(id=${symptom.id})}}" 
+	  th:action="@{/symptomapi/update-symptom/{id}(id=${symptom.id})}" 
 	  th:object="${symptom}"
 	  method="post">
 	  	<!--<p th:text="${symptom.healthCondition.name}"><p>-->
@@ -99,9 +99,9 @@
 	    <label for="healthCondition.id">Health Condition</label>
 	    <!--<input type="text" class="form-control" th:field="*{healthCondition}" id="healthCondition" placeholder="Health Condition">-->
 	   	<select class="form-control form-control-lg" th:field="*{healthCondition.id}" id="healthCondition" placeholder="Health Condition">
-	   		<option value="2">Migraine headache</option>
+	   		<option value="1">Migraine headache</option>
 	   		<option value="3">Sinus Headache</option>
-	   		<option value="4">Arthritis Pain</option>
+	   		<option value="2">Arthritis Pain</option>
 	   	</select>
 	   </div>
 	   <!-- <span th:if="${#fields.hasErrors('healthCondition')}" th:errors="*{healthCondition}"></span>-->

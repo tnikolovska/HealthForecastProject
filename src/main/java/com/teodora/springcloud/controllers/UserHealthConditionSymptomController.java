@@ -35,7 +35,7 @@ import com.teodora.springcloud.repos.UserRepo;
 public class UserHealthConditionSymptomController {
 	
 	@Autowired
-	UserHealthConditionRepo repo;
+	UserHealthConditionRepo repo;		
 	
 	
 	@Autowired
