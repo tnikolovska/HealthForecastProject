@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="en"><head>
+<!--<html style="font-size: 16px;" lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">-->
+      <html style="font-size: 16px;" lang="en" xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="keywords" content="aboutmarketing, INTUITIVE">
@@ -9,10 +13,35 @@
 <link rel="stylesheet" href="css/Home.css" media="screen">
     <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     
-    
+    <script type="text/javascript">
+    	/*$(document).ready(function(){
+			
+			var element = document.getElementById("addSymptom");
+	    	var symptomElement = document.getElementById("addSymptomElement");
+	    	//document.write("Admin");
+	    	if(HelpCenter.user.role=="Admin"){
+				document.getElementById("addSymptom").style.display='block';
+				console.log("Admin");
+			}
+			else{
+				document.getElementById("addSymptom").style.display='none';
+				console.log("User");
+			}
+			if(HelpCenter.user.role=="Admin"){
+				document.getElementById("addSymptomElement").style.display='block';
+				console.log("Admin");
+			}
+			else{
+				document.getElementById("addSymptomElement").style.display='none';
+				console.log("User");
+			}
+			});*/
+    	
+    </script>
     
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
@@ -41,24 +70,24 @@
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userapi/createUserView}" style="padding: 10px 8px;">Register</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/login}" style="padding: 10px 8px;">Login</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/healthconditionapi/healthCondition-list}" style="padding: 10px 8px;">HealthConditions</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/symptomapi/createSymptomView}" style="padding: 10px 8px;">Add Symptom</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/symptomapi/symptom-list}" style="padding: 10px 8px;">Symptoms</a>
+</li><div sec:authorize="hasRole('Admin')"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/symptomapi/createSymptomView}" style="padding: 10px 8px;">Add Symptom</a>
+</li></div><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/symptomapi/symptom-list}" style="padding: 10px 8px;">Symptoms</a></security:authorize>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/categoryapi/category-list}" style="padding: 10px 8px;">Categories</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userhealthconditionsymptomapi/user-health-condition}" style="padding: 10px 8px;">Forecast</a>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userapi/user-list}" style="padding: 10px 8px;">Users</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/logout}" style="padding: 10px 8px;">Logout</a>
+</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/logout}" style="padding: 10px 8px;" sec:authorize="isAuthenticated()">Logout</a>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/}">Home</a>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2" sec:authorize="hasAuthority('Admin')"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/}">Home</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userapi/createUserView}">Register</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/login}">Login</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/healthconditionapi/healthCondition-list}">HealthConditions</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/symptomapi/createSymptomView}">Add Symptom</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/symptomapi/symptom-list}">Symptoms</a>
+</li><div sec:authorize="hasRole('Admin')"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/symptomapi/createSymptomView}">Add Symptom</a>
+</li></div><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/symptomapi/symptom-list}">Symptoms</a></security:authorize>
 <!--</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/createSymptomView}">Add Symptom</a>-->
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/categoryapi/category-list}">Categories</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userhealthconditionsymptomapi/user-health-condition}">Forecast</a>
@@ -81,7 +110,7 @@
       <div class="u-clearfix u-sheet u-sheet-1">
         <h1 class="u-text u-text-default u-title u-text-1">Health Forecast</h1>
         <p class="u-large-text u-text u-text-default u-text-variant u-text-2">Protect people with 24/7 warnings to better plan,&nbsp; protect and prepare health conditions and wellbeing</p>
-        <a href="#" class="u-btn u-button-style u-palette-2-base u-btn-1">Sign UP</a>
+        <a href="#" th:href="@{/userapi/createUserView}" class="u-btn u-button-style u-palette-2-base u-btn-1">Sign UP</a>
       </div>
     </section>
     
@@ -90,6 +119,12 @@
         <p class="u-small-text u-text u-text-variant u-text-1">
           <span style="font-size: 1.5rem;">Company</span>
           <br>About<br>Contact
+          <div sec:authorize="hasRole('Admin')">
+			    This content is only shown to administrators.§§
+			</div>
+			<div sec:authorize="hasRole('User')">
+    This content is only shown to users.
+</div>
         </p>
       </div></footer>
     <section class="u-backlink u-clearfix u-grey-80">

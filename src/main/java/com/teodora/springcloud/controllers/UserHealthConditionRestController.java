@@ -108,7 +108,7 @@ public class UserHealthConditionRestController {
 		//categoryService.updateCategory(id,model.getAttribute("name").toString(), new BigDecimal(model.getAttribute("beginRange").toString()), new BigDecimal(model.getAttribute("endRange").toString()));
 		return "redirect:/userHealthCondition-list";
 	}
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/delete/{id}")
 	public String deleteUserHelathCondition(@PathVariable("id") Long id, Model model) {
 		repo.deleteById(id);
@@ -117,7 +117,7 @@ public class UserHealthConditionRestController {
 		return "redirect:/userHealthCondition-list";
 	}
 	
-	@PreAuthorize("hasAuthority('USER')")
+	@PreAuthorize("hasAuthority('User')")
 	@GetMapping("/createUserHealthConditionView")
 	public String createUserHealthConditionView(Model model) {
 			UserHealthCondition userHealthCondition = new UserHealthCondition();

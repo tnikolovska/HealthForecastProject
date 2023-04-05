@@ -302,7 +302,7 @@ public class UserRestController {
 	    content=content.replace("[[name]]", user.getFirstName());
 	    //String verifyRL = "localhost:8080/confirm-account?token="+verificationToken;
 	    //Link link = Link.of("localhost:8080/confirm-account?token="+verificationToken);
-	    String verifyRL = "http://localhost:8080/confirm-account?token="+verificationToken.getToken();
+	    String verifyRL = "http://localhost:8080/userapi/confirm-account?token="+verificationToken.getToken();
 	    content=content.replace("[[URL]]", verifyRL);
 	    helper.setText(content,true);
 	    mailSender.send(message);

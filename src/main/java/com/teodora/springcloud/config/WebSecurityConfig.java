@@ -36,7 +36,7 @@ import lombok.AllArgsConstructor;
 //@ImportResource({ "classpath:webSecurityConfig.xml" })
 @EnableWebSecurity
 //@Profile("!https")
-//@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecation")
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 //@AllArgsConstructor
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
+	   auth.inMemoryAuthentication().withUser("nikolovskat95@gmail.com").password(passwordEncoder().encode("Mypassword1!")).authorities("Admin");
     }
     
     
@@ -105,7 +106,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     
    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        
+	   
     	//ova e osnovno resenie
     	/*http.authorizeRequests()
             .anyRequest().authenticated()
@@ -208,7 +209,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     	 http.httpBasic().disable();
          http.csrf().disable();
          http.headers().frameOptions().sameOrigin();
-
+         
+         
     }
     
     /*@Bean
@@ -373,10 +375,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         auth.inMemoryAuthentication()
                 .withUser("user").password(encoder.encode("password")).roles("USER");
     }*/
+   //@Autowired
+	/*public void registerGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().passwordEncoder(passwordEncoder()).withUser("nikolovskat95@gmail.com")
+				.password("$2a$10$9Xn39aPf4LhDpRGNWvDFqu.T5ZPHbyh8iNQDSb4aNSnLqE2u2efIu").roles("Admin").and()
+				.passwordEncoder(passwordEncoder).withUser("admin")
+				.password("$2a$10$dl8TemMlPH7Z/mpBurCX8O4lu0FoWbXnhsHTYXVsmgXyzagn..8rK").roles("USER", "ADMIN");
+	}*/
     
-    //@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+   	//@Autowired
+   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth.inMemoryAuthentication().withUser("nikolovskat95@gmail.com").password(passwordEncoder().encode("Mypassword1!")).authorities("Admin");
     }
     
     @Bean
