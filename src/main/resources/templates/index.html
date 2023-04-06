@@ -119,12 +119,14 @@
         <p class="u-small-text u-text u-text-variant u-text-1">
           <span style="font-size: 1.5rem;">Company</span>
           <br>About<br>Contact
-          <div sec:authorize="hasRole('Admin')">
+          
+          <div sec:authorize="${principal.username.equals('nikolovskat95@gmail.com')}">
 			    This content is only shown to administrators.§§
 			</div>
-			<div sec:authorize="hasRole('User')">
-    This content is only shown to users.
-</div>
+			<div sec:authorize="hasAuthority('User')">
+			    This content is only shown to users.
+			</div>
+		
         </p>
       </div></footer>
     <section class="u-backlink u-clearfix u-grey-80">
