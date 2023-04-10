@@ -104,7 +104,7 @@
         	</table>
         	</div>
         </div>
-             <a th:href="@{/categoryapi/createCategoryView}" class="btn btn-primary btn-lg disabled  u-align-left u-text u-text-5" role="button" aria-disabled="true">Add Category</a>
+             <div sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/categoryapi/createCategoryView}" class="btn btn-primary btn-lg disabled  u-align-left u-text u-text-5" role="button" aria-disabled="true">Add Category</a></div>
       </div>
     </section>
     

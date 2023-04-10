@@ -98,7 +98,7 @@ public class ForecastRestController {
 	}
 	
 	
-	@PreAuthorize("hasAuthority('ROLE_USER')")
+	//@PreAuthorize("hasAuthority('ROLE_USER','ROLE_ADMIN')")
 	//@GetMapping("/result/{id}")
 	@RequestMapping(value="/result/{id}", method = RequestMethod.GET)
 	public String getForecastResult(@PathVariable("id")Long id, Model model, RedirectAttributes redirectAttributes) throws URISyntaxException, IOException, JSONException, ParseException {
