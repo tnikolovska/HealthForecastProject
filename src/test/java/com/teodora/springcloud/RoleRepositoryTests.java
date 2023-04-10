@@ -23,8 +23,8 @@ public class RoleRepositoryTests {
 	
 	@Test
 	public void testCreateRoles() {
-		/*Role user = new Role("User");
-		Role admin = new Role("Admin");
+		Role user = new Role("ROLE_USER");
+		Role admin = new Role("ROLE_ADMIN");
 		
 		ArrayList<Role> roles=new ArrayList();
 		roles.add(user);
@@ -32,7 +32,7 @@ public class RoleRepositoryTests {
 		repo.saveAll(roles);
 		List<Role> listRoles = repo.findAll();
 		
-		assertThat(listRoles.size()).isEqualTo(2);*/
+		assertThat(listRoles.size()).isEqualTo(2);
 		
 		
 	}

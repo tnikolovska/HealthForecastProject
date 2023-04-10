@@ -30,12 +30,21 @@ public class HealthConditionRepositoryTests {
 	
 	@Test
 	public void createHealthCondition() {
+		
+		HealthCondition migraineHealthCondition = new HealthCondition();
+		migraineHealthCondition.setName("Migraine Headache");
+		migraineHealthCondition.setDescription("Migraine Headache");
+		
+		HealthCondition savedMigraineHealthConditon = repo.save(migraineHealthCondition);
+		HealthCondition existMigraineHealthCondition = entityManager.find(HealthCondition.class,savedMigraineHealthConditon.getId());
+		
+		
 		HealthCondition healthCondition = new HealthCondition();
 		healthCondition.setName("Arthritis Pain");
 		healthCondition.setDescription("Arthritis Pain");
 		
 		HealthCondition savedHealthConditon = repo.save(healthCondition);
-		HealthCondition existHealthCondition = entityManager.find(HealthCondition.class,savedHealthConditon.getId());
+		HealthCondition existArthritisHealthCondition = entityManager.find(HealthCondition.class,savedHealthConditon.getId());
 		
 		HealthCondition sinusHealthCondition = new HealthCondition();
 		sinusHealthCondition.setName("Sinus Headache");

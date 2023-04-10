@@ -78,7 +78,7 @@
           <li>Sample Item 3</li>-->
         </ul></i>
         <u><p class="u-align-left u-text u-text-5">If you have any of the listed symptoms you should proceed to <a th:href="@{/userhealthconditionsymptomapi/user-health-condition}">Forecast</a>.</p></u>
-      	<a th:href="@{/healthconditionapi/edit-healthCondition/{id}(id=${healthCondition.id})}" class="btn btn-primary btn-lg disabled u-align-left u-text u-text-5" role="button" aria-disabled="true">Edit</a>
+      	<div sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/healthconditionapi/edit-healthCondition/{id}(id=${healthCondition.id})}" class="btn btn-primary btn-lg disabled u-align-left u-text u-text-5" role="button" aria-disabled="true">Edit</a></div>
       </div>
     </section>
     
