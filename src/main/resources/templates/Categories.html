@@ -36,32 +36,33 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-spacing-20 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/}" target="_blank" style="padding: 10px 8px;">Home</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userapi/createUserView}" target="_blank" style="padding: 10px 8px;">Register</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/login}" target="_blank" style="padding: 10px 8px;">Login</a>
+            <ul class="u-nav u-spacing-20 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/}" style="padding: 10px 8px;">Home</a>
+</li><div sec:authorize="isAnonymous()"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userapi/createUserView}" style="padding: 10px 8px;">Register</a></div>
+</li><div sec:authorize="isAnonymous()"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/login}" style="padding: 10px 8px;">Login</a></div>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/healthconditionapi/healthCondition-list}" style="padding: 10px 8px;">HealthConditions</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/symptomapi/createSymptomView}" style="padding: 10px 8px;">Add Symptom</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/symptomapi/symptom-list}" style="padding: 10px 8px;">Symptoms</a>
+</li><div sec:authorize="hasRole('ROLE_ADMIN')"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/symptomapi/createSymptomView}" style="padding: 10px 8px;">Add Symptom</a></div>
+</li><div sec:authorize="hasRole('ROLE_ADMIN')"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/symptomapi/symptom-list}" style="padding: 10px 8px;">Symptoms</a></div>
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/categoryapi/category-list}" style="padding: 10px 8px;">Categories</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userhealthconditionsymptomapi/user-health-condition}" style="padding: 10px 8px;">Forecast</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userapi/user-list}" style="padding: 10px 8px;">Users</a>
-</li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/logout}" style="padding: 10px 8px;">Logout</a>
+</li><div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userhealthconditionsymptomapi/user-health-condition}" style="padding: 10px 8px;">Forecast</a></div>
+</li><div sec:authorize="hasRole('ROLE_ADMIN')"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userapi/user-list}" style="padding: 10px 8px;">Users</a></div>
+</li><div sec:authorize="isAuthenticated()"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/logout}" style="padding: 10px 8px;">Logout</a></div>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/}" target="_blank">Home</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userapi/createUserView}" target="_blank">Register</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/login}" target="_blank">Login</a>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/}">Home</a>
+</li><div sec:authorize="isAnonymous()"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userapi/createUserView}">Register</a></div>
+</li><div sec:authorize="isAnonymous()"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/login}">Login</a></div>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/healthconditionapi/healthCondition-list}">HealthConditions</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/symptomapi/createSymptomView}">Add Symptom</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/symptomapi/symptom-list}">Symptoms</a>
+</li><div sec:authorize="hasRole('ROLE_ADMIN')"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/symptomapi/createSymptomView}">Add Symptom</a></div>
+</li><div sec:authorize="hasRole('ROLE_ADMIN')"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/symptomapi/symptom-list}">Symptoms</a></div>
+<!--</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/createSymptomView}">Add Symptom</a>-->
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/categoryapi/category-list}">Categories</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userhealthconditionsymptomapi/user-health-condition}">Forecast</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userapi/user-list}">Users</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Logout</a>
+</li><div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userhealthconditionsymptomapi/user-health-condition}">Forecast</a></div>
+</li><div sec:authorize="hasRole('ROLE_ADMIN')"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userapi/user-list}">Users</a></div>
+</li><div sec:authorize="isAuthenticated()"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Logout</a></div>
 </li></ul>
               </div>
             </div>
@@ -71,7 +72,8 @@
       </div></header>
     <section class="u-border-3 u-border-grey-75 u-border-no-left u-border-no-right u-align-center u-clearfix u-section-1" id="sec-062c">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-align-left u-text u-text-1" style="text-align: center;">Categories</h2>
+        <h2 class="u-align-left u-text u-text-1" style="float: left;">Categories</h2>
+        </br>
         <div class="u-expanded-width u-table u-table-responsive u-table-1">
         	<div th:if="${ not#lists.isEmpty(categories)}">
         		<table class="u-table-entity u-table-entity-1">
@@ -88,8 +90,8 @@
                 <th class="u-border-1 u-border-palette-4-base u-table-cell">Name</th>
                 <th class="u-border-1 u-border-palette-4-base u-table-cell">Begin Range</th>
                 <th class="u-border-1 u-border-palette-4-base u-table-cell">End Range</th>
-                <th class="u-border-1 u-border-palette-4-base u-table-cell">Modify</th>
-                <th class="u-border-1 u-border-palette-4-base u-table-cell">Delete</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')" class="u-border-1 u-border-palette-4-base u-table-cell">Modify</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')" class="u-border-1 u-border-palette-4-base u-table-cell">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -97,8 +99,8 @@
                 <td class="u-border-1 u-border-grey-30 u-first-column u-grey-5 u-table-cell u-table-cell-6" th:text="${category.name}"></td>
                 <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${category.beginRange}"></td>
                 <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${category.endRange}"></td>
-                <td class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/categoryapi/edit/{id}(id=${category.id})}">Modify</a></td>
-                <td class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/categoryapi/delete/{id}(id=${category.id})}">Delete</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')" class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/categoryapi/edit/{id}(id=${category.id})}">Modify</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')" class="u-border-1 u-border-grey-30 u-table-cell"><a th:href="@{/categoryapi/delete/{id}(id=${category.id})}">Delete</a></td>
             	</tr>
             </tbody>
         	</table>
@@ -111,12 +113,13 @@
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-566e"><div class="u-clearfix u-sheet u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">
-          <span style="font-size: 1.5rem;">Company</span>
-          <br>About<br>Contact
+           <p style="font-size: 1.5rem;">Health Forecast</p>
+          <br/>
+          <span><a href="https://www.accuweather.com/"><img src="/images/accuweather_logo.jpg" style="width: 200px;height: 100px;"/></a></span>
         </p>
       </div></footer>
     <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/templates" target="_blank">
+      <!--<a class="u-link" href="https://nicepage.com/templates" target="_blank">
         <span>Template</span>
       </a>
       <p class="u-text">
@@ -124,7 +127,7 @@
       </p>
       <a class="u-link" href="https://nicepage.dev" target="_blank">
         <span>Best Free Website Builder</span>
-      </a>. 
+      </a>. -->
     </section>
   
 </body></html>

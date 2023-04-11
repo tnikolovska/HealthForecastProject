@@ -152,7 +152,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         .antMatchers("/categoryapi/delete/**").hasAuthority("ROLE_ADMIN")
         .antMatchers("/categoryapi/createCategoryView").hasAuthority("ROLE_ADMIN")
         .antMatchers("/categoryapi/").hasAuthority("ROLE_ADMIN")
-        .antMatchers("/forecastapi/result/**").hasAuthority("ROLE_USER")
+        .antMatchers("/forecastapi/result/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
         .antMatchers("/healthconditionapi/edit-healthCondition/**").hasAuthority("ROLE_ADMIN")
         .antMatchers("/healthconditionapi/delete-healthCondition/**").hasAuthority("ROLE_ADMIN")
         .antMatchers("/healthconditionapi/createHealthConditionView").hasAuthority("ROLE_ADMIN")
