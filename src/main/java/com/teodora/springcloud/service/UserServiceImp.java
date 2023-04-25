@@ -132,7 +132,7 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	@Override
 	public void saveUserWIthDefaultRole(User user) {
 		// TODO Auto-generated method stub
-		Role role = roleRepo.findByName("ROLE_USER");
+		Role role = roleRepo.findByName("ROLE_ADMIN");
 		user.addRole(role);
 		userRepo.save(user);
 		

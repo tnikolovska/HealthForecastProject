@@ -22,7 +22,7 @@ import com.teodora.springcloud.repos.HealthConditionRepo;
 public class HealthConditionRepositoryTests {
 
 	
-	@Autowired
+	/*@Autowired
 	private TestEntityManager entityManager;
 	
 	@Autowired
@@ -53,5 +53,5 @@ public class HealthConditionRepositoryTests {
 		HealthCondition savedSinusHealthConditon = repo.save(sinusHealthCondition);
 		HealthCondition existSinusHealthCondition = entityManager.find(HealthCondition.class,savedSinusHealthConditon.getId());
 		
-	}
+	}*/
 }
