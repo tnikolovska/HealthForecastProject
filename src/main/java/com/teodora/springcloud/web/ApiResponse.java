@@ -18,9 +18,9 @@ public class ApiResponse {
     private String message;
     private boolean error = true;
 
-    public ApiResponse(Object data, String message, boolean error){
+    /*public ApiResponse(Object data, String message, boolean error){
         this.data = data;
         this.message = message;
         this.error = error;
-    }
+    }*/
 }

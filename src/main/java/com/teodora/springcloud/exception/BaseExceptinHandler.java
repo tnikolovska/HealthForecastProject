@@ -18,7 +18,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class BaseExceptinHandler {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    /*@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ApiResponse handleValidationExceptions(MethodArgumentNotValidException ex) {
 
@@ -33,5 +33,5 @@ public class BaseExceptinHandler {
                 }
         );
         return new ApiResponse(errors, "VALIDATION_FAILED",true);
-    }
+    }*/
 }

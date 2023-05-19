@@ -1,0 +1,12 @@
+#A'int markup language
+#Super set of JSON
+#Simple Types
+#Lists
+#Objects
+#Dictionary or Map
+#Using A yaml validator
+customerName: Teodora
+orderId: 123
+date: 12/12/2023
+shipped: false
+moreData: null

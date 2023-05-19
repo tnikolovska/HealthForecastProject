@@ -452,11 +452,11 @@ public class UserRestController {
 		return "login";
 	}*/
 	
-	@ExceptionHandler(value=UserAlreadyExistsException.class)
+	/*@ExceptionHandler(value=UserAlreadyExistsException.class)
 	@ResponseStatus(HttpStatus.CONFLICT)
 	public ErrorResponse handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
 		return new ErrorResponse(HttpStatus.CONFLICT.value(),ex.getMessage());
-	}
+	}*/
 	
 	
 }
