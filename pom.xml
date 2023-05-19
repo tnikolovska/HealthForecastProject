@@ -11,6 +11,7 @@
 	<groupId>com.teodora.springcloud</groupId>
 	<artifactId>healthforecastproject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>healthforecastproject</name>
 	<description>Health Forecast Project</description>
 	<properties>
