@@ -84,7 +84,7 @@
 </li><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/categoryapi/category-list}" style="padding: 10px 8px;">Categories</a>
 </li><div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userhealthconditionsymptomapi/user-health-condition}" style="padding: 10px 8px;">Forecast</a></div>
 </li><div sec:authorize="hasRole('ROLE_ADMIN')"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/userapi/user-list}" style="padding: 10px 8px;">Users</a></div>
-</li><div sec:authorize="isAuthenticated()"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/logout}" style="padding: 10px 8px;">Logout</a></div>
+</li><div sec:authorize="isAuthenticated()"><li class="u-nav-item"><a class="u-border-active-palette-1-base u-border-hover-palette-1-base u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" th:href="@{/logoutapi/logout}" style="padding: 10px 8px;">Logout</a></div>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
@@ -101,7 +101,7 @@
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/categoryapi/category-list}">Categories</a>
 </li><div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userhealthconditionsymptomapi/user-health-condition}">Forecast</a></div>
 </li><div sec:authorize="hasRole('ROLE_ADMIN')"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/userapi/user-list}">Users</a></div>
-</li><div sec:authorize="isAuthenticated()"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Logout</a></div>
+</li><div sec:authorize="isAuthenticated()"><li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logoutapi/logout}">Logout</a></div>
 </li></ul>
               </div>
             </div>
@@ -166,7 +166,7 @@
         <p class="u-small-text u-text u-text-variant u-text-1">
           <p style="font-size: 1.5rem;">Health Forecast</p>
           <br/>
-          <span><a href="https://www.accuweather.com/"><img src="/images/accuweather_logo.jpg" style="width: 200px;height: 100px;"/></a></span>
+          <span><a href="https://www.accuweather.com/"><img th:src="@{/images/accuweather_logo.jpg}" style="width: 200px;height: 100px;"/></a></span>
         </p>
       </div></footer>
     <section class="u-backlink u-clearfix u-grey-80">
