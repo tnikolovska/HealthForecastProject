@@ -1,5 +1,6 @@
 package com.teodora.springcloud.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -33,6 +34,7 @@ import com.teodora.springcloud.repos.VerificationTokenRepository;
 import ch.qos.logback.core.pattern.color.BoldCyanCompositeConverter;
 
 import org.springframework.context.annotation.Lazy;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Service
 @Transactional
@@ -76,7 +78,8 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	        //user.setPassword(customPasswordEncoder.encode(user.getPassword()));
 		 	user.setPassword(passwordEncoder.encode(user.getPassword()));
 	        userRepo.save(user);
-	    } 
+		 	//create(user.getFirstName(), user.getLastName(), user.getBirthDate(),user.getEmail(), user.getPassword());
+	 } 
 	 
 	 public User findUserById(Long id) {
 	        return userRepo.getReferenceById(id);
@@ -92,7 +95,7 @@ public class UserServiceImp implements UserService,UserDetailsService {
 	 
 	
 	@Override
-	public User create(String firstName, String lastName, Date birthDate, String email, String password) {
+	public User create(String firstName, String lastName,Date birthDate, String email, String password) {
 		// TODO Auto-generated method stub
 		User user=new User(firstName,lastName,birthDate,email,password);
 		userDao.create(user);

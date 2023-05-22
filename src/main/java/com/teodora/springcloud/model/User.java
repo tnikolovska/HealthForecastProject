@@ -1,6 +1,8 @@
 package com.teodora.springcloud.model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.teodora.springcloud.annotations.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -41,6 +43,7 @@ public class User {
 	@Column(name="last_name")
 	private String lastName;
 	@Column(name="birth_date")
+	//private LocalDate birthDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 	@Column(name="email",unique=true)

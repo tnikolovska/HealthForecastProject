@@ -19,12 +19,12 @@ import com.teodora.springcloud.repos.RoleRepo;
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 @Rollback(false)
 public class RoleRepositoryTests {
-	/*@Autowired RoleRepo repo;
+	@Autowired RoleRepo repo;
 	
 	@Test
 	public void testCreateRoles() {
-		Role user = new Role("ROLE_USER");
-		Role admin = new Role("ROLE_ADMIN");
+		Role user = new Role("ROLE_ADMIN");
+		Role admin = new Role("ROLE_USER");
 		
 		ArrayList<Role> roles=new ArrayList();
 		roles.add(user);
@@ -35,5 +35,5 @@ public class RoleRepositoryTests {
 		assertThat(listRoles.size()).isEqualTo(2);
 		
 		
-	}*/
+	}
 }
