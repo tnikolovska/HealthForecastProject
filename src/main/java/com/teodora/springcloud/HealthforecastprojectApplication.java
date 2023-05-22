@@ -14,8 +14,7 @@ public class HealthforecastprojectApplication {
 	public static void main(String[] args) {
 		System.setProperty("server.servlet.context-path", "/healthforecastproject");
 		SpringApplication.run(HealthforecastprojectApplication.class, args);
-		
-		
+
 	}
 	/*@Bean
 	public PasswordEncoder passwordEncoder() {
